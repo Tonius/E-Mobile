@@ -1,0 +1,47 @@
+item.emobile.cellphone.name=Ender Cellphone
+
+emobile.gui.cellphone.pearls.1=This device requires
+emobile.gui.cellphone.pearls.2=Ender Pearls to function.
+emobile.gui.cellphone.accept=Authorize a player
+emobile.gui.cellphone.prefixes.1=Possible prefixes:
+emobile.gui.cellphone.prefixes.2=Will keep them authorized
+emobile.gui.cellphone.prefixes.3=until server restart
+emobile.gui.cellphone.prefixes.4=Unauthorizes them
+emobile.gui.cellphone.prefixes.5=if they are authorized
+emobile.gui.cellphone.prefixes.6=Prefixes cannot be combined
+emobile.gui.cellphone.teleport=Teleport to a player
+emobile.gui.cellphone.home=Teleport home
+emobile.gui.cellphone.spawn=Teleport to spawn
+emobile.gui.cellphone.cancel=Cancel current teleport
+emobile.gui.nei.recipe.dirtmaker=Decomposition Accel.
+
+emobile.tooltip.holdShift=Hold %s for Details
+emobile.tooltip.cellphone.description.1=Lets you to teleport to other players
+emobile.tooltip.cellphone.description.2=using ender pearls.
+emobile.tooltip.cellphone.description.3=Also lets you teleport to spawn
+emobile.tooltip.cellphone.description.4=or to your bed.
+
+emobile.chat.cellphone.start.requesting=You will be teleporting to %s...
+emobile.chat.cellphone.start.receiving=%s will be teleporting to you...
+emobile.chat.cellphone.start.location=You will be teleporting to %s...
+emobile.chat.cellphone.countdown=Teleport in %d seconds...
+emobile.chat.cellphone.success.requesting=You've been teleported to %s.
+emobile.chat.cellphone.success.receiving=%s has teleported to you.
+emobile.chat.cellphone.success.location=You've been teleported to %s.
+emobile.chat.cellphone.tryStart.unknown=Player %s is unknown.
+emobile.chat.cellphone.tryStart.self=You can't teleport to yourself!
+emobile.chat.cellphone.tryStart.dimension=You must be in the same dimension as %s to teleport!
+emobile.chat.cellphone.tryStart.unauthorized=Player %s hasn't authorized you to teleport!
+emobile.chat.cellphone.tryStart.overworld=You must be in the overworld to do this!
+emobile.chat.cellphone.tryStart.bedmissing=Your home bed is missing or obstructed!
+emobile.chat.cellphone.authorize.unknown=Player %s is unknown.
+emobile.chat.cellphone.authorize.self=You can't authorize yourself!
+emobile.chat.cellphone.authorize.success=Player %s is now authorized to teleport.
+emobile.chat.cellphone.authorize.success.perma=Player %s is now permanently authorized to teleport.
+emobile.chat.cellphone.authorize.already=Player %s was already authorized to teleport.
+emobile.chat.cellphone.unauthorize.success=Player %s is no longer authorized to teleport.
+emobile.chat.cellphone.unauthorize.already=Player %s already wasn't authorized to teleport.
+emobile.chat.cellphone.location.spawn=the spawn point
+emobile.chat.cellphone.location.home=your bed
+emobile.chat.cellphone.cancel=Teleport has been canceled.
+emobile.chat.cellphone.cancel.player=Teleport has been canceled by %s.

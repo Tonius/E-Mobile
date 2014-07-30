@@ -1,0 +1,17 @@
+[
+{
+  "modid": "emobile",
+  "name": "E-Mobile",
+  "description": "Ring ring, I'd like to teleport! Adds the Ender Cellphone. This item lets players teleport to each other, or to spawn or their beds. Original concept by sk89q.",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "logoFile": "",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["tonius11"],
+  "credits": "sk89q",
+  "parent": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]

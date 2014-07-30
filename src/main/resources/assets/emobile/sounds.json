@@ -1,0 +1,24 @@
+{
+    "phone": {
+        "category": "master",
+        "sounds": [
+            "phone1",
+            "phone2",
+            "phone3",
+            "phone4",
+            "phone5",
+            "phone6",
+            "phone7",
+            "phone8",
+            "phone9",
+            "phone0"
+        ]
+    },
+    "phonecountdown": {
+        "category": "master",
+        "sounds": [
+            "phonecountdown1",
+            "phonecountdown2"
+        ]
+    }
+}
