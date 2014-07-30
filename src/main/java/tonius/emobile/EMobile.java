@@ -5,6 +5,7 @@ import net.minecraft.item.Item;
 
 import org.apache.logging.log4j.Logger;
 
+import tonius.emobile.config.EMConfig;
 import tonius.emobile.gui.EMGuiHandler;
 import tonius.emobile.item.ItemCellphone;
 import tonius.emobile.network.PacketHandler;
@@ -17,7 +18,7 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 
-@Mod(modid = "emobile")
+@Mod(modid = "emobile", guiFactory = "tonius.emobile.config.ConfigGuiFactoryEM")
 public class EMobile {
 
     @Instance("emobile")
@@ -31,8 +32,12 @@ public class EMobile {
         log = evt.getModLog();
         log.info("Starting E-Mobile");
 
-        log.info("Setting new Ender Pearl stack size");
-        Items.ender_pearl.setMaxStackSize(64);
+        EMConfig.preInit(evt);
+
+        if (EMConfig.enderPearlStackSize != EMConfig.enderPearlStackSize_default) {
+            log.info("Setting new Ender Pearl stack size");
+            Items.ender_pearl.setMaxStackSize(EMConfig.enderPearlStackSize);
+        }
 
         log.info("Registering items");
         cellphone = new ItemCellphone();

@@ -45,3 +45,8 @@ emobile.chat.cellphone.location.spawn=the spawn point
 emobile.chat.cellphone.location.home=your bed
 emobile.chat.cellphone.cancel=Teleport has been canceled.
 emobile.chat.cellphone.cancel.player=Teleport has been canceled by %s.
+emobile.chat.cellphone.disabled=This feature is disabled on this server.
+
+emobile.config.title=E-Mobile Configuration
+emobile.config.general=General Settings
+emobile.config.tweaks=Tweaks Settings

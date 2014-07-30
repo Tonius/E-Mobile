@@ -13,6 +13,7 @@ import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
 
 import tonius.emobile.EMobile;
+import tonius.emobile.config.EMConfig;
 import tonius.emobile.network.PacketHandler;
 import tonius.emobile.network.message.MessageCellphoneAuthorize;
 import tonius.emobile.network.message.MessageCellphoneCancel;
@@ -25,6 +26,11 @@ public class GuiCellphone extends GuiContainerBase {
 
     private GuiTextField accept;
     private GuiTextField receiver;
+    private GuiButton buttonAccept;
+    private GuiButton buttonReceiver;
+    private GuiButton buttonHome;
+    private GuiButton buttonSpawn;
+    private GuiButton buttonCancel;
 
     public GuiCellphone(ContainerCellphone cellphone) {
         super(cellphone);
@@ -37,20 +43,40 @@ public class GuiCellphone extends GuiContainerBase {
         super.initGui();
 
         this.accept = new GuiTextField(this.fontRendererObj, this.guiLeft + 8, this.guiTop + 41, 127, 12);
-        this.buttonList.add(new GuiButtonSmall(0, this.guiLeft + 139, this.guiTop + 40, 30, 14, "OK"));
         this.receiver = new GuiTextField(this.fontRendererObj, this.guiLeft + 8, this.guiTop + 71, 127, 12);
-        this.buttonList.add(new GuiButtonSmall(1, this.guiLeft + 139, this.guiTop + 70, 30, 14, "OK"));
 
-        this.buttonList.add(new GuiButtonSmall(2, this.guiLeft + 7, this.guiTop + 89, 16, 16, "H"));
-        this.buttonList.add(new GuiButtonSmall(3, this.guiLeft + 25, this.guiTop + 89, 16, 16, "S"));
-        this.buttonList.add(new GuiButtonSmall(4, this.guiLeft + 153, this.guiTop + 89, 16, 16, "X"));
+        this.accept.setEnabled(EMConfig.allowTeleportPlayers);
+        this.accept.setVisible(EMConfig.allowTeleportPlayers);
+        this.receiver.setEnabled(EMConfig.allowTeleportPlayers);
+        this.receiver.setVisible(EMConfig.allowTeleportPlayers);
+
+        this.buttonAccept = new GuiButtonSmall(0, this.guiLeft + 139, this.guiTop + 40, 30, 14, "OK");
+        this.buttonAccept.visible = this.buttonAccept.enabled = EMConfig.allowTeleportPlayers;
+        this.buttonList.add(this.buttonAccept);
+
+        this.buttonReceiver = new GuiButtonSmall(1, this.guiLeft + 139, this.guiTop + 70, 30, 14, "OK");
+        this.buttonReceiver.visible = this.buttonReceiver.enabled = EMConfig.allowTeleportPlayers;
+        this.buttonList.add(this.buttonReceiver);
+
+        this.buttonHome = new GuiButtonSmall(2, this.guiLeft + 7, this.guiTop + 89, 16, 16, "H");
+        this.buttonHome.visible = this.buttonHome.enabled = EMConfig.allowTeleportHome;
+        this.buttonList.add(this.buttonHome);
+
+        this.buttonSpawn = new GuiButtonSmall(3, this.guiLeft + (EMConfig.allowTeleportHome ? 25 : 7), this.guiTop + 89, 16, 16, "S");
+        this.buttonSpawn.visible = this.buttonSpawn.enabled = EMConfig.allowTeleportSpawn;
+        this.buttonList.add(this.buttonSpawn);
+
+        this.buttonCancel = new GuiButtonSmall(4, this.guiLeft + 153, this.guiTop + 89, 16, 16, "X");
+        this.buttonList.add(this.buttonCancel);
     }
 
     @Override
     protected void drawGuiContainerForegroundLayer(int param1, int param2) {
         this.fontRendererObj.drawString(EMobile.cellphone.getItemStackDisplayName(null), 8, 6, 4210752);
-        this.fontRendererObj.drawString(StringUtils.translate("gui.cellphone.accept"), 8, 30, 4210752);
-        this.fontRendererObj.drawString(StringUtils.translate("gui.cellphone.teleport"), 8, 60, 4210752);
+        if (EMConfig.allowTeleportPlayers) {
+            this.fontRendererObj.drawString(StringUtils.translate("gui.cellphone.accept"), 8, 30, 4210752);
+            this.fontRendererObj.drawString(StringUtils.translate("gui.cellphone.teleport"), 8, 60, 4210752);
+        }
         this.fontRendererObj.drawString(StringUtils.translate("container.inventory", false), 8, this.ySize - 93, 4210752);
     }
 
@@ -60,29 +86,33 @@ public class GuiCellphone extends GuiContainerBase {
         this.mc.renderEngine.bindTexture(new ResourceLocation("emobile", "/textures/gui/item/cellphone.png"));
         this.drawTexturedModalRect(this.guiLeft, this.guiTop, 0, 0, xSize, ySize);
 
-        this.accept.drawTextBox();
-        this.receiver.drawTextBox();
+        if (this.accept.getVisible())
+            this.accept.drawTextBox();
+        if (this.receiver.getVisible())
+            this.receiver.drawTextBox();
     }
 
     @Override
     public void updateScreen() {
         super.updateScreen();
-        this.accept.updateCursorCounter();
-        this.receiver.updateCursorCounter();
+        if (EMConfig.allowTeleportPlayers) {
+            this.accept.updateCursorCounter();
+            this.receiver.updateCursorCounter();
+        }
     }
 
     @Override
     protected void getTooltipLines(List lines, int mouseX, int mouseY) {
-        if (this.func_146978_c(8, 90, 14, 14, mouseX, mouseY)) {
+        if (this.func_146978_c(8, 90, 14, 14, mouseX, mouseY) && this.buttonHome.visible) {
             lines.add(StringUtils.translate("gui.cellphone.home"));
-        } else if (this.func_146978_c(26, 90, 14, 14, mouseX, mouseY)) {
+        } else if (this.func_146978_c((EMConfig.allowTeleportHome ? 26 : 8), 90, 14, 14, mouseX, mouseY) && this.buttonSpawn.visible) {
             lines.add(StringUtils.translate("gui.cellphone.spawn"));
         } else if (this.func_146978_c(154, 90, 14, 14, mouseX, mouseY)) {
             lines.add(StringUtils.translate("gui.cellphone.cancel"));
         } else if (this.func_146978_c(152, 8, 16, 16, mouseX, mouseY) && this.inventorySlots.getInventory().get(0) == null && this.mc.thePlayer.inventory.getItemStack() == null) {
             lines.add(StringUtils.ITALIC + StringUtils.translate("gui.cellphone.pearls.1"));
             lines.add(StringUtils.ITALIC + StringUtils.translate("gui.cellphone.pearls.2"));
-        } else if (this.func_146978_c(8, 41, 127, 12, mouseX, mouseY)) {
+        } else if (this.func_146978_c(8, 41, 127, 12, mouseX, mouseY) && EMConfig.allowTeleportPlayers) {
             lines.add(StringUtils.BOLD + StringUtils.translate("gui.cellphone.prefixes.1"));
             lines.add(StringUtils.BRIGHT_GREEN + "p:" + StringUtils.END + " - " + StringUtils.translate("gui.cellphone.prefixes.2"));
             lines.add("      " + StringUtils.translate("gui.cellphone.prefixes.3"));
@@ -100,13 +130,15 @@ public class GuiCellphone extends GuiContainerBase {
     @Override
     protected void mouseClicked(int mouseX, int mouseY, int button) {
         super.mouseClicked(mouseX, mouseY, button);
-        this.accept.mouseClicked(mouseX, mouseY, button);
-        this.receiver.mouseClicked(mouseX, mouseY, button);
+        if (EMConfig.allowTeleportPlayers) {
+            this.accept.mouseClicked(mouseX, mouseY, button);
+            this.receiver.mouseClicked(mouseX, mouseY, button);
+        }
     }
 
     @Override
     public void keyTyped(char c, int i) {
-        if (this.accept.isFocused() || this.receiver.isFocused()) {
+        if (EMConfig.allowTeleportPlayers && (this.accept.isFocused() || this.receiver.isFocused())) {
             if (i == Keyboard.KEY_RETURN) {
                 if (this.receiver.isFocused()) {
                     this.requestPlayerTeleport();
