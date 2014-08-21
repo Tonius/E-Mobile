@@ -65,9 +65,9 @@ public class EMConfig {
 
     public static void processConfig() {
         allowTeleportPlayers = config.get(sectionGeneral.name, "Allow teleporting to players", allowTeleportPlayers_default, "When enabled, the Ender Cellphone may be used to teleport to other players.").getBoolean(allowTeleportPlayers_default);
-        allowTeleportHome = config.get(sectionGeneral.name, "Allow teleporting home", allowTeleportHome_default, "When enabled, the Ender Cellphone may be used to teleport to your bed.").getBoolean(allowTeleportHome_default);
+        allowTeleportHome = config.get(sectionGeneral.name, "Allow teleporting home", allowTeleportHome_default, "When enabled, the Ender Cellphone may be used by players to teleport to their beds.").getBoolean(allowTeleportHome_default);
         allowTeleportSpawn = config.get(sectionGeneral.name, "Allow teleporting to spawn", allowTeleportSpawn_default, "When enabled, the Ender Cellphone may be used to teleport to the world spawn.").getBoolean(allowTeleportSpawn_default);
-        dimensionsBlacklist = config.get(sectionGeneral.name, "Dimensions Blacklist", dimensionsBlacklist_default, "The blacklist of dimension ids that can be teleported to using the Ender Cellphone. These dimensions may not be teleported to or from.").getIntList();
+        dimensionsBlacklist = config.get(sectionGeneral.name, "Dimensions Blacklist", dimensionsBlacklist_default, "The blacklist of dimension ids that can be teleported to or from using the Ender Cellphone. These dimensions may not be teleported to or from.").getIntList();
         dimensionsWhitelist = config.get(sectionGeneral.name, "Dimensions Whitelist", dimensionsWhitelist_default, "If enabled, the blacklist of dimension ids will be treated as a whitelist instead. The dimensions will then be the only dimensions that may be teleported to or from.").getBoolean(dimensionsWhitelist_default);
 
         enderPearlStackSize = config.get(sectionTweaks.name, "Ender Pearl stack size", enderPearlStackSize_default, "This config option can be used to change the maximum stack size of Ender Pearls.").setMinValue(1).setMaxValue(512).setRequiresMcRestart(true).getInt(enderPearlStackSize_default);
