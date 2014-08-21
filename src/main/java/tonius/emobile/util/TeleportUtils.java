@@ -49,11 +49,12 @@ public class TeleportUtils {
         if (!EMConfig.dimensionsWhitelist) {
             if (configContainsDim(from) || configContainsDim(to))
                 return false;
+            return true;
         } else {
             if (configContainsDim(from) && configContainsDim(to))
                 return true;
+            return false;
         }
-        return false;
     }
 
     public static boolean configContainsDim(int dim) {
