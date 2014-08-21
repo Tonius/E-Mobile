@@ -11,6 +11,7 @@ import tonius.emobile.session.CellphoneSessionLocation;
 import tonius.emobile.session.CellphoneSessionsHandler;
 import tonius.emobile.util.ServerUtils;
 import tonius.emobile.util.StringUtils;
+import tonius.emobile.util.TeleportUtils;
 import cpw.mods.fml.common.network.ByteBufUtils;
 import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
@@ -43,11 +44,12 @@ public class MessageCellphoneSpawn implements IMessage, IMessageHandler<MessageC
             EntityPlayerMP player = ServerUtils.getPlayerOnServer(msg.player);
             if (player == null) {
                 return null;
-            } else if (player.worldObj.provider.dimensionId != 0) {
-                ServerUtils.sendChatToPlayer(player.getCommandSenderName(), StringUtils.LIGHT_RED + StringUtils.translate("chat.cellphone.tryStart.overworld"));
-                return null;
+            } else if (!TeleportUtils.isDimTeleportAllowed(player.dimension, 0)) {
+                ServerUtils.sendChatToPlayer(player.getCommandSenderName(), StringUtils.LIGHT_RED + String.format(StringUtils.translate("chat.cellphone.tryStart.dimension"), player.worldObj.provider.getDimensionName(), player.mcServer.worldServerForDimension(0).provider.getDimensionName()));
             } else {
-                ChunkCoordinates spawn = player.worldObj.getSpawnPoint();
+                ChunkCoordinates spawn = player.mcServer.worldServerForDimension(0).getSpawnPoint();
+                if (player.worldObj.provider.canRespawnHere())
+                    spawn = player.worldObj.getSpawnPoint();
                 if (spawn != null) {
                     Material mat;
                     do {

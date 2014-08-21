@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.TickEvent.Phase;
 import cpw.mods.fml.common.gameevent.TickEvent.ServerTickEvent;
@@ -14,7 +15,7 @@ import cpw.mods.fml.common.gameevent.TickEvent.ServerTickEvent;
 public class CellphoneSessionsHandler {
 
     private static List<CellphoneSessionBase> sessions = new ArrayList<CellphoneSessionBase>();
-    private static Map<EntityPlayer, Map<EntityPlayer, Boolean>> acceptedPlayers = new HashMap<EntityPlayer, Map<EntityPlayer, Boolean>>();
+    private static Map<EntityPlayerMP, Map<EntityPlayerMP, Boolean>> acceptedPlayers = new HashMap<EntityPlayerMP, Map<EntityPlayerMP, Boolean>>();
 
     public static void addSession(CellphoneSessionBase session) {
         sessions.add(session);
@@ -25,7 +26,7 @@ public class CellphoneSessionsHandler {
         acceptedPlayers.clear();
     }
 
-    public static boolean isPlayerInSession(EntityPlayer player) {
+    public static boolean isPlayerInSession(EntityPlayerMP player) {
         for (CellphoneSessionBase session : sessions) {
             if (session.isPlayerInSession(player)) {
                 return true;
@@ -34,16 +35,16 @@ public class CellphoneSessionsHandler {
         return false;
     }
 
-    public static Map<EntityPlayer, Boolean> getAcceptedPlayersForPlayer(EntityPlayer player) {
-        Map<EntityPlayer, Boolean> players = acceptedPlayers.get(player);
+    public static Map<EntityPlayerMP, Boolean> getAcceptedPlayersForPlayer(EntityPlayerMP player) {
+        Map<EntityPlayerMP, Boolean> players = acceptedPlayers.get(player);
         if (players == null)
-            players = new HashMap<EntityPlayer, Boolean>();
+            players = new HashMap<EntityPlayerMP, Boolean>();
         acceptedPlayers.put(player, players);
 
         return players;
     }
 
-    public static boolean acceptPlayer(EntityPlayer accepting, EntityPlayer accepted, boolean perma) {
+    public static boolean acceptPlayer(EntityPlayerMP accepting, EntityPlayerMP accepted, boolean perma) {
         if (!isPlayerAccepted(accepting, accepted)) {
             getAcceptedPlayersForPlayer(accepting).put(accepted, perma);
             return true;
@@ -52,7 +53,7 @@ public class CellphoneSessionsHandler {
         }
     }
 
-    public static boolean deacceptPlayer(EntityPlayer deaccepting, EntityPlayer deaccepted, boolean force) {
+    public static boolean deacceptPlayer(EntityPlayerMP deaccepting, EntityPlayerMP deaccepted, boolean force) {
         if (isPlayerAccepted(deaccepting, deaccepted)) {
             if (!getAcceptedPlayersForPlayer(deaccepting).get(deaccepted) || force) {
                 getAcceptedPlayersForPlayer(deaccepting).remove(deaccepted);
@@ -63,7 +64,7 @@ public class CellphoneSessionsHandler {
         }
     }
 
-    public static boolean isPlayerAccepted(EntityPlayer acceptor, EntityPlayer query) {
+    public static boolean isPlayerAccepted(EntityPlayerMP acceptor, EntityPlayerMP query) {
         return getAcceptedPlayersForPlayer(acceptor).containsKey(query);
     }
 

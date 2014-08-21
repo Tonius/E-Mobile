@@ -9,6 +9,7 @@ import tonius.emobile.session.CellphoneSessionPlayer;
 import tonius.emobile.session.CellphoneSessionsHandler;
 import tonius.emobile.util.ServerUtils;
 import tonius.emobile.util.StringUtils;
+import tonius.emobile.util.TeleportUtils;
 import cpw.mods.fml.common.network.ByteBufUtils;
 import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
@@ -48,10 +49,8 @@ public class MessageCellphonePlayer implements IMessage, IMessageHandler<Message
                 return null;
             } else if (receivingPlayer == null) {
                 ServerUtils.sendChatToPlayer(requestingPlayer.getCommandSenderName(), StringUtils.LIGHT_RED + String.format(StringUtils.translate("chat.cellphone.tryStart.unknown"), msg.receiving));
-            } else if (receivingPlayer.equals(requestingPlayer)) {
-                ServerUtils.sendChatToPlayer(requestingPlayer.getCommandSenderName(), StringUtils.LIGHT_RED + StringUtils.translate("chat.cellphone.tryStart.self"));
-            } else if (requestingPlayer.worldObj.provider.dimensionId != receivingPlayer.worldObj.provider.dimensionId) {
-                ServerUtils.sendChatToPlayer(requestingPlayer.getCommandSenderName(), StringUtils.LIGHT_RED + String.format(StringUtils.translate("chat.cellphone.tryStart.dimension"), receivingPlayer.getCommandSenderName()));
+            } else if (!TeleportUtils.isDimTeleportAllowed(requestingPlayer.dimension, receivingPlayer.dimension)) {
+                ServerUtils.sendChatToPlayer(requestingPlayer.getCommandSenderName(), StringUtils.LIGHT_RED + String.format(StringUtils.translate("chat.cellphone.tryStart.dimension"), requestingPlayer.worldObj.provider.getDimensionName(), receivingPlayer.worldObj.provider.getDimensionName()));
             } else {
                 if (!CellphoneSessionsHandler.isPlayerInSession(requestingPlayer)) {
                     if (CellphoneSessionsHandler.isPlayerAccepted(receivingPlayer, requestingPlayer)) {

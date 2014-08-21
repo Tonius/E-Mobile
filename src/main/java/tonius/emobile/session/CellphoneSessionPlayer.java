@@ -1,6 +1,7 @@
 package tonius.emobile.session;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.util.ChatComponentText;
 import tonius.emobile.util.ServerUtils;
 import tonius.emobile.util.StringUtils;
@@ -8,10 +9,10 @@ import tonius.emobile.util.TeleportUtils;
 
 public class CellphoneSessionPlayer extends CellphoneSessionBase {
 
-    protected EntityPlayer requestingPlayer;
-    protected EntityPlayer receivingPlayer;
+    protected EntityPlayerMP requestingPlayer;
+    protected EntityPlayerMP receivingPlayer;
 
-    public CellphoneSessionPlayer(int duration, EntityPlayer requestingPlayer, EntityPlayer receivingPlayer) {
+    public CellphoneSessionPlayer(int duration, EntityPlayerMP requestingPlayer, EntityPlayerMP receivingPlayer) {
         super(duration);
         this.requestingPlayer = requestingPlayer;
         this.receivingPlayer = receivingPlayer;

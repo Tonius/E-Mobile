@@ -10,6 +10,7 @@ import tonius.emobile.session.CellphoneSessionLocation;
 import tonius.emobile.session.CellphoneSessionsHandler;
 import tonius.emobile.util.ServerUtils;
 import tonius.emobile.util.StringUtils;
+import tonius.emobile.util.TeleportUtils;
 import cpw.mods.fml.common.network.ByteBufUtils;
 import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
@@ -42,11 +43,15 @@ public class MessageCellphoneHome implements IMessage, IMessageHandler<MessageCe
             EntityPlayerMP player = ServerUtils.getPlayerOnServer(msg.player);
             if (player == null) {
                 return null;
-            } else if (player.worldObj.provider.dimensionId != 0) {
-                ServerUtils.sendChatToPlayer(player.getCommandSenderName(), StringUtils.LIGHT_RED + StringUtils.translate("chat.cellphone.tryStart.overworld"));
-                return null;
             } else {
-                ChunkCoordinates bed = player.getBedLocation(0);
+                ChunkCoordinates bed = player.getBedLocation(player.dimension);
+                if (bed == null && player.dimension != 0)
+                    if (TeleportUtils.isDimTeleportAllowed(player.dimension, 0)) {
+                        bed = player.getBedLocation(0);
+                    } else {
+                        ServerUtils.sendChatToPlayer(player.getCommandSenderName(), StringUtils.LIGHT_RED + String.format(StringUtils.translate("chat.cellphone.tryStart.dimension"), player.worldObj.provider.getDimensionName(), player.mcServer.worldServerForDimension(0).provider.getDimensionName()));
+                        return null;
+                    }
                 if (bed != null)
                     bed = player.worldObj.getBlock(bed.posX, bed.posY, bed.posZ).getBedSpawnPosition(player.worldObj, bed.posX, bed.posY, bed.posZ, player);
                 if (bed != null) {
@@ -60,7 +65,8 @@ public class MessageCellphoneHome implements IMessage, IMessageHandler<MessageCe
                         }
                     }
                 } else {
-                    ServerUtils.sendChatToPlayer(player.getCommandSenderName(), StringUtils.LIGHT_RED + StringUtils.translate("chat.cellphone.tryStart.bedmissing"));
+                    ServerUtils.sendChatToPlayer(player.getCommandSenderName(), StringUtils.LIGHT_RED + StringUtils.translate("chat.cellphone.tryStart.bedmissing.1"));
+                    ServerUtils.sendChatToPlayer(player.getCommandSenderName(), StringUtils.LIGHT_RED + StringUtils.translate("chat.cellphone.tryStart.bedmissing.2"));
                 }
             }
         }
