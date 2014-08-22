@@ -1,6 +1,7 @@
 package tonius.emobile.network.message;
 
 import io.netty.buffer.ByteBuf;
+import net.minecraft.block.BlockBed;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ChunkCoordinates;
@@ -55,6 +56,8 @@ public class MessageCellphoneHome implements IMessage, IMessageHandler<MessageCe
                         ServerUtils.sendChatToPlayer(player.getCommandSenderName(), StringUtils.LIGHT_RED + String.format(StringUtils.translate("chat.cellphone.tryStart.dimension"), player.worldObj.provider.getDimensionName(), player.mcServer.worldServerForDimension(0).provider.getDimensionName()));
                         return null;
                     }
+                if (!(world.getBlock(bed.posX, bed.posY, bed.posZ) instanceof BlockBed))
+                    bed = null;
                 if (bed != null)
                     bed = world.getBlock(bed.posX, bed.posY, bed.posZ).getBedSpawnPosition(world, bed.posX, bed.posY, bed.posZ, player);
                 if (bed != null) {
