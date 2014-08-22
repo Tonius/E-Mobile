@@ -4,6 +4,7 @@ import io.netty.buffer.ByteBuf;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ChunkCoordinates;
+import net.minecraft.world.World;
 import tonius.emobile.config.EMConfig;
 import tonius.emobile.item.ItemCellphone;
 import tonius.emobile.session.CellphoneSessionLocation;
@@ -45,15 +46,17 @@ public class MessageCellphoneHome implements IMessage, IMessageHandler<MessageCe
                 return null;
             } else {
                 ChunkCoordinates bed = player.getBedLocation(player.dimension);
+                World world = player.worldObj;
                 if (bed == null && player.dimension != 0)
                     if (TeleportUtils.isDimTeleportAllowed(player.dimension, 0)) {
                         bed = player.getBedLocation(0);
+                        world = player.mcServer.worldServerForDimension(0);
                     } else {
                         ServerUtils.sendChatToPlayer(player.getCommandSenderName(), StringUtils.LIGHT_RED + String.format(StringUtils.translate("chat.cellphone.tryStart.dimension"), player.worldObj.provider.getDimensionName(), player.mcServer.worldServerForDimension(0).provider.getDimensionName()));
                         return null;
                     }
                 if (bed != null)
-                    bed = player.worldObj.getBlock(bed.posX, bed.posY, bed.posZ).getBedSpawnPosition(player.worldObj, bed.posX, bed.posY, bed.posZ, player);
+                    bed = world.getBlock(bed.posX, bed.posY, bed.posZ).getBedSpawnPosition(world, bed.posX, bed.posY, bed.posZ, player);
                 if (bed != null) {
                     if (!CellphoneSessionsHandler.isPlayerInSession(player)) {
                         ItemStack heldItem = player.getCurrentEquippedItem();

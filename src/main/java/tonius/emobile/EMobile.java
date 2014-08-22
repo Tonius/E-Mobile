@@ -1,20 +1,25 @@
 package tonius.emobile;
 
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 
 import org.apache.logging.log4j.Logger;
 
+import tonius.emobile.config.ClientConfigTickHandler;
 import tonius.emobile.config.EMConfig;
 import tonius.emobile.gui.EMGuiHandler;
 import tonius.emobile.item.ItemCellphone;
 import tonius.emobile.network.PacketHandler;
+import tonius.emobile.network.message.MessageConfigSync;
 import tonius.emobile.session.CellphoneSessionsHandler;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import cpw.mods.fml.common.gameevent.PlayerEvent.PlayerLoggedInEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 
@@ -23,30 +28,38 @@ public class EMobile {
 
     @Instance("emobile")
     public static EMobile instance;
-    public static Logger log;
+    public static Logger logger;
 
     public static Item cellphone = null;
 
     @EventHandler
     public void preInit(FMLPreInitializationEvent evt) {
-        log = evt.getModLog();
-        log.info("Starting E-Mobile");
+        logger = evt.getModLog();
+        logger.info("Starting E-Mobile");
 
         EMConfig.preInit(evt);
 
         if (EMConfig.enderPearlStackSize != EMConfig.enderPearlStackSize_default) {
-            log.info("Setting new Ender Pearl stack size");
+            logger.info("Setting new Ender Pearl stack size");
             Items.ender_pearl.setMaxStackSize(EMConfig.enderPearlStackSize);
         }
 
-        log.info("Registering items");
+        logger.info("Registering items");
         cellphone = new ItemCellphone();
         GameRegistry.registerItem(cellphone, "cellphone");
 
-        log.info("Registering handlers");
+        logger.info("Registering handlers");
         PacketHandler.preInit();
         NetworkRegistry.INSTANCE.registerGuiHandler(this, new EMGuiHandler());
+
+        FMLCommonHandler.instance().bus().register(instance);
         FMLCommonHandler.instance().bus().register(new CellphoneSessionsHandler());
+        FMLCommonHandler.instance().bus().register(new ClientConfigTickHandler());
+    }
+
+    @SubscribeEvent
+    public void onPlayerLoggedIn(PlayerLoggedInEvent evt) {
+        PacketHandler.instance.sendTo(new MessageConfigSync(), (EntityPlayerMP) evt.player);
     }
 
 }

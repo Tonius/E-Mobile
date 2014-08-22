@@ -43,8 +43,6 @@ public class MessageCellphoneAuthorize implements IMessage, IMessageHandler<Mess
             boolean unaccept = msg.accepted.startsWith("!");
             String accepted = msg.accepted.replaceFirst("p:", "").replaceFirst("!", "");
 
-            System.out.println("Read name: " + accepted + ", perma: " + perma + ", unaccept: " + unaccept);
-
             EntityPlayerMP acceptingPlayer = ServerUtils.getPlayerOnServer(msg.accepting);
             EntityPlayerMP acceptedPlayer = ServerUtils.getPlayerOnServer(accepted);
             if (acceptingPlayer == null) {

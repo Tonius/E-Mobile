@@ -41,7 +41,7 @@ public class EMConfig {
     public static void preInit(FMLPreInitializationEvent evt) {
         FMLCommonHandler.instance().bus().register(new EMConfig());
         config = new Configuration(evt.getSuggestedConfigurationFile());
-        EMobile.log.info("Loading configuration file");
+        EMobile.logger.info("Loading configuration file");
         syncConfig();
     }
 
@@ -57,8 +57,12 @@ public class EMConfig {
 
     @SubscribeEvent
     public void onConfigChanged(OnConfigChangedEvent evt) {
-        if (evt.modID.equals("emobile")) {
-            EMobile.log.info("Updating configuration file");
+        onConfigChanged(evt.modID);
+    }
+
+    public static void onConfigChanged(String modID) {
+        if (modID.equals("emobile")) {
+            EMobile.logger.info("Updating configuration file");
             syncConfig();
         }
     }
@@ -71,6 +75,23 @@ public class EMConfig {
         dimensionsWhitelist = config.get(sectionGeneral.name, "Dimensions Whitelist", dimensionsWhitelist_default, "If enabled, the blacklist of dimension ids will be treated as a whitelist instead. The dimensions will then be the only dimensions that may be teleported to or from.").getBoolean(dimensionsWhitelist_default);
 
         enderPearlStackSize = config.get(sectionTweaks.name, "Ender Pearl stack size", enderPearlStackSize_default, "This config option can be used to change the maximum stack size of Ender Pearls.").setMinValue(1).setMaxValue(512).setRequiresMcRestart(true).getInt(enderPearlStackSize_default);
+    }
+
+    public static class ConfigSection {
+
+        public String name;
+        public String id;
+
+        public ConfigSection(String name, String id) {
+            this.name = name;
+            this.id = id;
+            EMConfig.configSections.add(this);
+        }
+
+        public String toLowerCase() {
+            return this.name.toLowerCase();
+        }
+
     }
 
 }
