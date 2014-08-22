@@ -38,14 +38,7 @@ public class ItemCellphone extends Item {
     @Override
     @SideOnly(Side.CLIENT)
     public void addInformation(ItemStack itemStack, EntityPlayer player, List list, boolean bool) {
-        if (StringUtils.isShiftKeyDown()) {
-            list.add(StringUtils.translate("tooltip.cellphone.description.1"));
-            list.add(StringUtils.translate("tooltip.cellphone.description.2"));
-            list.add(StringUtils.translate("tooltip.cellphone.description.3"));
-            list.add(StringUtils.translate("tooltip.cellphone.description.4"));
-        } else {
-            list.add(StringUtils.getShiftText());
-        }
+        list.add(String.format(StringUtils.translate("tooltip.cellphone.pearls"), new InventoryCellphone(itemStack).getStoredPearls()));
     }
 
 }

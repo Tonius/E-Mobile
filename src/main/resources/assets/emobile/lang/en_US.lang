@@ -16,10 +16,7 @@ emobile.gui.cellphone.cancel=Cancel current teleport
 emobile.gui.nei.recipe.dirtmaker=Decomposition Accel.
 
 emobile.tooltip.holdShift=Hold %s for Details
-emobile.tooltip.cellphone.description.1=Lets you to teleport to other players
-emobile.tooltip.cellphone.description.2=using ender pearls.
-emobile.tooltip.cellphone.description.3=Also lets you teleport to spawn
-emobile.tooltip.cellphone.description.4=or to your bed.
+emobile.tooltip.cellphone.pearls=Stored pearls: %d
 
 emobile.chat.cellphone.start.requesting=You will be teleporting to %s...
 emobile.chat.cellphone.start.receiving=%s will be teleporting to you...
