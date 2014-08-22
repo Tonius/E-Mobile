@@ -5,6 +5,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ChunkCoordinates;
+import net.minecraft.world.World;
 import tonius.emobile.config.EMConfig;
 import tonius.emobile.item.ItemCellphone;
 import tonius.emobile.session.CellphoneSessionLocation;
@@ -47,19 +48,22 @@ public class MessageCellphoneSpawn implements IMessage, IMessageHandler<MessageC
             } else if (!TeleportUtils.isDimTeleportAllowed(player.dimension, 0)) {
                 ServerUtils.sendChatToPlayer(player.getCommandSenderName(), StringUtils.LIGHT_RED + String.format(StringUtils.translate("chat.cellphone.tryStart.dimension"), player.worldObj.provider.getDimensionName(), player.mcServer.worldServerForDimension(0).provider.getDimensionName()));
             } else {
-                ChunkCoordinates spawn = player.mcServer.worldServerForDimension(0).getSpawnPoint();
-                if (player.worldObj.provider.canRespawnHere())
-                    spawn = player.worldObj.getSpawnPoint();
+                World world = player.mcServer.worldServerForDimension(0);
+                ChunkCoordinates spawn = world.getSpawnPoint();
+                if (player.worldObj.provider.canRespawnHere()) {
+                    world = player.worldObj;
+                    spawn = world.getSpawnPoint();
+                }
                 if (spawn != null) {
                     Material mat;
                     do {
-                        mat = player.worldObj.getBlock(spawn.posX, spawn.posY, spawn.posZ).getMaterial();
+                        mat = world.getBlock(spawn.posX, spawn.posY, spawn.posZ).getMaterial();
                         if (!mat.isSolid() && !mat.isLiquid()) {
                             break;
                         }
                         spawn.posY++;
                     } while (mat.isSolid() || mat.isLiquid());
-                    spawn.posY += 0.2;
+                    spawn.posY += 0.2D;
 
                     if (!CellphoneSessionsHandler.isPlayerInSession(player)) {
                         ItemStack heldItem = player.getCurrentEquippedItem();

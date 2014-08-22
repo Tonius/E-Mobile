@@ -22,6 +22,7 @@ import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.PlayerEvent.PlayerLoggedInEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
+import cpw.mods.fml.relauncher.Side;
 
 @Mod(modid = "emobile", guiFactory = "tonius.emobile.config.ConfigGuiFactoryEM")
 public class EMobile {
@@ -54,7 +55,9 @@ public class EMobile {
 
         FMLCommonHandler.instance().bus().register(instance);
         FMLCommonHandler.instance().bus().register(new CellphoneSessionsHandler());
-        FMLCommonHandler.instance().bus().register(new ClientConfigTickHandler());
+
+        if (FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT)
+            FMLCommonHandler.instance().bus().register(new ClientConfigTickHandler());
     }
 
     @SubscribeEvent

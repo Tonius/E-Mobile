@@ -83,7 +83,7 @@ public class GuiCellphone extends GuiContainerBase {
     @Override
     protected void drawGuiContainerBackgroundLayer(float f, int i, int j) {
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-        this.mc.renderEngine.bindTexture(new ResourceLocation("emobile", "/textures/gui/item/cellphone.png"));
+        this.mc.renderEngine.bindTexture(new ResourceLocation("emobile", "textures/gui/item/cellphone.png"));
         this.drawTexturedModalRect(this.guiLeft, this.guiTop, 0, 0, xSize, ySize);
 
         if (this.accept.getVisible())
