@@ -22,7 +22,7 @@ public class EMConfig {
     public static final boolean allowTeleportPlayers_default = true;
     public static final boolean allowTeleportHome_default = true;
     public static final boolean allowTeleportSpawn_default = true;
-    public static final int[] dimensionsBlacklist_default = new int[] { 1 };
+    public static final int[] dimensionsBlacklist_default = new int[0];
     public static final boolean dimensionsWhitelist_default = false;
 
     // tweaks default
