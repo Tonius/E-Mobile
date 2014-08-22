@@ -58,7 +58,7 @@ public class MessageCellphoneSpawn implements IMessage, IMessageHandler<MessageC
                     spawn.posY = world.provider.getAverageGroundLevel();
                     Material mat = world.getBlock(spawn.posX, spawn.posY, spawn.posZ).getMaterial();
                     Material mat2 = world.getBlock(spawn.posX, spawn.posY + 1, spawn.posZ).getMaterial();
-                    if ((mat.isSolid() || mat.isLiquid()) && (mat2.isSolid() || mat2.isLiquid())) {
+                    if (mat.isSolid() || mat.isLiquid() || mat2.isSolid() || mat2.isLiquid()) {
                         do {
                             mat = world.getBlock(spawn.posX, spawn.posY, spawn.posZ).getMaterial();
                             mat2 = world.getBlock(spawn.posX, spawn.posY + 1, spawn.posZ).getMaterial();
@@ -69,12 +69,13 @@ public class MessageCellphoneSpawn implements IMessage, IMessageHandler<MessageC
                         } while (mat.isSolid() || mat.isLiquid() || mat2.isSolid() || mat2.isLiquid());
                     } else {
                         do {
-                            mat = world.getBlock(spawn.posX, spawn.posY, spawn.posZ).getMaterial();
-                            if (mat.isSolid() || mat.isLiquid()) {
+                            mat = world.getBlock(spawn.posX, spawn.posY - 1, spawn.posZ).getMaterial();
+                            mat2 = world.getBlock(spawn.posX, spawn.posY - 2, spawn.posZ).getMaterial();
+                            if ((mat.isSolid() || mat.isLiquid()) && (mat2.isSolid() || mat2.isLiquid())) {
                                 break;
                             }
                             spawn.posY--;
-                        } while (!mat.isSolid() && !mat.isLiquid());
+                        } while (!mat.isSolid() && !mat.isLiquid() && !mat2.isSolid() && !mat2.isLiquid());
                     }
                     spawn.posY += 0.2D;
 
