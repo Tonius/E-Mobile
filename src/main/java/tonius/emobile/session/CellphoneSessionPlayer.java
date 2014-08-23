@@ -3,6 +3,7 @@ package tonius.emobile.session;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.util.ChatComponentText;
+import net.minecraft.util.EnumChatFormatting;
 import tonius.emobile.util.ServerUtils;
 import tonius.emobile.util.StringUtils;
 import tonius.emobile.util.TeleportUtils;
@@ -17,8 +18,8 @@ public class CellphoneSessionPlayer extends CellphoneSessionBase {
         this.requestingPlayer = requestingPlayer;
         this.receivingPlayer = receivingPlayer;
 
-        ServerUtils.sendChatToPlayer(requestingPlayer.getCommandSenderName(), StringUtils.ORANGE + String.format(StringUtils.translate("chat.cellphone.start.requesting"), receivingPlayer.getCommandSenderName()));
-        ServerUtils.sendChatToPlayer(receivingPlayer.getCommandSenderName(), StringUtils.ORANGE + String.format(StringUtils.translate("chat.cellphone.start.receiving"), requestingPlayer.getCommandSenderName()));
+        ServerUtils.sendChatToPlayer(requestingPlayer.getCommandSenderName(), String.format(StringUtils.translate("chat.cellphone.start.requesting"), receivingPlayer.getCommandSenderName()), EnumChatFormatting.GOLD);
+        ServerUtils.sendChatToPlayer(receivingPlayer.getCommandSenderName(), String.format(StringUtils.translate("chat.cellphone.start.receiving"), requestingPlayer.getCommandSenderName()), EnumChatFormatting.GOLD);
     }
 
     @Override
@@ -42,8 +43,8 @@ public class CellphoneSessionPlayer extends CellphoneSessionBase {
         this.requestingPlayer.worldObj.playSoundAtEntity(this.requestingPlayer, "mob.chicken.plop", 1.0F, 1.0F);
         TeleportUtils.teleportPlayerToPlayer(this.requestingPlayer, this.receivingPlayer);
         this.requestingPlayer.worldObj.playSoundAtEntity(this.requestingPlayer, "mob.chicken.plop", 1.0F, 1.0F);
-        ServerUtils.sendChatToPlayer(this.requestingPlayer.getCommandSenderName(), StringUtils.ORANGE + String.format(StringUtils.translate("chat.cellphone.success.requesting"), this.receivingPlayer.getCommandSenderName()));
-        ServerUtils.sendChatToPlayer(this.receivingPlayer.getCommandSenderName(), StringUtils.ORANGE + String.format(StringUtils.translate("chat.cellphone.success.receiving"), this.requestingPlayer.getCommandSenderName()));
+        ServerUtils.sendChatToPlayer(this.requestingPlayer.getCommandSenderName(), String.format(StringUtils.translate("chat.cellphone.success.requesting"), this.receivingPlayer.getCommandSenderName()), EnumChatFormatting.GOLD);
+        ServerUtils.sendChatToPlayer(this.receivingPlayer.getCommandSenderName(), String.format(StringUtils.translate("chat.cellphone.success.receiving"), this.requestingPlayer.getCommandSenderName()), EnumChatFormatting.GOLD);
     }
 
     @Override
@@ -55,8 +56,8 @@ public class CellphoneSessionPlayer extends CellphoneSessionBase {
     @Override
     public void cancel(String canceledBy) {
         super.cancel(canceledBy);
-        ServerUtils.sendChatToPlayer(this.requestingPlayer.getCommandSenderName(), StringUtils.LIGHT_RED + String.format(StringUtils.translate("chat.cellphone.cancel.player"), canceledBy));
-        ServerUtils.sendChatToPlayer(this.receivingPlayer.getCommandSenderName(), StringUtils.LIGHT_RED + String.format(StringUtils.translate("chat.cellphone.cancel.player"), canceledBy));
+        ServerUtils.sendChatToPlayer(this.requestingPlayer.getCommandSenderName(), String.format(StringUtils.translate("chat.cellphone.cancel.player"), canceledBy), EnumChatFormatting.RED);
+        ServerUtils.sendChatToPlayer(this.receivingPlayer.getCommandSenderName(), String.format(StringUtils.translate("chat.cellphone.cancel.player"), canceledBy), EnumChatFormatting.RED);
     }
 
     @Override

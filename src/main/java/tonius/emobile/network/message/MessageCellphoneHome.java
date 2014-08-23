@@ -5,6 +5,7 @@ import net.minecraft.block.BlockBed;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ChunkCoordinates;
+import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.world.World;
 import tonius.emobile.config.EMConfig;
 import tonius.emobile.item.ItemCellphone;
@@ -53,7 +54,7 @@ public class MessageCellphoneHome implements IMessage, IMessageHandler<MessageCe
                         bed = player.getBedLocation(0);
                         world = player.mcServer.worldServerForDimension(0);
                     } else {
-                        ServerUtils.sendChatToPlayer(player.getCommandSenderName(), StringUtils.LIGHT_RED + String.format(StringUtils.translate("chat.cellphone.tryStart.dimension"), player.worldObj.provider.getDimensionName(), player.mcServer.worldServerForDimension(0).provider.getDimensionName()));
+                        ServerUtils.sendChatToPlayer(player.getCommandSenderName(), String.format(StringUtils.translate("chat.cellphone.tryStart.dimension"), player.worldObj.provider.getDimensionName(), player.mcServer.worldServerForDimension(0).provider.getDimensionName()), EnumChatFormatting.RED);
                         return null;
                     }
                 if (bed != null && !(world.getBlock(bed.posX, bed.posY, bed.posZ) instanceof BlockBed))
@@ -71,8 +72,8 @@ public class MessageCellphoneHome implements IMessage, IMessageHandler<MessageCe
                         }
                     }
                 } else {
-                    ServerUtils.sendChatToPlayer(player.getCommandSenderName(), StringUtils.LIGHT_RED + StringUtils.translate("chat.cellphone.tryStart.bedmissing.1"));
-                    ServerUtils.sendChatToPlayer(player.getCommandSenderName(), StringUtils.LIGHT_RED + StringUtils.translate("chat.cellphone.tryStart.bedmissing.2"));
+                    ServerUtils.sendChatToPlayer(player.getCommandSenderName(), StringUtils.translate("chat.cellphone.tryStart.bedmissing.1"), EnumChatFormatting.RED);
+                    ServerUtils.sendChatToPlayer(player.getCommandSenderName(), StringUtils.translate("chat.cellphone.tryStart.bedmissing.2"), EnumChatFormatting.RED);
                 }
             }
         }

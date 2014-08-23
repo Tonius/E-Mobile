@@ -3,6 +3,7 @@ package tonius.emobile.session;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.util.ChatComponentText;
+import net.minecraft.util.EnumChatFormatting;
 import tonius.emobile.util.ServerUtils;
 import tonius.emobile.util.StringUtils;
 import tonius.emobile.util.TeleportUtils;
@@ -24,7 +25,7 @@ public class CellphoneSessionLocation extends CellphoneSessionBase {
         this.posY = posY;
         this.posZ = posZ;
 
-        ServerUtils.sendChatToPlayer(player.getCommandSenderName(), StringUtils.ORANGE + String.format(StringUtils.translate("chat.cellphone.start.location"), StringUtils.translate(unlocalizedLocation)));
+        ServerUtils.sendChatToPlayer(player.getCommandSenderName(), String.format(StringUtils.translate("chat.cellphone.start.location"), StringUtils.translate(unlocalizedLocation)), EnumChatFormatting.GOLD);
     }
 
     @Override
@@ -48,7 +49,7 @@ public class CellphoneSessionLocation extends CellphoneSessionBase {
         this.player.worldObj.playSoundAtEntity(this.player, "mob.chicken.plop", 1.0F, 1.0F);
         TeleportUtils.teleportPlayerToPos(this.player, this.dimension, this.posX, this.posY, this.posZ, false);
         this.player.worldObj.playSoundAtEntity(this.player, "mob.chicken.plop", 1.0F, 1.0F);
-        ServerUtils.sendChatToPlayer(this.player.getCommandSenderName(), StringUtils.ORANGE + String.format(StringUtils.translate("chat.cellphone.success.location"), StringUtils.translate(this.unlocalizedLocation)));
+        ServerUtils.sendChatToPlayer(this.player.getCommandSenderName(), String.format(StringUtils.translate("chat.cellphone.success.location"), StringUtils.translate(this.unlocalizedLocation)), EnumChatFormatting.GOLD);
     }
 
     @Override
@@ -59,7 +60,7 @@ public class CellphoneSessionLocation extends CellphoneSessionBase {
     @Override
     public void cancel(String canceledBy) {
         super.cancel(canceledBy);
-        ServerUtils.sendChatToPlayer(this.player.getCommandSenderName(), StringUtils.LIGHT_RED + StringUtils.translate("chat.cellphone.cancel"));
+        ServerUtils.sendChatToPlayer(this.player.getCommandSenderName(), StringUtils.translate("chat.cellphone.cancel"), EnumChatFormatting.RED);
     }
 
 }

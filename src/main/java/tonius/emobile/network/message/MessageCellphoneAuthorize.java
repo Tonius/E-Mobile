@@ -2,6 +2,7 @@ package tonius.emobile.network.message;
 
 import io.netty.buffer.ByteBuf;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.util.EnumChatFormatting;
 import tonius.emobile.config.EMConfig;
 import tonius.emobile.session.CellphoneSessionsHandler;
 import tonius.emobile.util.ServerUtils;
@@ -48,9 +49,9 @@ public class MessageCellphoneAuthorize implements IMessage, IMessageHandler<Mess
             if (acceptingPlayer == null) {
                 return null;
             } else if (acceptedPlayer == null) {
-                ServerUtils.sendChatToPlayer(acceptingPlayer.getCommandSenderName(), StringUtils.LIGHT_RED + String.format(StringUtils.translate("chat.cellphone.authorize.unknown"), accepted));
+                ServerUtils.sendChatToPlayer(acceptingPlayer.getCommandSenderName(), String.format(StringUtils.translate("chat.cellphone.authorize.unknown"), accepted), EnumChatFormatting.RED);
             } else if (acceptingPlayer.equals(acceptedPlayer)) {
-                ServerUtils.sendChatToPlayer(acceptingPlayer.getCommandSenderName(), StringUtils.LIGHT_RED + StringUtils.translate("chat.cellphone.authorize.self"));
+                ServerUtils.sendChatToPlayer(acceptingPlayer.getCommandSenderName(), StringUtils.translate("chat.cellphone.authorize.self"), EnumChatFormatting.RED);
             } else {
                 if (!unaccept) {
                     if (CellphoneSessionsHandler.acceptPlayer(acceptingPlayer, acceptedPlayer, perma)) {

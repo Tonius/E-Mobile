@@ -3,6 +3,7 @@ package tonius.emobile.network.message;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.EnumChatFormatting;
 import tonius.emobile.config.EMConfig;
 import tonius.emobile.item.ItemCellphone;
 import tonius.emobile.session.CellphoneSessionPlayer;
@@ -48,9 +49,9 @@ public class MessageCellphonePlayer implements IMessage, IMessageHandler<Message
             if (requestingPlayer == null) {
                 return null;
             } else if (receivingPlayer == null) {
-                ServerUtils.sendChatToPlayer(requestingPlayer.getCommandSenderName(), StringUtils.LIGHT_RED + String.format(StringUtils.translate("chat.cellphone.tryStart.unknown"), msg.receiving));
+                ServerUtils.sendChatToPlayer(requestingPlayer.getCommandSenderName(), String.format(StringUtils.translate("chat.cellphone.tryStart.unknown"), msg.receiving), EnumChatFormatting.RED);
             } else if (!TeleportUtils.isDimTeleportAllowed(requestingPlayer.dimension, receivingPlayer.dimension)) {
-                ServerUtils.sendChatToPlayer(requestingPlayer.getCommandSenderName(), StringUtils.LIGHT_RED + String.format(StringUtils.translate("chat.cellphone.tryStart.dimension"), requestingPlayer.worldObj.provider.getDimensionName(), receivingPlayer.worldObj.provider.getDimensionName()));
+                ServerUtils.sendChatToPlayer(requestingPlayer.getCommandSenderName(), String.format(StringUtils.translate("chat.cellphone.tryStart.dimension"), requestingPlayer.worldObj.provider.getDimensionName(), receivingPlayer.worldObj.provider.getDimensionName()), EnumChatFormatting.RED);
             } else {
                 if (!CellphoneSessionsHandler.isPlayerInSession(requestingPlayer)) {
                     if (CellphoneSessionsHandler.isPlayerAccepted(receivingPlayer, requestingPlayer)) {
@@ -62,7 +63,7 @@ public class MessageCellphonePlayer implements IMessage, IMessageHandler<Message
                             }
                         }
                     } else {
-                        ServerUtils.sendChatToPlayer(requestingPlayer.getCommandSenderName(), StringUtils.LIGHT_RED + String.format(StringUtils.translate("chat.cellphone.tryStart.unauthorized"), receivingPlayer.getCommandSenderName()));
+                        ServerUtils.sendChatToPlayer(requestingPlayer.getCommandSenderName(), String.format(StringUtils.translate("chat.cellphone.tryStart.unauthorized"), receivingPlayer.getCommandSenderName()), EnumChatFormatting.RED);
                     }
                 }
             }

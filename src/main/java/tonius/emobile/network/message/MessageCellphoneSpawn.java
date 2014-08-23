@@ -5,6 +5,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ChunkCoordinates;
+import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.world.World;
 import tonius.emobile.config.EMConfig;
 import tonius.emobile.item.ItemCellphone;
@@ -46,7 +47,7 @@ public class MessageCellphoneSpawn implements IMessage, IMessageHandler<MessageC
             if (player == null) {
                 return null;
             } else if (!TeleportUtils.isDimTeleportAllowed(player.dimension, 0)) {
-                ServerUtils.sendChatToPlayer(player.getCommandSenderName(), StringUtils.LIGHT_RED + String.format(StringUtils.translate("chat.cellphone.tryStart.dimension"), player.worldObj.provider.getDimensionName(), player.mcServer.worldServerForDimension(0).provider.getDimensionName()));
+                ServerUtils.sendChatToPlayer(player.getCommandSenderName(), String.format(StringUtils.translate("chat.cellphone.tryStart.dimension"), player.worldObj.provider.getDimensionName(), player.mcServer.worldServerForDimension(0).provider.getDimensionName()), EnumChatFormatting.RED);
             } else {
                 World world = player.mcServer.worldServerForDimension(0);
                 ChunkCoordinates spawn = world.getSpawnPoint();
