@@ -141,7 +141,7 @@ public class GuiCellphone extends GuiContainerBase {
 
     @Override
     public void keyTyped(char c, int i) {
-        if (EMConfig.allowTeleportPlayers && (this.accept.isFocused() || this.receiver.isFocused())) {
+        if (EMConfig.allowTeleportPlayers && (this.accept.isFocused() || this.receiver.isFocused()) && i != Keyboard.KEY_ESCAPE) {
             if (i == Keyboard.KEY_RETURN) {
                 if (this.receiver.isFocused()) {
                     this.requestPlayerTeleport();
