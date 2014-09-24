@@ -13,37 +13,37 @@ import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
 import cpw.mods.fml.common.network.simpleimpl.MessageContext;
 
 public class MessageCellphoneAuthorize implements IMessage, IMessageHandler<MessageCellphoneAuthorize, IMessage> {
-
+    
     private String accepting;
     private String accepted;
-
+    
     public MessageCellphoneAuthorize() {
     }
-
+    
     public MessageCellphoneAuthorize(String accepting, String accepted) {
         this.accepting = accepting;
         this.accepted = accepted;
     }
-
+    
     @Override
     public void fromBytes(ByteBuf buf) {
         this.accepting = ByteBufUtils.readUTF8String(buf);
         this.accepted = ByteBufUtils.readUTF8String(buf);
     }
-
+    
     @Override
     public void toBytes(ByteBuf buf) {
         ByteBufUtils.writeUTF8String(buf, this.accepting);
         ByteBufUtils.writeUTF8String(buf, this.accepted);
     }
-
+    
     @Override
     public IMessage onMessage(MessageCellphoneAuthorize msg, MessageContext ctx) {
         if (EMConfig.allowTeleportPlayers) {
             boolean perma = msg.accepted.startsWith("p:");
             boolean unaccept = msg.accepted.startsWith("!");
             String accepted = msg.accepted.replaceFirst("p:", "").replaceFirst("!", "");
-
+            
             EntityPlayerMP acceptingPlayer = ServerUtils.getPlayerOnServer(msg.accepting);
             EntityPlayerMP acceptedPlayer = ServerUtils.getPlayerOnServer(accepted);
             if (acceptingPlayer == null) {
@@ -72,8 +72,8 @@ public class MessageCellphoneAuthorize implements IMessage, IMessageHandler<Mess
                 }
             }
         }
-
+        
         return null;
     }
-
+    
 }

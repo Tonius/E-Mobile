@@ -17,30 +17,30 @@ import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
 import cpw.mods.fml.common.network.simpleimpl.MessageContext;
 
 public class MessageCellphonePlayer implements IMessage, IMessageHandler<MessageCellphonePlayer, IMessage> {
-
+    
     private String requesting;
     private String receiving;
-
+    
     public MessageCellphonePlayer() {
     }
-
+    
     public MessageCellphonePlayer(String requesting, String receiving) {
         this.requesting = requesting;
         this.receiving = receiving;
     }
-
+    
     @Override
     public void fromBytes(ByteBuf buf) {
         this.requesting = ByteBufUtils.readUTF8String(buf);
         this.receiving = ByteBufUtils.readUTF8String(buf);
     }
-
+    
     @Override
     public void toBytes(ByteBuf buf) {
         ByteBufUtils.writeUTF8String(buf, this.requesting);
         ByteBufUtils.writeUTF8String(buf, this.receiving);
     }
-
+    
     @Override
     public IMessage onMessage(MessageCellphonePlayer msg, MessageContext ctx) {
         if (EMConfig.allowTeleportPlayers) {
@@ -68,8 +68,8 @@ public class MessageCellphonePlayer implements IMessage, IMessageHandler<Message
                 }
             }
         }
-
+        
         return null;
     }
-
+    
 }

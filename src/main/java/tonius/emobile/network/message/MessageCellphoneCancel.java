@@ -10,26 +10,26 @@ import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
 import cpw.mods.fml.common.network.simpleimpl.MessageContext;
 
 public class MessageCellphoneCancel implements IMessage, IMessageHandler<MessageCellphoneCancel, IMessage> {
-
+    
     private String player;
-
+    
     public MessageCellphoneCancel() {
     }
-
+    
     public MessageCellphoneCancel(String player) {
         this.player = player;
     }
-
+    
     @Override
     public void fromBytes(ByteBuf buf) {
         this.player = ByteBufUtils.readUTF8String(buf);
     }
-
+    
     @Override
     public void toBytes(ByteBuf buf) {
         ByteBufUtils.writeUTF8String(buf, this.player);
     }
-
+    
     @Override
     public IMessage onMessage(MessageCellphoneCancel msg, MessageContext ctx) {
         EntityPlayerMP player = ServerUtils.getPlayerOnServer(msg.player);
@@ -40,5 +40,5 @@ public class MessageCellphoneCancel implements IMessage, IMessageHandler<Message
         }
         return null;
     }
-
+    
 }

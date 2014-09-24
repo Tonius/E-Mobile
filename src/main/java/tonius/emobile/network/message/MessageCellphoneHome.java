@@ -20,26 +20,26 @@ import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
 import cpw.mods.fml.common.network.simpleimpl.MessageContext;
 
 public class MessageCellphoneHome implements IMessage, IMessageHandler<MessageCellphoneHome, IMessage> {
-
+    
     private String player;
-
+    
     public MessageCellphoneHome() {
     }
-
+    
     public MessageCellphoneHome(String player) {
         this.player = player;
     }
-
+    
     @Override
     public void fromBytes(ByteBuf buf) {
         this.player = ByteBufUtils.readUTF8String(buf);
     }
-
+    
     @Override
     public void toBytes(ByteBuf buf) {
         ByteBufUtils.writeUTF8String(buf, this.player);
     }
-
+    
     @Override
     public IMessage onMessage(MessageCellphoneHome msg, MessageContext ctx) {
         if (EMConfig.allowTeleportHome) {
@@ -49,7 +49,7 @@ public class MessageCellphoneHome implements IMessage, IMessageHandler<MessageCe
             } else {
                 ChunkCoordinates bed = player.getBedLocation(player.dimension);
                 World world = player.worldObj;
-                if (bed == null && player.dimension != 0)
+                if (bed == null && player.dimension != 0) {
                     if (TeleportUtils.isDimTeleportAllowed(player.dimension, 0)) {
                         bed = player.getBedLocation(0);
                         world = player.mcServer.worldServerForDimension(0);
@@ -57,10 +57,13 @@ public class MessageCellphoneHome implements IMessage, IMessageHandler<MessageCe
                         ServerUtils.sendChatToPlayer(player.getCommandSenderName(), String.format(StringUtils.translate("chat.cellphone.tryStart.dimension"), player.worldObj.provider.getDimensionName(), player.mcServer.worldServerForDimension(0).provider.getDimensionName()), EnumChatFormatting.RED);
                         return null;
                     }
-                if (bed != null && !(world.getBlock(bed.posX, bed.posY, bed.posZ) instanceof BlockBed))
+                }
+                if (bed != null && !(world.getBlock(bed.posX, bed.posY, bed.posZ) instanceof BlockBed)) {
                     bed = null;
-                if (bed != null)
+                }
+                if (bed != null) {
                     bed = world.getBlock(bed.posX, bed.posY, bed.posZ).getBedSpawnPosition(world, bed.posX, bed.posY, bed.posZ, player);
+                }
                 if (bed != null) {
                     if (!CellphoneSessionsHandler.isPlayerInSession(player)) {
                         ItemStack heldItem = player.getCurrentEquippedItem();
@@ -77,7 +80,7 @@ public class MessageCellphoneHome implements IMessage, IMessageHandler<MessageCe
                 }
             }
         }
-
+        
         return null;
     }
 }

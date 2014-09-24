@@ -16,77 +16,86 @@ import tonius.emobile.config.EMConfig;
 import cpw.mods.fml.common.FMLCommonHandler;
 
 public class TeleportUtils {
-
+    
     public static void teleportPlayerToPlayer(EntityPlayerMP from, EntityPlayerMP to) {
         from.mountEntity(null);
-        if (from.riddenByEntity != null)
+        if (from.riddenByEntity != null) {
             from.riddenByEntity.mountEntity(null);
-        if (from.dimension != to.dimension)
+        }
+        if (from.dimension != to.dimension) {
             teleportPlayerToDimension(from, to.dimension, to.mcServer.getConfigurationManager());
+        }
         from.setPositionAndUpdate(to.posX + 0.5D, to.posY + 0.5D, to.posZ + 0.5D);
     }
-
+    
     public static boolean teleportPlayerToPos(EntityPlayerMP player, int dimension, int posX, int posY, int posZ, boolean simulate) {
-        if (!DimensionManager.isDimensionRegistered(dimension))
+        if (!DimensionManager.isDimensionRegistered(dimension)) {
             return false;
-
+        }
+        
         if (!simulate) {
             player.mountEntity(null);
-            if (player.riddenByEntity != null)
+            if (player.riddenByEntity != null) {
                 player.riddenByEntity.mountEntity(null);
-            if (player.dimension != dimension)
+            }
+            if (player.dimension != dimension) {
                 teleportPlayerToDimension(player, dimension, player.mcServer.getConfigurationManager());
+            }
             player.setPositionAndUpdate(posX + 0.5D, posY + 0.5D, posZ + 0.5D);
         }
-
+        
         return true;
     }
-
+    
     public static boolean isDimTeleportAllowed(int from, int to) {
-        if (from == to)
+        if (from == to) {
             return true;
-
+        }
+        
         if (!EMConfig.dimensionsWhitelist) {
-            if (configContainsDim(from) || configContainsDim(to))
+            if (configContainsDim(from) || configContainsDim(to)) {
                 return false;
+            }
             return true;
         } else {
-            if (configContainsDim(from) && configContainsDim(to))
+            if (configContainsDim(from) && configContainsDim(to)) {
                 return true;
+            }
             return false;
         }
     }
-
+    
     public static boolean configContainsDim(int dim) {
         for (int i : EMConfig.dimensionsBlacklist) {
-            if (i == dim)
+            if (i == dim) {
                 return true;
+            }
         }
         return false;
     }
-
+    
     public static void teleportEntityToWorld(Entity entity, WorldServer oldWorld, WorldServer newWorld) {
         WorldProvider pOld = oldWorld.provider;
         WorldProvider pNew = newWorld.provider;
         double moveFactor = pOld.getMovementFactor() / pNew.getMovementFactor();
         double x = entity.posX * moveFactor;
         double z = entity.posZ * moveFactor;
-
+        
         oldWorld.theProfiler.startSection("placing");
         x = MathHelper.clamp_double(x, -29999872, 29999872);
         z = MathHelper.clamp_double(z, -29999872, 29999872);
-
+        
         if (entity.isEntityAlive()) {
             entity.setLocationAndAngles(x, entity.posY, z, entity.rotationYaw, entity.rotationPitch);
             newWorld.spawnEntityInWorld(entity);
             newWorld.updateEntityWithOptionalForce(entity, false);
         }
-
+        
         oldWorld.theProfiler.endSection();
-
+        
         entity.setWorld(newWorld);
     }
-
+    
     public static void teleportPlayerToDimension(EntityPlayerMP player, int dimension, ServerConfigurationManager manager) {
         int oldDim = player.dimension;
         WorldServer worldserver = manager.getServerInstance().worldServerForDimension(player.dimension);
@@ -102,12 +111,12 @@ public class TeleportUtils {
         manager.updateTimeAndWeatherForPlayer(player, worldserver1);
         manager.syncPlayerInventory(player);
         Iterator<PotionEffect> iterator = player.getActivePotionEffects().iterator();
-
+        
         while (iterator.hasNext()) {
             PotionEffect potioneffect = iterator.next();
             player.playerNetServerHandler.sendPacket(new S1DPacketEntityEffect(player.getEntityId(), potioneffect));
         }
         FMLCommonHandler.instance().firePlayerChangedDimensionEvent(player, oldDim, dimension);
     }
-
+    
 }

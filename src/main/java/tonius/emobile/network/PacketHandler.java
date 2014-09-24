@@ -12,9 +12,9 @@ import cpw.mods.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import cpw.mods.fml.relauncher.Side;
 
 public class PacketHandler {
-
+    
     public static final SimpleNetworkWrapper instance = NetworkRegistry.INSTANCE.newSimpleChannel("EMobile");
-
+    
     public static void preInit() {
         EMobile.logger.info("Registering network messages");
         instance.registerMessage(MessageCellphonePlayer.class, MessageCellphonePlayer.class, 0, Side.SERVER);

@@ -7,9 +7,9 @@ import tonius.emobile.item.ItemCellphone;
 import cpw.mods.fml.common.network.IGuiHandler;
 
 public class EMGuiHandler implements IGuiHandler {
-
+    
     public static final int CELLPHONE = 0;
-
+    
     @Override
     public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
         switch (ID) {
@@ -21,7 +21,7 @@ public class EMGuiHandler implements IGuiHandler {
         }
         return null;
     }
-
+    
     @Override
     public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
         switch (ID) {
@@ -33,5 +33,5 @@ public class EMGuiHandler implements IGuiHandler {
         }
         return null;
     }
-
+    
 }
