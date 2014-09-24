@@ -57,7 +57,7 @@ public class MessageCellphonePlayer implements IMessage, IMessageHandler<Message
                     if (CellphoneSessionsHandler.isPlayerAccepted(receivingPlayer, requestingPlayer)) {
                         ItemStack heldItem = requestingPlayer.getCurrentEquippedItem();
                         if (heldItem != null && heldItem.getItem() instanceof ItemCellphone) {
-                            if (((ItemCellphone) heldItem.getItem()).usePearl(heldItem, requestingPlayer)) {
+                            if (requestingPlayer.capabilities.isCreativeMode || ((ItemCellphone) heldItem.getItem()).usePearl(heldItem, requestingPlayer)) {
                                 requestingPlayer.worldObj.playSoundAtEntity(requestingPlayer, "emobile:phonecountdown", 1.0F, 1.0F);
                                 new CellphoneSessionPlayer(8, requestingPlayer, receivingPlayer);
                             }

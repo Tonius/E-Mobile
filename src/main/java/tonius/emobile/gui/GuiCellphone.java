@@ -112,6 +112,9 @@ public class GuiCellphone extends GuiContainerBase {
         } else if (this.func_146978_c(152, 8, 16, 16, mouseX, mouseY) && this.inventorySlots.getInventory().get(0) == null && this.mc.thePlayer.inventory.getItemStack() == null) {
             lines.add(StringUtils.ITALIC + StringUtils.translate("gui.cellphone.pearls.1"));
             lines.add(StringUtils.ITALIC + StringUtils.translate("gui.cellphone.pearls.2"));
+            if (this.mc.thePlayer.capabilities.isCreativeMode) {
+                lines.add(StringUtils.BRIGHT_GREEN + StringUtils.ITALIC + StringUtils.translate("gui.cellphone.pearls.creative"));
+            }
         } else if (this.func_146978_c(8, 41, 127, 12, mouseX, mouseY) && EMConfig.allowTeleportPlayers) {
             lines.add(StringUtils.BOLD + StringUtils.translate("gui.cellphone.prefixes.1"));
             lines.add(StringUtils.BRIGHT_GREEN + "p:" + StringUtils.END + " - " + StringUtils.translate("gui.cellphone.prefixes.2"));
@@ -182,7 +185,7 @@ public class GuiCellphone extends GuiContainerBase {
     }
 
     private void requestPlayerTeleport() {
-        if (!this.receiver.getText().equals("") && this.getPearls() > 0) {
+        if (!this.receiver.getText().equals("") && (this.mc.thePlayer.capabilities.isCreativeMode || this.getPearls() > 0)) {
             this.mc.thePlayer.closeScreen();
             PacketHandler.instance.sendToServer(new MessageCellphonePlayer(this.mc.thePlayer.getCommandSenderName(), this.receiver.getText()));
         }
@@ -196,14 +199,14 @@ public class GuiCellphone extends GuiContainerBase {
     }
 
     private void requestSpawnTeleport() {
-        if (this.getPearls() > 0) {
+        if (this.mc.thePlayer.capabilities.isCreativeMode || this.getPearls() > 0) {
             this.mc.thePlayer.closeScreen();
             PacketHandler.instance.sendToServer(new MessageCellphoneSpawn(this.mc.thePlayer.getCommandSenderName()));
         }
     }
 
     private void requestHomeTeleport() {
-        if (this.getPearls() > 0) {
+        if (this.mc.thePlayer.capabilities.isCreativeMode || this.getPearls() > 0) {
             this.mc.thePlayer.closeScreen();
             PacketHandler.instance.sendToServer(new MessageCellphoneHome(this.mc.thePlayer.getCommandSenderName()));
         }

@@ -2,6 +2,7 @@ item.emobile.cellphone.name=Ender Cellphone
 
 emobile.gui.cellphone.pearls.1=This device requires
 emobile.gui.cellphone.pearls.2=Ender Pearls to function.
+emobile.gui.cellphone.pearls.creative=But not in creative mode!
 emobile.gui.cellphone.accept=Authorize a player
 emobile.gui.cellphone.prefixes.1=Possible prefixes:
 emobile.gui.cellphone.prefixes.2=Will keep them authorized
