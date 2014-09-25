@@ -1,9 +1,13 @@
 package tonius.emobile.util;
 
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.EnumChatFormatting;
+import tonius.emobile.network.PacketHandler;
+import tonius.emobile.network.message.MessageDiallingSound;
+import cpw.mods.fml.common.network.NetworkRegistry.TargetPoint;
 
 public class ServerUtils {
     
@@ -26,6 +30,10 @@ public class ServerUtils {
     
     public static void sendChatToPlayer(String player, String chat) {
         sendChatToPlayer(player, chat, EnumChatFormatting.WHITE);
+    }
+    
+    public static void sendDiallingSound(EntityPlayer player) {
+        PacketHandler.instance.sendToAllAround(new MessageDiallingSound(player.getEntityId()), new TargetPoint(player.dimension, player.posX, player.posY, player.posZ, 64D));
     }
     
 }

@@ -69,7 +69,7 @@ public class MessageCellphoneHome implements IMessage, IMessageHandler<MessageCe
                         ItemStack heldItem = player.getCurrentEquippedItem();
                         if (heldItem != null && heldItem.getItem() instanceof ItemCellphone) {
                             if (player.capabilities.isCreativeMode || ((ItemCellphone) heldItem.getItem()).usePearl(heldItem, player)) {
-                                player.worldObj.playSoundAtEntity(player, "emobile:phonecountdown", 1.0F, 1.0F);
+                                ServerUtils.sendDiallingSound(player);
                                 new CellphoneSessionLocation(8, "chat.cellphone.location.home", player, 0, bed.posX, bed.posY, bed.posZ);
                             }
                         }

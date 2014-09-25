@@ -7,6 +7,7 @@ import tonius.emobile.network.message.MessageCellphoneHome;
 import tonius.emobile.network.message.MessageCellphonePlayer;
 import tonius.emobile.network.message.MessageCellphoneSpawn;
 import tonius.emobile.network.message.MessageConfigSync;
+import tonius.emobile.network.message.MessageDiallingSound;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import cpw.mods.fml.relauncher.Side;
@@ -23,5 +24,6 @@ public class PacketHandler {
         instance.registerMessage(MessageCellphoneHome.class, MessageCellphoneHome.class, 3, Side.SERVER);
         instance.registerMessage(MessageCellphoneCancel.class, MessageCellphoneCancel.class, 4, Side.SERVER);
         instance.registerMessage(MessageConfigSync.class, MessageConfigSync.class, 5, Side.CLIENT);
+        instance.registerMessage(MessageDiallingSound.class, MessageDiallingSound.class, 6, Side.CLIENT);
     }
 }

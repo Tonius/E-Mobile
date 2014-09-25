@@ -84,7 +84,7 @@ public class MessageCellphoneSpawn implements IMessage, IMessageHandler<MessageC
                         ItemStack heldItem = player.getCurrentEquippedItem();
                         if (heldItem != null && heldItem.getItem() instanceof ItemCellphone) {
                             if (player.capabilities.isCreativeMode || ((ItemCellphone) heldItem.getItem()).usePearl(heldItem, player)) {
-                                player.worldObj.playSoundAtEntity(player, "emobile:phonecountdown", 1.0F, 1.0F);
+                                ServerUtils.sendDiallingSound(player);
                                 new CellphoneSessionLocation(8, "chat.cellphone.location.spawn", player, 0, spawn.posX, spawn.posY, spawn.posZ);
                             }
                         }
