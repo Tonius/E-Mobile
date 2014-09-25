@@ -8,6 +8,8 @@ import java.util.Map;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.nbt.NBTTagList;
+import net.minecraft.nbt.NBTTagString;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.TickEvent.Phase;
 import cpw.mods.fml.common.gameevent.TickEvent.ServerTickEvent;
@@ -48,6 +50,11 @@ public class CellphoneSessionsHandler {
     public static boolean acceptPlayer(EntityPlayerMP accepting, EntityPlayerMP accepted, boolean perma) {
         if (!isPlayerAccepted(accepting, accepted)) {
             getAcceptedPlayersForPlayer(accepting).put(accepted, perma);
+            if (perma) {
+                NBTTagList permaAccepted = accepting.getEntityData().getTagList("EMobile.PermaAccepted", 8);
+                permaAccepted.appendTag(new NBTTagString(accepting.getCommandSenderName()));
+                accepting.getEntityData().setTag("EMobile.PermaAccepted", permaAccepted);
+            }
             return true;
         } else {
             return false;
@@ -58,6 +65,15 @@ public class CellphoneSessionsHandler {
         if (isPlayerAccepted(deaccepting, deaccepted)) {
             if (!getAcceptedPlayersForPlayer(deaccepting).get(deaccepted) || force) {
                 getAcceptedPlayersForPlayer(deaccepting).remove(deaccepted);
+                String deacceptedName = deaccepted.getCommandSenderName();
+                NBTTagList permaAccepted = deaccepting.getEntityData().getTagList("EMobile.PermaAccepted", 8);
+                for (int i = 0; i < permaAccepted.tagCount(); i++) {
+                    if (permaAccepted.getStringTagAt(i).equals(deacceptedName)) {
+                        permaAccepted.removeTag(i);
+                        deaccepting.getEntityData().setTag("EMobile.PermaAccepted", permaAccepted);
+                        break;
+                    }
+                }
             }
             return true;
         } else {
@@ -66,6 +82,14 @@ public class CellphoneSessionsHandler {
     }
     
     public static boolean isPlayerAccepted(EntityPlayerMP acceptor, EntityPlayerMP query) {
+        String queryName = query.getCommandSenderName();
+        NBTTagList permaAccepted = acceptor.getEntityData().getTagList("EMobile.PermaAccepted", 8);
+        for (int i = 0; i < permaAccepted.tagCount(); i++) {
+            if (permaAccepted.getStringTagAt(i).equals(queryName)) {
+                getAcceptedPlayersForPlayer(acceptor).put(query, true);
+                return true;
+            }
+        }
         return getAcceptedPlayersForPlayer(acceptor).containsKey(query);
     }
     
