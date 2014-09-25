@@ -16,13 +16,18 @@ public class ContainerCellphone extends Container {
         this.invCellphone = invCellphone;
         this.cellphoneSlot = invPlayer.currentItem;
         
-        this.addSlotToContainer(new SlotEnderPearls(this.invCellphone, invPlayer, 0, 152, 8));
+        this.addSlotToContainer(new SlotEnderPearls(this.invCellphone, 0, 152, 8));
         
         this.bindPlayerInventory(invPlayer, 8, 121);
     }
     
     @Override
     public boolean canInteractWith(EntityPlayer player) {
+        ItemStack invStack = player.inventory.mainInventory[this.cellphoneSlot];
+        ItemStack containerStack = this.invCellphone.getCellphone();
+        if (invStack != null && containerStack != null && invStack.isItemEqual(containerStack)) {
+            player.inventory.mainInventory[this.cellphoneSlot] = containerStack;
+        }
         return true;
     }
     
