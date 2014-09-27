@@ -18,6 +18,7 @@ import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
+import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
@@ -31,6 +32,8 @@ public class EMobile {
     
     @Instance("emobile")
     public static EMobile instance;
+    @SidedProxy(serverSide = "tonius.emobile.CommonProxy", clientSide = "tonius.emobile.ClientProxy")
+    public static CommonProxy proxy;
     public static Logger logger;
     
     public static Item cellphone = null;

@@ -3,8 +3,7 @@ package tonius.emobile.network.message;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.world.World;
-import tonius.emobile.audio.SoundDialling;
+import tonius.emobile.EMobile;
 import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
@@ -33,12 +32,9 @@ public class MessageDiallingSound implements IMessage, IMessageHandler<MessageDi
     
     @Override
     public IMessage onMessage(MessageDiallingSound msg, MessageContext ctx) {
-        World world = FMLClientHandler.instance().getClient().theWorld;
-        if (world != null) {
-            Entity entity = world.getEntityByID(msg.entityID);
-            if (entity instanceof EntityPlayer) {
-                FMLClientHandler.instance().getClient().getSoundHandler().playSound(new SoundDialling((EntityPlayer) entity));
-            }
+        Entity entity = FMLClientHandler.instance().getClient().theWorld.getEntityByID(msg.entityID);
+        if (entity instanceof EntityPlayer) {
+            EMobile.proxy.playDiallingSound((EntityPlayer) entity);
         }
         return null;
     }
