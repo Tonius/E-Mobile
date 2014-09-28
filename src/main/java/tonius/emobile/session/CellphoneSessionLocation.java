@@ -7,6 +7,7 @@ import net.minecraft.util.EnumChatFormatting;
 import tonius.emobile.util.ServerUtils;
 import tonius.emobile.util.StringUtils;
 import tonius.emobile.util.TeleportUtils;
+import java.lang.NullPointerException;
 
 public class CellphoneSessionLocation extends CellphoneSessionBase {
     
@@ -50,7 +51,11 @@ public class CellphoneSessionLocation extends CellphoneSessionBase {
         this.player.worldObj.playSoundAtEntity(this.player, "mob.chicken.plop", 1.0F, 1.0F);
         TeleportUtils.teleportPlayerToPos(this.player, this.dimension, this.posX, this.posY, this.posZ, false);
         this.player.worldObj.playSoundAtEntity(this.player, "mob.chicken.plop", 1.0F, 1.0F);
-        ServerUtils.sendChatToPlayer(this.player.getCommandSenderName(), String.format(StringUtils.translate("chat.cellphone.success.location"), StringUtils.translate(this.unlocalizedLocation)), EnumChatFormatting.GOLD);
+        try {
+            ServerUtils.sendChatToPlayer(this.player.getCommandSenderName(), String.format(StringUtils.translate("chat.cellphone.success.location"), StringUtils.translate(this.unlocalizedLocation)), EnumChatFormatting.GOLD);
+        } catch(NullPointerException e) {
+            System.out.println("[E-Mobile] caught error"); //this is exceptionally hacky, replace please
+        }
     }
     
     @Override
