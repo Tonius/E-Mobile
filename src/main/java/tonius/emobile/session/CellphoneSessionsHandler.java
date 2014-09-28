@@ -52,7 +52,7 @@ public class CellphoneSessionsHandler {
             getAcceptedPlayersForPlayer(accepting).put(accepted, perma);
             if (perma) {
                 NBTTagList permaAccepted = accepting.getEntityData().getTagList("EMobile.PermaAccepted", 8);
-                permaAccepted.appendTag(new NBTTagString(accepting.getCommandSenderName()));
+                permaAccepted.appendTag(new NBTTagString(accepted.getCommandSenderName()));
                 accepting.getEntityData().setTag("EMobile.PermaAccepted", permaAccepted);
             }
             return true;
@@ -70,10 +70,9 @@ public class CellphoneSessionsHandler {
                 for (int i = 0; i < permaAccepted.tagCount(); i++) {
                     if (permaAccepted.getStringTagAt(i).equals(deacceptedName)) {
                         permaAccepted.removeTag(i);
-                        deaccepting.getEntityData().setTag("EMobile.PermaAccepted", permaAccepted);
-                        break;
                     }
                 }
+                deaccepting.getEntityData().setTag("EMobile.PermaAccepted", permaAccepted);
             }
             return true;
         } else {
