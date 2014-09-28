@@ -21,7 +21,8 @@ public class ServerUtils {
     
     public static void sendChatToPlayer(String player, String chat, EnumChatFormatting color) {
         EntityPlayerMP playerEntity = getPlayerOnServer(player);
-        if (player != null) {
+        // Only execute if the player is actually found
+        if (playerEntity != null) {
             ChatComponentText component = new ChatComponentText(chat);
             component.getChatStyle().setColor(color);
             playerEntity.addChatMessage(component);
