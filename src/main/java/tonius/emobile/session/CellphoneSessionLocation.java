@@ -30,7 +30,7 @@ public class CellphoneSessionLocation extends CellphoneSessionBase {
     
     @Override
     public void tick() {
-        if (this.player == null) {
+        if (this.player == null || !ServerUtils.isPlayerConnected(this.player)) {
             this.invalidate();
             return;
         }

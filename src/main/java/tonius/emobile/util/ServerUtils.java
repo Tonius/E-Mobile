@@ -15,13 +15,17 @@ public class ServerUtils {
         return MinecraftServer.getServer().getConfigurationManager().func_152612_a(name);
     }
     
+    public static boolean isPlayerConnected(EntityPlayerMP player) {
+        return MinecraftServer.getServer().getConfigurationManager().playerEntityList.contains(player);
+    }
+    
     public static void sendGlobalChat(String chat) {
         MinecraftServer.getServer().getConfigurationManager().sendChatMsg(new ChatComponentText(chat));
     }
     
     public static void sendChatToPlayer(String player, String chat, EnumChatFormatting color) {
         EntityPlayerMP playerEntity = getPlayerOnServer(player);
-        if (player != null) {
+        if (playerEntity != null) {
             ChatComponentText component = new ChatComponentText(chat);
             component.getChatStyle().setColor(color);
             playerEntity.addChatMessage(component);

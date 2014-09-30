@@ -24,7 +24,7 @@ public class CellphoneSessionPlayer extends CellphoneSessionBase {
     
     @Override
     public void tick() {
-        if (this.requestingPlayer == null || this.receivingPlayer == null) {
+        if (this.requestingPlayer == null || this.receivingPlayer == null || !ServerUtils.isPlayerConnected(this.requestingPlayer) || !ServerUtils.isPlayerConnected(this.receivingPlayer)) {
             this.invalidate();
             return;
         }
