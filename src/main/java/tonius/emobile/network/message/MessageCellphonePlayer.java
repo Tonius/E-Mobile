@@ -57,7 +57,7 @@ public class MessageCellphonePlayer implements IMessage, IMessageHandler<Message
                     if (CellphoneSessionsHandler.isPlayerAccepted(receivingPlayer, requestingPlayer)) {
                         ItemStack heldItem = requestingPlayer.getCurrentEquippedItem();
                         if (heldItem != null && heldItem.getItem() instanceof ItemCellphone) {
-                            if (requestingPlayer.capabilities.isCreativeMode || ((ItemCellphone) heldItem.getItem()).usePearl(heldItem, requestingPlayer)) {
+                            if (requestingPlayer.capabilities.isCreativeMode || ((ItemCellphone) heldItem.getItem()).useFuel(heldItem, requestingPlayer)) {
                                 ServerUtils.sendDiallingSound(requestingPlayer);
                                 new CellphoneSessionPlayer(8, requestingPlayer, receivingPlayer);
                             }

@@ -33,7 +33,7 @@ public class InventoryCellphone implements IInventory {
         return pearls != null ? pearls.stackSize : 0;
     }
     
-    public boolean usePearl() {
+    public boolean useFuel() {
         if (this.getStoredPearls() <= 0) {
             return false;
         }

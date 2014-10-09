@@ -8,12 +8,13 @@ import cpw.mods.fml.common.network.IGuiHandler;
 
 public class EMGuiHandler implements IGuiHandler {
     
-    public static final int CELLPHONE = 0;
+    public static final int CELLPHONE_PEARL = 0;
+    public static final int CELLPHONE_RF = 1;
     
     @Override
     public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
         switch (ID) {
-        case CELLPHONE:
+        case CELLPHONE_PEARL:
             ItemStack cellphone = player.getCurrentEquippedItem();
             if (cellphone != null && cellphone.getItem() instanceof ItemCellphone) {
                 return new ContainerCellphone(new InventoryCellphone(cellphone), player.inventory);
@@ -25,7 +26,7 @@ public class EMGuiHandler implements IGuiHandler {
     @Override
     public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
         switch (ID) {
-        case CELLPHONE:
+        case CELLPHONE_PEARL:
             ItemStack cellphone = player.getCurrentEquippedItem();
             if (cellphone != null && cellphone.getItem() instanceof ItemCellphone) {
                 return new GuiCellphone(new ContainerCellphone(new InventoryCellphone(cellphone), player.inventory));

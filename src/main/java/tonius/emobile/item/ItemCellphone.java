@@ -23,14 +23,14 @@ public class ItemCellphone extends Item {
         this.setCreativeTab(CreativeTabs.tabTools);
     }
     
-    public boolean usePearl(ItemStack cellphone, EntityPlayer player) {
-        return new InventoryCellphone(cellphone).usePearl();
+    public boolean useFuel(ItemStack cellphone, EntityPlayer player) {
+        return new InventoryCellphone(cellphone).useFuel();
     }
     
     @Override
     public ItemStack onItemRightClick(ItemStack cellphone, World world, EntityPlayer player) {
         if (!world.isRemote) {
-            player.openGui(EMobile.instance, EMGuiHandler.CELLPHONE, world, 0, 0, 0);
+            player.openGui(EMobile.instance, EMGuiHandler.CELLPHONE_PEARL, world, 0, 0, 0);
         }
         
         return cellphone;

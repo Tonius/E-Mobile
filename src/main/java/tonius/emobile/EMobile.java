@@ -11,6 +11,7 @@ import tonius.emobile.config.ClientConfigTickHandler;
 import tonius.emobile.config.EMConfig;
 import tonius.emobile.gui.EMGuiHandler;
 import tonius.emobile.item.ItemCellphone;
+import tonius.emobile.item.ItemCellphoneRF;
 import tonius.emobile.network.PacketHandler;
 import tonius.emobile.network.message.MessageConfigSync;
 import tonius.emobile.session.CellphoneSessionsHandler;
@@ -37,6 +38,7 @@ public class EMobile {
     public static Logger logger;
     
     public static Item cellphone = null;
+    public static Item cellphoneRF = null;
     
     @EventHandler
     public void preInit(FMLPreInitializationEvent evt) {
@@ -53,6 +55,8 @@ public class EMobile {
         logger.info("Registering items");
         cellphone = new ItemCellphone();
         GameRegistry.registerItem(cellphone, "cellphone");
+        cellphoneRF = new ItemCellphoneRF(10000000, 400, 10000);
+        GameRegistry.registerItem(cellphoneRF, "cellphoneRF");
         
         logger.info("Registering handlers");
         PacketHandler.preInit();
