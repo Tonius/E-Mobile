@@ -6,8 +6,9 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.EnumChatFormatting;
 import tonius.emobile.network.PacketHandler;
+import tonius.emobile.network.message.MessageDiallingParticles;
 import tonius.emobile.network.message.MessageDiallingSound;
-import tonius.emobile.network.message.TeleportParticle;
+import tonius.emobile.network.message.MessageTeleportParticles;
 import cpw.mods.fml.common.network.NetworkRegistry.TargetPoint;
 
 public class ServerUtils {
@@ -41,13 +42,12 @@ public class ServerUtils {
         PacketHandler.instance.sendToAllAround(new MessageDiallingSound(player.getEntityId()), new TargetPoint(player.dimension, player.posX, player.posY, player.posZ, 64D));
     }
     
-    /*
-     *Send particle data to the client.
-     *
-     * @param player The player that is teleporting.
-     * @param amount The amount of particles that will spawn.
-     */
-    public static void sendParticlesToPlayer(EntityPlayer player) {
-    	PacketHandler.instance.sendToAllAround(new TeleportParticle(player.getEntityId()), new TargetPoint(player.dimension, player.posX, player.posY, player.posZ, 64D));
+    public static void sendDiallingParticles(EntityPlayer player) {
+        PacketHandler.instance.sendToAllAround(new MessageDiallingParticles(player.getEntityId()), new TargetPoint(player.dimension, player.posX, player.posY, player.posZ, 64D));
     }
+    
+    public static void sendTeleportParticles(EntityPlayer player) {
+        PacketHandler.instance.sendToAllAround(new MessageTeleportParticles(player.getEntityId()), new TargetPoint(player.dimension, player.posX, player.posY, player.posZ, 64D));
+    }
+    
 }

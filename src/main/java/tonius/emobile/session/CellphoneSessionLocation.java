@@ -35,6 +35,10 @@ public class CellphoneSessionLocation extends CellphoneSessionBase {
             return;
         }
         
+        if (this.ticks % Math.max(this.countdownSecs - 2, 1) == 0) {
+            ServerUtils.sendDiallingParticles(this.player);
+        }
+        
         super.tick();
     }
     
@@ -42,18 +46,17 @@ public class CellphoneSessionLocation extends CellphoneSessionBase {
     public void onCountdownSecond() {
         if (this.countdownSecs <= 3 || this.countdownSecs % 2 == 0) {
             this.player.addChatMessage(new ChatComponentText(StringUtils.PINK + String.format(StringUtils.translate("chat.cellphone.countdown"), this.countdownSecs)));
-            //particles to indicate ongoing teleport
-            ServerUtils.sendParticlesToPlayer(this.player); 
+            ServerUtils.sendDiallingParticles(this.player);
         }
     }
     
     @Override
     public void onCountdownFinished() {
-        this.player.worldObj.playSoundAtEntity(this.player, "mob.chicken.plop", 1.0F, 1.0F);
-        //particles after teleport
-        ServerUtils.sendParticlesToPlayer(this.player); 
+        this.player.worldObj.playSoundAtEntity(this.player, "mob.endermen.portal", 1.0F, 1.0F);
+        ServerUtils.sendTeleportParticles(this.player);
         TeleportUtils.teleportPlayerToPos(this.player, this.dimension, this.posX, this.posY, this.posZ, false);
-        this.player.worldObj.playSoundAtEntity(this.player, "mob.chicken.plop", 1.0F, 1.0F);
+        this.player.worldObj.playSoundAtEntity(this.player, "mob.endermen.portal", 1.0F, 1.0F);
+        ServerUtils.sendTeleportParticles(this.player);
         ServerUtils.sendChatToPlayer(this.player.getCommandSenderName(), String.format(StringUtils.translate("chat.cellphone.success.location"), StringUtils.translate(this.unlocalizedLocation)), EnumChatFormatting.GOLD);
     }
     
