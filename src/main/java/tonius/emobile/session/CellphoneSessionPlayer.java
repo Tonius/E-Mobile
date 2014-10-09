@@ -27,7 +27,7 @@ public class CellphoneSessionPlayer extends CellphoneSessionBase {
         if (this.requestingPlayer == null || this.receivingPlayer == null || !ServerUtils.isPlayerConnected(this.requestingPlayer) || !ServerUtils.isPlayerConnected(this.receivingPlayer)) {
             this.invalidate();
             return;
-        }
+        } 
         
         super.tick();
     }
@@ -36,14 +36,18 @@ public class CellphoneSessionPlayer extends CellphoneSessionBase {
     public void onCountdownSecond() {
         if (this.countdownSecs <= 3 || this.countdownSecs % 2 == 0) {
             this.requestingPlayer.addChatMessage(new ChatComponentText(StringUtils.PINK + String.format(StringUtils.translate("chat.cellphone.countdown"), this.countdownSecs)));
+            ServerUtils.sendParticlesToPlayer(this.receivingPlayer); 
+            ServerUtils.sendParticlesToPlayer(this.requestingPlayer); 
         }
     }
     
     @Override
     public void onCountdownFinished() {
         this.requestingPlayer.worldObj.playSoundAtEntity(this.requestingPlayer, "mob.chicken.plop", 1.0F, 1.0F);
+        //particles after teleport
         TeleportUtils.teleportPlayerToPlayer(this.requestingPlayer, this.receivingPlayer);
         this.requestingPlayer.worldObj.playSoundAtEntity(this.requestingPlayer, "mob.chicken.plop", 1.0F, 1.0F);
+        ServerUtils.sendParticlesToPlayer(this.receivingPlayer);
         ServerUtils.sendChatToPlayer(this.requestingPlayer.getCommandSenderName(), String.format(StringUtils.translate("chat.cellphone.success.requesting"), this.receivingPlayer.getCommandSenderName()), EnumChatFormatting.GOLD);
         ServerUtils.sendChatToPlayer(this.receivingPlayer.getCommandSenderName(), String.format(StringUtils.translate("chat.cellphone.success.receiving"), this.requestingPlayer.getCommandSenderName()), EnumChatFormatting.GOLD);
     }
