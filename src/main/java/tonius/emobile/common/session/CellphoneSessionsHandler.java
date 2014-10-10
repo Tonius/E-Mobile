@@ -1,4 +1,4 @@
-package tonius.emobile.server.session;
+package tonius.emobile.common.session;
 
 import java.util.ArrayList;
 import java.util.HashMap;

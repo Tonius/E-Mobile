@@ -1,4 +1,4 @@
-package tonius.emobile.server.util;
+package tonius.emobile.common.util;
 
 import java.util.Iterator;
 

@@ -2,8 +2,8 @@ package tonius.emobile.common.network.message;
 
 import io.netty.buffer.ByteBuf;
 import net.minecraft.entity.player.EntityPlayerMP;
-import tonius.emobile.server.session.CellphoneSessionsHandler;
-import tonius.emobile.server.util.ServerUtils;
+import tonius.emobile.common.session.CellphoneSessionsHandler;
+import tonius.emobile.common.util.ServerUtils;
 import cpw.mods.fml.common.network.ByteBufUtils;
 import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;

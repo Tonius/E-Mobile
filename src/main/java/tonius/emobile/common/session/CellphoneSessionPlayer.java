@@ -1,12 +1,12 @@
-package tonius.emobile.server.session;
+package tonius.emobile.common.session;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.EnumChatFormatting;
+import tonius.emobile.common.util.ServerUtils;
 import tonius.emobile.common.util.StringUtils;
-import tonius.emobile.server.util.ServerUtils;
-import tonius.emobile.server.util.TeleportUtils;
+import tonius.emobile.common.util.TeleportUtils;
 
 public class CellphoneSessionPlayer extends CellphoneSessionBase {
     

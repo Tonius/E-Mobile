@@ -14,7 +14,7 @@ import tonius.emobile.common.item.ItemCellphone;
 import tonius.emobile.common.item.ItemCellphoneRF;
 import tonius.emobile.common.network.PacketHandler;
 import tonius.emobile.common.network.message.MessageConfigSync;
-import tonius.emobile.server.session.CellphoneSessionsHandler;
+import tonius.emobile.common.session.CellphoneSessionsHandler;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;

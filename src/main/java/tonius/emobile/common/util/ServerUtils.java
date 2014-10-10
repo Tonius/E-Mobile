@@ -1,4 +1,4 @@
-package tonius.emobile.server.util;
+package tonius.emobile.common.util;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
