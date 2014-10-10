@@ -55,7 +55,7 @@ public class EMobile {
         logger.info("Registering items");
         cellphone = new ItemCellphone();
         GameRegistry.registerItem(cellphone, "cellphone");
-        cellphoneRF = new ItemCellphoneRF(10000000, 400, 10000);
+        cellphoneRF = new ItemCellphoneRF(10000000, 16000, 10000);
         GameRegistry.registerItem(cellphoneRF, "cellphoneRF");
         
         logger.info("Registering handlers");
