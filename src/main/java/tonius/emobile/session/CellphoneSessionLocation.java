@@ -37,6 +37,7 @@ public class CellphoneSessionLocation extends CellphoneSessionBase {
         
         if (this.ticks % Math.max(this.countdownSecs - 2, 1) == 0) {
             ServerUtils.sendDiallingParticles(this.player);
+            ServerUtils.sendDiallingParticles(this.dimension, this.posX, this.posY, this.posZ);
         }
         
         super.tick();
@@ -46,8 +47,6 @@ public class CellphoneSessionLocation extends CellphoneSessionBase {
     public void onCountdownSecond() {
         if (this.countdownSecs <= 3 || this.countdownSecs % 2 == 0) {
             this.player.addChatMessage(new ChatComponentText(StringUtils.PINK + String.format(StringUtils.translate("chat.cellphone.countdown"), this.countdownSecs)));
-            ServerUtils.sendDiallingParticles(this.player);
-            ServerUtils.sendDiallingParticles(this.dimension, this.posX, this.posY, this.posZ);
         }
     }
     
