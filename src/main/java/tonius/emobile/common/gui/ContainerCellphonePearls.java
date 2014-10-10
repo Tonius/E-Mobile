@@ -2,23 +2,18 @@ package tonius.emobile.common.gui;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemEnderPearl;
 import net.minecraft.item.ItemStack;
 
-public class ContainerCellphone extends Container {
+public class ContainerCellphonePearls extends ContainerCellphoneBase {
     
     private InventoryCellphone invCellphone;
-    private int cellphoneSlot;
     
-    public ContainerCellphone(InventoryCellphone invCellphone, InventoryPlayer invPlayer) {
+    public ContainerCellphonePearls(InventoryPlayer invPlayer, InventoryCellphone invCellphone) {
+        super(invPlayer);
         this.invCellphone = invCellphone;
-        this.cellphoneSlot = invPlayer.currentItem;
-        
         this.addSlotToContainer(new SlotEnderPearls(this.invCellphone, 0, 152, 8));
-        
-        this.bindPlayerInventory(invPlayer, 8, 121);
     }
     
     @Override
@@ -64,21 +59,6 @@ public class ContainerCellphone extends Container {
             slotObject.onPickupFromSlot(player, stackInSlot);
         }
         return itemStack;
-    }
-    
-    protected void bindPlayerInventory(InventoryPlayer invPlayer, int xOffset, int yOffset) {
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 9; j++) {
-                this.addSlotToContainer(new Slot(invPlayer, j + i * 9 + 9, xOffset + j * 18, yOffset + i * 18));
-            }
-        }
-        for (int i = 0; i < 9; i++) {
-            if (i == this.cellphoneSlot) {
-                this.addSlotToContainer(new SlotLocked(invPlayer, i, xOffset + i * 18, yOffset + 58));
-            } else {
-                this.addSlotToContainer(new Slot(invPlayer, i, xOffset + i * 18, yOffset + 58));
-            }
-        }
     }
     
 }

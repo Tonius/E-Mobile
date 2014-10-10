@@ -5,16 +5,13 @@ import java.util.List;
 import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiTextField;
-import net.minecraft.item.ItemEnderPearl;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
 
-import tonius.emobile.common.EMobile;
 import tonius.emobile.common.config.EMConfig;
-import tonius.emobile.common.gui.ContainerCellphone;
+import tonius.emobile.common.gui.ContainerCellphoneBase;
 import tonius.emobile.common.network.PacketHandler;
 import tonius.emobile.common.network.message.MessageCellphoneAuthorize;
 import tonius.emobile.common.network.message.MessageCellphoneCancel;
@@ -23,18 +20,18 @@ import tonius.emobile.common.network.message.MessageCellphonePlayer;
 import tonius.emobile.common.network.message.MessageCellphoneSpawn;
 import tonius.emobile.common.util.StringUtils;
 
-public class GuiCellphone extends GuiContainerBase {
+public abstract class GuiCellphoneBase extends GuiContainerBase {
     
-    private GuiTextField accept;
-    private GuiTextField receiver;
-    private GuiButton buttonAccept;
-    private GuiButton buttonReceiver;
-    private GuiButton buttonHome;
-    private GuiButton buttonSpawn;
-    private GuiButton buttonCancel;
+    protected GuiTextField accept;
+    protected GuiTextField receiver;
+    protected GuiButton buttonAccept;
+    protected GuiButton buttonReceiver;
+    protected GuiButton buttonHome;
+    protected GuiButton buttonSpawn;
+    protected GuiButton buttonCancel;
     
-    public GuiCellphone(ContainerCellphone cellphone) {
-        super(cellphone);
+    public GuiCellphoneBase(ContainerCellphoneBase container) {
+        super(container);
         this.xSize = 176;
         this.ySize = 203;
     }
@@ -81,7 +78,6 @@ public class GuiCellphone extends GuiContainerBase {
     
     @Override
     protected void drawGuiContainerForegroundLayer(int param1, int param2) {
-        this.fontRendererObj.drawString(EMobile.cellphone.getItemStackDisplayName(null), 8, 6, 4210752);
         if (EMConfig.allowTeleportPlayers) {
             this.fontRendererObj.drawString(StringUtils.translate("gui.cellphone.accept"), 8, 30, 4210752);
             this.fontRendererObj.drawString(StringUtils.translate("gui.cellphone.teleport"), 8, 60, 4210752);
@@ -101,6 +97,8 @@ public class GuiCellphone extends GuiContainerBase {
         if (this.receiver.getVisible()) {
             this.receiver.drawTextBox();
         }
+        
+        this.mc.renderEngine.bindTexture(new ResourceLocation("emobile", "textures/gui/item/cellphone.png"));
     }
     
     @Override
@@ -120,12 +118,6 @@ public class GuiCellphone extends GuiContainerBase {
             lines.add(StringUtils.translate("gui.cellphone.spawn"));
         } else if (this.func_146978_c(154, 90, 14, 14, mouseX, mouseY)) {
             lines.add(StringUtils.translate("gui.cellphone.cancel"));
-        } else if (this.func_146978_c(152, 8, 16, 16, mouseX, mouseY) && this.inventorySlots.getInventory().get(0) == null && this.mc.thePlayer.inventory.getItemStack() == null) {
-            lines.add(StringUtils.ITALIC + StringUtils.translate("gui.cellphone.pearls.1"));
-            lines.add(StringUtils.ITALIC + StringUtils.translate("gui.cellphone.pearls.2"));
-            if (this.mc.thePlayer.capabilities.isCreativeMode) {
-                lines.add(StringUtils.BRIGHT_GREEN + StringUtils.ITALIC + StringUtils.translate("gui.cellphone.pearls.creative"));
-            }
         } else if (this.func_146978_c(8, 41, 127, 12, mouseX, mouseY) && EMConfig.allowTeleportPlayers) {
             lines.add(StringUtils.BOLD + StringUtils.translate("gui.cellphone.prefixes.1"));
             lines.add(StringUtils.BRIGHT_GREEN + "p:" + StringUtils.END + " - " + StringUtils.translate("gui.cellphone.prefixes.2"));
@@ -191,42 +183,39 @@ public class GuiCellphone extends GuiContainerBase {
         }
     }
     
-    private int getPearls() {
-        ItemStack pearls = (ItemStack) this.inventorySlots.getInventory().get(0);
-        return pearls != null && pearls.getItem() instanceof ItemEnderPearl ? pearls.stackSize : 0;
-    }
-    
-    private void requestPlayerTeleport() {
-        if (!this.receiver.getText().equals("") && (this.mc.thePlayer.capabilities.isCreativeMode || this.getPearls() > 0)) {
-            this.mc.thePlayer.closeScreen();
-            PacketHandler.instance.sendToServer(new MessageCellphonePlayer(this.mc.thePlayer.getCommandSenderName(), this.receiver.getText()));
-        }
-    }
-    
-    private void acceptPlayer() {
+    protected void acceptPlayer() {
         if (!this.accept.getText().equals("")) {
             this.mc.thePlayer.closeScreen();
             PacketHandler.instance.sendToServer(new MessageCellphoneAuthorize(this.mc.thePlayer.getCommandSenderName(), this.accept.getText()));
         }
     }
     
-    private void requestSpawnTeleport() {
-        if (this.mc.thePlayer.capabilities.isCreativeMode || this.getPearls() > 0) {
+    protected void cancelSessions() {
+        this.mc.thePlayer.closeScreen();
+        PacketHandler.instance.sendToServer(new MessageCellphoneCancel(this.mc.thePlayer.getCommandSenderName()));
+    }
+    
+    protected abstract boolean hasEnoughFuel();
+    
+    protected void requestPlayerTeleport() {
+        if (!this.receiver.getText().equals("") && this.hasEnoughFuel()) {
+            this.mc.thePlayer.closeScreen();
+            PacketHandler.instance.sendToServer(new MessageCellphonePlayer(this.mc.thePlayer.getCommandSenderName(), this.receiver.getText()));
+        }
+    }
+    
+    protected void requestSpawnTeleport() {
+        if (this.hasEnoughFuel()) {
             this.mc.thePlayer.closeScreen();
             PacketHandler.instance.sendToServer(new MessageCellphoneSpawn(this.mc.thePlayer.getCommandSenderName()));
         }
     }
     
-    private void requestHomeTeleport() {
-        if (this.mc.thePlayer.capabilities.isCreativeMode || this.getPearls() > 0) {
+    protected void requestHomeTeleport() {
+        if (this.hasEnoughFuel()) {
             this.mc.thePlayer.closeScreen();
             PacketHandler.instance.sendToServer(new MessageCellphoneHome(this.mc.thePlayer.getCommandSenderName()));
         }
-    }
-    
-    private void cancelSessions() {
-        this.mc.thePlayer.closeScreen();
-        PacketHandler.instance.sendToServer(new MessageCellphoneCancel(this.mc.thePlayer.getCommandSenderName()));
     }
     
 }

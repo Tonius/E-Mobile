@@ -5,7 +5,7 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumChatFormatting;
 import tonius.emobile.common.config.EMConfig;
-import tonius.emobile.common.item.ItemCellphone;
+import tonius.emobile.common.item.ItemCellphonePearls;
 import tonius.emobile.common.session.CellphoneSessionPlayer;
 import tonius.emobile.common.session.CellphoneSessionsHandler;
 import tonius.emobile.common.util.ServerUtils;
@@ -56,8 +56,8 @@ public class MessageCellphonePlayer implements IMessage, IMessageHandler<Message
                 if (!CellphoneSessionsHandler.isPlayerInSession(requestingPlayer)) {
                     if (CellphoneSessionsHandler.isPlayerAccepted(receivingPlayer, requestingPlayer)) {
                         ItemStack heldItem = requestingPlayer.getCurrentEquippedItem();
-                        if (heldItem != null && heldItem.getItem() instanceof ItemCellphone) {
-                            if (requestingPlayer.capabilities.isCreativeMode || ((ItemCellphone) heldItem.getItem()).useFuel(heldItem, requestingPlayer)) {
+                        if (heldItem != null && heldItem.getItem() instanceof ItemCellphonePearls) {
+                            if (requestingPlayer.capabilities.isCreativeMode || ((ItemCellphonePearls) heldItem.getItem()).useFuel(heldItem, requestingPlayer)) {
                                 ServerUtils.sendDiallingSound(requestingPlayer);
                                 new CellphoneSessionPlayer(8, requestingPlayer, receivingPlayer);
                             }

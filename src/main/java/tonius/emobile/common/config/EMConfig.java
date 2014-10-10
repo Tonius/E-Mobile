@@ -17,6 +17,7 @@ public class EMConfig {
     
     public static final ConfigSection sectionGeneral = new ConfigSection("General Settings", "general");
     public static final ConfigSection sectionTweaks = new ConfigSection("Tweaks Settings", "tweaks");
+    public static final ConfigSection sectionFluxCellphone = new ConfigSection("Flux Cellphone Settings", "fluxCellphone");
     
     // general default
     public static final boolean allowTeleportPlayers_default = true;
@@ -28,6 +29,11 @@ public class EMConfig {
     // tweaks default
     public static final int enderPearlStackSize_default = 16;
     
+    // fluxCellphone default
+    public static final int fluxCellphoneMaxEnergy_default = 10000000;
+    public static final int fluxCellphoneMaxInput_default = 20000;
+    public static final int fluxCellphoneEnergyPerUse_default = 1280000;
+    
     // item
     public static boolean allowTeleportPlayers = allowTeleportHome_default;
     public static boolean allowTeleportHome = allowTeleportHome_default;
@@ -37,6 +43,11 @@ public class EMConfig {
     
     // tweaks
     public static int enderPearlStackSize = enderPearlStackSize_default;
+    
+    // fluxCellphone
+    public static int fluxCellphoneMaxEnergy = fluxCellphoneMaxEnergy_default;
+    public static int fluxCellphoneMaxInput = fluxCellphoneMaxInput_default;
+    public static int fluxCellphoneEnergyPerUse = fluxCellphoneEnergyPerUse_default;
     
     public static void preInit(FMLPreInitializationEvent evt) {
         FMLCommonHandler.instance().bus().register(new EMConfig());
@@ -52,6 +63,11 @@ public class EMConfig {
             e.printStackTrace();
         } finally {
             config.save();
+        }
+        if (EMobile.cellphoneRF != null) {
+            EMobile.cellphoneRF.maxEnergy = fluxCellphoneMaxEnergy;
+            EMobile.cellphoneRF.maxInput = fluxCellphoneMaxInput;
+            EMobile.cellphoneRF.energyPerUse = fluxCellphoneEnergyPerUse;
         }
     }
     
@@ -75,6 +91,10 @@ public class EMConfig {
         dimensionsWhitelist = config.get(sectionGeneral.name, "Dimensions Whitelist", dimensionsWhitelist_default, "If enabled, the blacklist of dimension ids will be treated as a whitelist instead. The dimensions will then be the only dimensions that may be teleported to or from.").getBoolean(dimensionsWhitelist_default);
         
         enderPearlStackSize = config.get(sectionTweaks.name, "Ender Pearl stack size", enderPearlStackSize_default, "This config option can be used to change the maximum stack size of Ender Pearls.").setMinValue(1).setMaxValue(512).setRequiresMcRestart(true).getInt(enderPearlStackSize_default);
+        
+        fluxCellphoneMaxEnergy = config.get(sectionFluxCellphone.name, "Max Energy", fluxCellphoneMaxEnergy_default, "The maximum amount of RF that a Flux Cellphone can store.").setMinValue(1).getInt(fluxCellphoneMaxEnergy_default);
+        fluxCellphoneMaxInput = config.get(sectionFluxCellphone.name, "Max Input", fluxCellphoneMaxInput_default, "The maximum RF/t rate that the Flux Cellphone can be charged with.").setMinValue(0).getInt(fluxCellphoneMaxInput_default);
+        fluxCellphoneEnergyPerUse = config.get(sectionFluxCellphone.name, "Energy Per Use", fluxCellphoneEnergyPerUse_default, "The amount of RF that the Flux Cellphone consumes when teleporting.").setMinValue(0).getInt(fluxCellphoneEnergyPerUse_default);
     }
     
     public static class ConfigSection {

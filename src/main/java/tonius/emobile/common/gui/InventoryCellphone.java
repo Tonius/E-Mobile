@@ -6,7 +6,7 @@ import net.minecraft.item.ItemEnderPearl;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
-import tonius.emobile.common.item.ItemCellphone;
+import tonius.emobile.common.item.ItemCellphonePearls;
 import tonius.emobile.common.util.StackUtils;
 
 public class InventoryCellphone implements IInventory {
@@ -15,7 +15,7 @@ public class InventoryCellphone implements IInventory {
     private ItemStack[] inv = new ItemStack[1];
     
     public InventoryCellphone(ItemStack cellphone) {
-        if (cellphone == null || !(cellphone.getItem() instanceof ItemCellphone)) {
+        if (cellphone == null || !(cellphone.getItem() instanceof ItemCellphonePearls)) {
             throw new IllegalArgumentException("Invalid ItemStack when creating a " + this.getClass().getSimpleName() + " instance");
         }
         this.cellphone = cellphone;

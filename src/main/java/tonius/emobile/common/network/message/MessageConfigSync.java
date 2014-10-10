@@ -12,12 +12,18 @@ public class MessageConfigSync implements IMessage, IMessageHandler<MessageConfi
     public boolean allowTeleportPlayers;
     public boolean allowTeleportHome;
     public boolean allowTeleportSpawn;
+    public int fluxCellphoneMaxEnergy;
+    public int fluxCellphoneMaxInput;
+    public int fluxCellphoneEnergyPerUse;
     
     @Override
     public void fromBytes(ByteBuf buf) {
         this.allowTeleportPlayers = buf.readBoolean();
         this.allowTeleportHome = buf.readBoolean();
         this.allowTeleportSpawn = buf.readBoolean();
+        this.fluxCellphoneMaxEnergy = buf.readInt();
+        this.fluxCellphoneMaxInput = buf.readInt();
+        this.fluxCellphoneEnergyPerUse = buf.readInt();
     }
     
     @Override
@@ -25,6 +31,9 @@ public class MessageConfigSync implements IMessage, IMessageHandler<MessageConfi
         buf.writeBoolean(EMConfig.allowTeleportPlayers);
         buf.writeBoolean(EMConfig.allowTeleportHome);
         buf.writeBoolean(EMConfig.allowTeleportSpawn);
+        buf.writeInt(EMConfig.fluxCellphoneMaxEnergy);
+        buf.writeInt(EMConfig.fluxCellphoneMaxInput);
+        buf.writeInt(EMConfig.fluxCellphoneEnergyPerUse);
     }
     
     @Override
@@ -32,6 +41,9 @@ public class MessageConfigSync implements IMessage, IMessageHandler<MessageConfi
         EMConfig.allowTeleportPlayers = msg.allowTeleportPlayers;
         EMConfig.allowTeleportHome = msg.allowTeleportHome;
         EMConfig.allowTeleportSpawn = msg.allowTeleportSpawn;
+        EMobile.cellphoneRF.maxEnergy = msg.fluxCellphoneMaxEnergy;
+        EMobile.cellphoneRF.maxInput = msg.fluxCellphoneMaxInput;
+        EMobile.cellphoneRF.energyPerUse = msg.fluxCellphoneEnergyPerUse;
         
         EMobile.logger.info("Received server configuration");
         return null;

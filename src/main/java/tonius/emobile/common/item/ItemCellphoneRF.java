@@ -15,11 +15,11 @@ import cofh.api.energy.IEnergyContainerItem;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class ItemCellphoneRF extends ItemCellphone implements IEnergyContainerItem {
+public class ItemCellphoneRF extends ItemCellphonePearls implements IEnergyContainerItem {
     
-    private int maxEnergy;
-    private int maxInput;
-    private int energyPerUse;
+    public int maxEnergy;
+    public int maxInput;
+    public int energyPerUse;
     
     public ItemCellphoneRF(int maxEnergy, int maxInput, int energyPerUse) {
         this.maxEnergy = maxEnergy;

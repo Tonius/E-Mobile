@@ -2,7 +2,6 @@ package tonius.emobile.common;
 
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Items;
-import net.minecraft.item.Item;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 
 import org.apache.logging.log4j.Logger;
@@ -10,7 +9,7 @@ import org.apache.logging.log4j.Logger;
 import tonius.emobile.client.config.ClientConfigTickHandler;
 import tonius.emobile.common.config.EMConfig;
 import tonius.emobile.common.gui.EMGuiHandler;
-import tonius.emobile.common.item.ItemCellphone;
+import tonius.emobile.common.item.ItemCellphonePearls;
 import tonius.emobile.common.item.ItemCellphoneRF;
 import tonius.emobile.common.network.PacketHandler;
 import tonius.emobile.common.network.message.MessageConfigSync;
@@ -37,8 +36,8 @@ public class EMobile {
     public static CommonProxy proxy;
     public static Logger logger;
     
-    public static Item cellphone = null;
-    public static Item cellphoneRF = null;
+    public static ItemCellphonePearls cellphone = null;
+    public static ItemCellphoneRF cellphoneRF = null;
     
     @EventHandler
     public void preInit(FMLPreInitializationEvent evt) {
@@ -53,9 +52,9 @@ public class EMobile {
         }
         
         logger.info("Registering items");
-        cellphone = new ItemCellphone();
+        cellphone = new ItemCellphonePearls();
         GameRegistry.registerItem(cellphone, "cellphone");
-        cellphoneRF = new ItemCellphoneRF(10000000, 16000, 10000);
+        cellphoneRF = new ItemCellphoneRF(EMConfig.fluxCellphoneMaxEnergy, EMConfig.fluxCellphoneMaxInput, EMConfig.fluxCellphoneEnergyPerUse);
         GameRegistry.registerItem(cellphoneRF, "cellphoneRF");
         
         logger.info("Registering handlers");

@@ -6,13 +6,7 @@ import java.util.List;
 
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.inventory.GuiContainer;
-import net.minecraft.init.Blocks;
 import net.minecraft.inventory.Container;
-import net.minecraft.util.IIcon;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.FluidTankInfo;
 
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
@@ -22,9 +16,6 @@ public abstract class GuiContainerBase extends GuiContainer {
     public GuiContainerBase(Container container) {
         super(container);
     }
-    
-    @Override
-    protected abstract void drawGuiContainerBackgroundLayer(float f, int i, int j);
     
     @Override
     public void drawScreen(int mouseX, int mouseY, float gameTicks) {
@@ -42,7 +33,6 @@ public abstract class GuiContainerBase extends GuiContainer {
     
     protected abstract void getTooltipLines(List lines, int mouseX, int mouseY);
     
-    @SuppressWarnings("rawtypes")
     protected void drawTooltip(List list, int x, int y, FontRenderer font) {
         if (list == null || list.isEmpty()) {
             return;
@@ -103,50 +93,6 @@ public abstract class GuiContainerBase extends GuiContainer {
         GL11.glEnable(GL11.GL_LIGHTING);
         GL11.glEnable(GL11.GL_DEPTH_TEST);
         GL11.glEnable(GL12.GL_RESCALE_NORMAL);
-    }
-    
-    protected void drawTankFluid(int x, int y, FluidTankInfo tank) {
-        if (tank.capacity <= 0) {
-            return;
-        }
-        FluidStack fluidStack = tank.fluid;
-        if (fluidStack == null) {
-            return;
-        }
-        if (fluidStack.amount <= 0) {
-            return;
-        }
-        Fluid fluid = fluidStack.getFluid();
-        if (fluid == null) {
-            return;
-        }
-        IIcon fluidIcon = fluid.getIcon();
-        if (fluidIcon == null) {
-            fluidIcon = Blocks.water.getIcon(0, 0);
-        }
-        
-        int height = (int) Math.floor((double) fluidStack.amount / (double) tank.capacity * 60);
-        if (height == 0) {
-            height++;
-        }
-        
-        GL11.glColor3f(1.0F, 1.0F, 1.0F);
-        this.bindFluidTexture(fluid);
-        
-        int drawHeight = 0;
-        for (int i = 0; i < height; i += 16) {
-            drawHeight = Math.min(height - i, 16);
-            this.drawTexturedModelRectFromIcon(x, y + 60 - height + i, fluidIcon, 16, drawHeight);
-        }
-        
-    }
-    
-    protected void bindFluidTexture(Fluid fluid) {
-        if (fluid.getSpriteNumber() == 0) {
-            this.mc.renderEngine.bindTexture(new ResourceLocation("textures/atlas/blocks.png"));
-        } else {
-            GL11.glBindTexture(GL11.GL_TEXTURE_2D, fluid.getSpriteNumber());
-        }
     }
     
 }
