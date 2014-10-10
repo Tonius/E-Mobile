@@ -47,7 +47,7 @@ public class ItemCellphoneRF extends ItemCellphonePearls implements IEnergyConta
     @Override
     @SideOnly(Side.CLIENT)
     public void addInformation(ItemStack itemStack, EntityPlayer player, List list, boolean bool) {
-        list.add(String.format(StringUtils.translate("tooltip.cellphone.rf"), this.getEnergyStored(itemStack)));
+        list.add(this.getEnergyStored(itemStack) + " / " + this.getMaxEnergyStored(itemStack) + " RF");
     }
     
     @Override

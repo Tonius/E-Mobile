@@ -21,8 +21,7 @@ emobile.gui.cellphone.cancel=Cancel current teleport
 emobile.gui.nei.recipe.dirtmaker=Decomposition Accel.
 
 emobile.tooltip.holdShift=Hold %s for Details
-emobile.tooltip.cellphone.pearls=Stored pearls: %d
-emobile.tooltip.cellphone.rf=Stored energy: %d RF
+emobile.tooltip.cellphone.pearls=%d pearls stored
 
 emobile.chat.cellphone.start.requesting=You will be teleporting to %s...
 emobile.chat.cellphone.start.receiving=%s will be teleporting to you...
