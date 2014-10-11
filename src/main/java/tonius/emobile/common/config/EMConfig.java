@@ -30,9 +30,9 @@ public class EMConfig {
     public static final int enderPearlStackSize_default = 16;
     
     // fluxCellphone default
-    public static final int fluxCellphoneMaxEnergy_default = 100000;
-    public static final int fluxCellphoneMaxInput_default = 200;
-    public static final int fluxCellphoneEnergyPerUse_default = 12800;
+    public static final int fluxCellphoneMaxEnergy_default = 1000000;
+    public static final int fluxCellphoneMaxInput_default = 2000;
+    public static final int fluxCellphoneEnergyPerUse_default = 128000;
     
     // item
     public static boolean allowTeleportPlayers = allowTeleportHome_default;
