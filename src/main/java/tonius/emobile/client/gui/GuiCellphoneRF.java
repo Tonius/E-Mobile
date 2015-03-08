@@ -44,7 +44,7 @@ public class GuiCellphoneRF extends GuiCellphoneBase {
                     lines.add(StringUtils.BRIGHT_GREEN + StringUtils.ITALIC + StringUtils.translate("gui.cellphone.pearls.creative"));
                 }
             }
-            lines.add(StringUtils.ITALIC + String.format(StringUtils.translate("gui.cellphone.rf.3"), EMobile.cellphoneRF.energyPerUse));
+            lines.add(StringUtils.LIGHT_GRAY + StringUtils.ITALIC + String.format(StringUtils.translate("gui.cellphone.rf.3"), EMobile.cellphoneRF.energyPerUse));
         }
     }
     

@@ -24,12 +24,12 @@ repositories {
 
 apply plugin: 'forge'
 
-version = "1.1.1"
-group= "tonius.emobile"
+version = "1.2.0"
+group = "tonius.emobile"
 archivesBaseName = "E-Mobile-MC1.7.10"
 
 minecraft {
-    version = "1.7.10-10.13.0.1189"
+    version = "1.7.10-10.13.2.1291"
     runDir = "eclipse"
 }
 

@@ -41,9 +41,11 @@ public class MessageConfigSync implements IMessage, IMessageHandler<MessageConfi
         EMConfig.allowTeleportPlayers = msg.allowTeleportPlayers;
         EMConfig.allowTeleportHome = msg.allowTeleportHome;
         EMConfig.allowTeleportSpawn = msg.allowTeleportSpawn;
-        EMobile.cellphoneRF.maxEnergy = msg.fluxCellphoneMaxEnergy;
-        EMobile.cellphoneRF.maxInput = msg.fluxCellphoneMaxInput;
-        EMobile.cellphoneRF.energyPerUse = msg.fluxCellphoneEnergyPerUse;
+        if (EMobile.cellphoneRF != null) {
+            EMobile.cellphoneRF.maxEnergy = msg.fluxCellphoneMaxEnergy;
+            EMobile.cellphoneRF.maxInput = msg.fluxCellphoneMaxInput;
+            EMobile.cellphoneRF.energyPerUse = msg.fluxCellphoneEnergyPerUse;
+        }
         
         EMobile.logger.info("Received server configuration");
         return null;

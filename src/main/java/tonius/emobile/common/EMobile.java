@@ -15,6 +15,7 @@ import tonius.emobile.common.network.PacketHandler;
 import tonius.emobile.common.network.message.MessageConfigSync;
 import tonius.emobile.common.session.CellphoneSessionsHandler;
 import cpw.mods.fml.common.FMLCommonHandler;
+import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
@@ -27,7 +28,7 @@ import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 
-@Mod(modid = "emobile", guiFactory = "tonius.emobile.client.config.ConfigGuiFactoryEM")
+@Mod(modid = "emobile", guiFactory = "tonius.emobile.client.config.ConfigGuiFactoryEM", dependencies = "after:ThermalExpansion")
 public class EMobile {
     
     @Instance("emobile")
@@ -46,7 +47,7 @@ public class EMobile {
         
         EMConfig.preInit(evt);
         
-        if (EMConfig.enderPearlStackSize != EMConfig.enderPearlStackSize_default) {
+        if (EMConfig.enderPearlStackSize != Items.ender_pearl.getItemStackLimit()) {
             logger.info("Setting new Ender Pearl stack size");
             Items.ender_pearl.setMaxStackSize(EMConfig.enderPearlStackSize);
         }
@@ -54,8 +55,10 @@ public class EMobile {
         logger.info("Registering items");
         cellphone = new ItemCellphonePearls();
         GameRegistry.registerItem(cellphone, "cellphone");
-        cellphoneRF = new ItemCellphoneRF(EMConfig.fluxCellphoneMaxEnergy, EMConfig.fluxCellphoneMaxInput, EMConfig.fluxCellphoneEnergyPerUse);
-        GameRegistry.registerItem(cellphoneRF, "cellphoneRF");
+        if (EMConfig.fluxCellphoneEnabled) {
+            cellphoneRF = new ItemCellphoneRF(EMConfig.fluxCellphoneMaxEnergy, EMConfig.fluxCellphoneMaxInput, EMConfig.fluxCellphoneEnergyPerUse);
+            GameRegistry.registerItem(cellphoneRF, "cellphoneRF");
+        }
         
         logger.info("Registering handlers");
         PacketHandler.preInit();
@@ -71,6 +74,13 @@ public class EMobile {
     public void postInit(FMLPostInitializationEvent evt) {
         logger.info("Registering recipes");
         GameRegistry.addRecipe(new ShapedOreRecipe(cellphone, new Object[] { " IS", "IPI", "III", 'S', "stickWood", 'I', "ingotIron", 'P', Items.ender_pearl }));
+        if (cellphoneRF != null) {
+            if (Loader.isModLoaded("ThermalExpansion")) {
+                
+            } else {
+                GameRegistry.addRecipe(new ShapedOreRecipe(cellphone, new Object[] { " IS", "IPI", "IRI", 'S', "stickWood", 'I', "ingotIron", 'P', Items.ender_pearl, 'R', "blockRedstone" }));
+            }
+        }
     }
     
     @SubscribeEvent

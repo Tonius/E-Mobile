@@ -30,6 +30,7 @@ public class EMConfig {
     public static final int enderPearlStackSize_default = 16;
     
     // fluxCellphone default
+    public static final boolean fluxCellphoneEnabled_default = true;
     public static final int fluxCellphoneMaxEnergy_default = 1000000;
     public static final int fluxCellphoneMaxInput_default = 2000;
     public static final int fluxCellphoneEnergyPerUse_default = 128000;
@@ -45,6 +46,7 @@ public class EMConfig {
     public static int enderPearlStackSize = enderPearlStackSize_default;
     
     // fluxCellphone
+    public static boolean fluxCellphoneEnabled = fluxCellphoneEnabled_default;
     public static int fluxCellphoneMaxEnergy = fluxCellphoneMaxEnergy_default;
     public static int fluxCellphoneMaxInput = fluxCellphoneMaxInput_default;
     public static int fluxCellphoneEnergyPerUse = fluxCellphoneEnergyPerUse_default;
@@ -92,6 +94,7 @@ public class EMConfig {
         
         enderPearlStackSize = config.get(sectionTweaks.name, "Ender Pearl stack size", enderPearlStackSize_default, "This config option can be used to change the maximum stack size of Ender Pearls.").setMinValue(1).setMaxValue(512).setRequiresMcRestart(true).getInt(enderPearlStackSize_default);
         
+        fluxCellphoneEnabled = config.get(sectionFluxCellphone.name, "Enabled", fluxCellphoneEnabled_default, "Whether the Flux Cellphone is enabled at all.").setRequiresMcRestart(true).getBoolean();
         fluxCellphoneMaxEnergy = config.get(sectionFluxCellphone.name, "Max Energy", fluxCellphoneMaxEnergy_default, "The maximum amount of RF that a Flux Cellphone can store.").setMinValue(1).getInt(fluxCellphoneMaxEnergy_default);
         fluxCellphoneMaxInput = config.get(sectionFluxCellphone.name, "Max Input", fluxCellphoneMaxInput_default, "The maximum RF/t rate that the Flux Cellphone can be charged with.").setMinValue(0).getInt(fluxCellphoneMaxInput_default);
         fluxCellphoneEnergyPerUse = config.get(sectionFluxCellphone.name, "Energy Per Use", fluxCellphoneEnergyPerUse_default, "The amount of RF that the Flux Cellphone consumes when teleporting.").setMinValue(0).getInt(fluxCellphoneEnergyPerUse_default);
