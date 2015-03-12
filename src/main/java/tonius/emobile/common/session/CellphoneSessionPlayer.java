@@ -24,7 +24,13 @@ public class CellphoneSessionPlayer extends CellphoneSessionBase {
     
     @Override
     public void tick() {
-        if (this.requestingPlayer == null || this.receivingPlayer == null || !ServerUtils.isPlayerConnected(this.requestingPlayer) || !ServerUtils.isPlayerConnected(this.receivingPlayer)) {
+        if (!ServerUtils.canPlayerTeleport(this.requestingPlayer) || !ServerUtils.canPlayerTeleport(this.receivingPlayer)) {
+            this.invalidate();
+            return;
+        } else if (!TeleportUtils.isDimTeleportAllowed(this.requestingPlayer.dimension, this.receivingPlayer.dimension)) {
+            String msg = String.format(StringUtils.translate("chat.cellphone.cancel.dimension"), this.requestingPlayer.worldObj.provider.getDimensionName(), this.receivingPlayer.worldObj.provider.getDimensionName());
+            ServerUtils.sendChatToPlayer(this.requestingPlayer.getCommandSenderName(), msg, EnumChatFormatting.RED);
+            ServerUtils.sendChatToPlayer(this.receivingPlayer.getCommandSenderName(), msg, EnumChatFormatting.RED);
             this.invalidate();
             return;
         }
@@ -64,8 +70,9 @@ public class CellphoneSessionPlayer extends CellphoneSessionBase {
     @Override
     public void cancel(String canceledBy) {
         super.cancel(canceledBy);
-        ServerUtils.sendChatToPlayer(this.requestingPlayer.getCommandSenderName(), String.format(StringUtils.translate("chat.cellphone.cancel.player"), canceledBy), EnumChatFormatting.RED);
-        ServerUtils.sendChatToPlayer(this.receivingPlayer.getCommandSenderName(), String.format(StringUtils.translate("chat.cellphone.cancel.player"), canceledBy), EnumChatFormatting.RED);
+        String msg = String.format(StringUtils.translate("chat.cellphone.cancel.player"), canceledBy);
+        ServerUtils.sendChatToPlayer(this.requestingPlayer.getCommandSenderName(), msg, EnumChatFormatting.RED);
+        ServerUtils.sendChatToPlayer(this.receivingPlayer.getCommandSenderName(), msg, EnumChatFormatting.RED);
     }
     
     @Override

@@ -11,7 +11,6 @@ public class ContainerCellphoneBase extends Container {
     
     protected ContainerCellphoneBase(InventoryPlayer invPlayer) {
         this.cellphoneSlot = invPlayer.currentItem;
-        this.bindPlayerInventory(invPlayer, 8, 121);
     }
     
     protected void bindPlayerInventory(InventoryPlayer invPlayer, int xOffset, int yOffset) {

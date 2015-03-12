@@ -21,6 +21,10 @@ public class ServerUtils {
         return MinecraftServer.getServer().getConfigurationManager().playerEntityList.contains(player);
     }
     
+    public static boolean canPlayerTeleport(EntityPlayerMP player) {
+        return player != null && isPlayerConnected(player) && !player.isDead;
+    }
+    
     public static void sendGlobalChat(String chat) {
         MinecraftServer.getServer().getConfigurationManager().sendChatMsg(new ChatComponentText(chat));
     }
@@ -39,19 +43,19 @@ public class ServerUtils {
     }
     
     public static void sendDiallingSound(EntityPlayer player) {
-        PacketHandler.instance.sendToAllAround(new MessageDiallingSound(player.getEntityId()), new TargetPoint(player.dimension, player.posX, player.posY, player.posZ, 64D));
+        PacketHandler.instance.sendToAllAround(new MessageDiallingSound(player.getEntityId()), new TargetPoint(player.dimension, player.posX, player.posY, player.posZ, 256));
     }
     
     public static void sendDiallingParticles(EntityPlayer player) {
-        PacketHandler.instance.sendToAllAround(new MessageDiallingParticles(player.posX, player.posY + 0.8D, player.posZ), new TargetPoint(player.dimension, player.posX, player.posY, player.posZ, 64D));
+        PacketHandler.instance.sendToAllAround(new MessageDiallingParticles(player.posX, player.posY + 0.8D, player.posZ), new TargetPoint(player.dimension, player.posX, player.posY, player.posZ, 256));
     }
     
     public static void sendDiallingParticles(int dimension, int posX, int posY, int posZ) {
-        PacketHandler.instance.sendToAllAround(new MessageDiallingParticles(posX + 0.5D, posY + 0.5D, posZ + 0.5D), new TargetPoint(dimension, posX + 0.5D, posY + 0.5D, posZ + 0.5D, 64D));
+        PacketHandler.instance.sendToAllAround(new MessageDiallingParticles(posX + 0.5D, posY + 0.5D, posZ + 0.5D), new TargetPoint(dimension, posX + 0.5D, posY + 0.5D, posZ + 0.5D, 256));
     }
     
     public static void sendTeleportParticles(EntityPlayer player) {
-        PacketHandler.instance.sendToAllAround(new MessageTeleportParticles(player.posX, player.posY + 0.8D, player.posZ), new TargetPoint(player.dimension, player.posX, player.posY, player.posZ, 64D));
+        PacketHandler.instance.sendToAllAround(new MessageTeleportParticles(player.posX, player.posY + 0.8D, player.posZ), new TargetPoint(player.dimension, player.posX, player.posY, player.posZ, 256));
     }
     
 }

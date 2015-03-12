@@ -30,7 +30,12 @@ public class CellphoneSessionLocation extends CellphoneSessionBase {
     
     @Override
     public void tick() {
-        if (this.player == null || !ServerUtils.isPlayerConnected(this.player)) {
+        if (!ServerUtils.canPlayerTeleport(this.player)) {
+            this.invalidate();
+            return;
+        } else if (!TeleportUtils.isDimTeleportAllowed(this.player.dimension, this.dimension)) {
+            String msg = String.format(StringUtils.translate("chat.cellphone.cancel.dimension"), this.player.worldObj.provider.getDimensionName(), this.player.mcServer.worldServerForDimension(this.dimension).provider.getDimensionName());
+            ServerUtils.sendChatToPlayer(this.player.getCommandSenderName(), msg, EnumChatFormatting.RED);
             this.invalidate();
             return;
         }

@@ -1,9 +1,10 @@
 item.emobile.cellphone.name=Ender Cellphone
-item.emobile.cellphone.rf.name=Flux Cellphone
+item.emobile.cellphone.rf.name=Fluxed Ender Cellphone
 
 emobile.gui.cellphone.pearls.1=This device requires
 emobile.gui.cellphone.pearls.2=Ender Pearls to function.
 emobile.gui.cellphone.pearls.creative=But not in creative mode!
+emobile.gui.cellphone.rf=F. Ender Cellphone
 emobile.gui.cellphone.rf.1=This device requires
 emobile.gui.cellphone.rf.2=Redstone Flux to function.
 emobile.gui.cellphone.rf.3=%d RF per use
@@ -18,7 +19,6 @@ emobile.gui.cellphone.teleport=Teleport to a player
 emobile.gui.cellphone.home=Teleport home
 emobile.gui.cellphone.spawn=Teleport to spawn
 emobile.gui.cellphone.cancel=Cancel current teleport
-emobile.gui.nei.recipe.dirtmaker=Decomposition Accel.
 
 emobile.tooltip.holdShift=Hold %s for Details
 emobile.tooltip.cellphone.pearls=%d pearls stored
@@ -33,7 +33,7 @@ emobile.chat.cellphone.success.location=You've been teleported to %s.
 emobile.chat.cellphone.tryStart.unknown=Player %s is unknown.
 emobile.chat.cellphone.tryStart.unauthorized=Player %s hasn't authorized you to teleport!
 emobile.chat.cellphone.tryStart.bedmissing.1=Your home bed is missing or obstructed
-emobile.chat.cellphone.tryStart.bedmissing.2=or in a dimension you are not allowed not teleport to!
+emobile.chat.cellphone.tryStart.bedmissing.2=or in a blacklisted dimension!
 emobile.chat.cellphone.tryStart.dimension=Teleporting from %s to %s is not allowed!
 emobile.chat.cellphone.authorize.unknown=Player %s is unknown.
 emobile.chat.cellphone.authorize.self=You can't authorize yourself!
@@ -46,9 +46,10 @@ emobile.chat.cellphone.location.spawn=the spawn point
 emobile.chat.cellphone.location.home=your bed
 emobile.chat.cellphone.cancel=Teleport has been canceled.
 emobile.chat.cellphone.cancel.player=Teleport has been canceled by %s.
+emobile.chat.cellphone.cancel.dimension=Teleporting from %s to %s is not allowed! Canceling teleport.
 emobile.chat.cellphone.disabled=This feature is disabled on this server.
 
 emobile.config.title=E-Mobile Configuration
 emobile.config.general=General Settings
 emobile.config.tweaks=Tweaks Settings
-emobile.config.fluxCellphone=Flux Cellphone Settings
+emobile.config.fluxCellphone=Fluxed Ender Cellphone Settings

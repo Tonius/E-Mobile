@@ -9,7 +9,7 @@ import org.apache.logging.log4j.Logger;
 import tonius.emobile.client.config.ClientConfigTickHandler;
 import tonius.emobile.common.config.EMConfig;
 import tonius.emobile.common.gui.EMGuiHandler;
-import tonius.emobile.common.item.ItemCellphonePearls;
+import tonius.emobile.common.item.ItemCellphone;
 import tonius.emobile.common.item.ItemCellphoneRF;
 import tonius.emobile.common.network.PacketHandler;
 import tonius.emobile.common.network.message.MessageConfigSync;
@@ -37,7 +37,7 @@ public class EMobile {
     public static CommonProxy proxy;
     public static Logger logger;
     
-    public static ItemCellphonePearls cellphone = null;
+    public static ItemCellphone cellphone = null;
     public static ItemCellphoneRF cellphoneRF = null;
     
     @EventHandler
@@ -53,7 +53,7 @@ public class EMobile {
         }
         
         logger.info("Registering items");
-        cellphone = new ItemCellphonePearls();
+        cellphone = new ItemCellphone();
         GameRegistry.registerItem(cellphone, "cellphone");
         if (EMConfig.fluxCellphoneEnabled) {
             cellphoneRF = new ItemCellphoneRF(EMConfig.fluxCellphoneMaxEnergy, EMConfig.fluxCellphoneMaxInput, EMConfig.fluxCellphoneEnergyPerUse);

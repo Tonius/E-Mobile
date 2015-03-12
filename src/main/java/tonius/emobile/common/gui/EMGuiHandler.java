@@ -5,7 +5,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import tonius.emobile.client.gui.GuiCellphonePearls;
 import tonius.emobile.client.gui.GuiCellphoneRF;
-import tonius.emobile.common.item.ItemCellphonePearls;
+import tonius.emobile.common.item.ItemCellphone;
 import tonius.emobile.common.item.ItemCellphoneRF;
 import cpw.mods.fml.common.network.IGuiHandler;
 
@@ -19,7 +19,7 @@ public class EMGuiHandler implements IGuiHandler {
         switch (ID) {
         case CELLPHONE_PEARL:
             ItemStack cellphonePearls = player.getCurrentEquippedItem();
-            if (cellphonePearls != null && cellphonePearls.getItem() instanceof ItemCellphonePearls) {
+            if (cellphonePearls != null && cellphonePearls.getItem() instanceof ItemCellphone) {
                 return new ContainerCellphonePearls(player.inventory, new InventoryCellphone(cellphonePearls));
             }
             break;
@@ -37,13 +37,13 @@ public class EMGuiHandler implements IGuiHandler {
         switch (ID) {
         case CELLPHONE_PEARL:
             ItemStack cellphonePearls = player.getCurrentEquippedItem();
-            if (cellphonePearls != null && cellphonePearls.getItem() instanceof ItemCellphonePearls) {
+            if (cellphonePearls != null && cellphonePearls.getItem() instanceof ItemCellphone) {
                 return new GuiCellphonePearls(new ContainerCellphonePearls(player.inventory, new InventoryCellphone(cellphonePearls)));
             }
             break;
         case CELLPHONE_RF:
             ItemStack cellphoneRF = player.getCurrentEquippedItem();
-            if (cellphoneRF != null && cellphoneRF.getItem() instanceof ItemCellphonePearls) {
+            if (cellphoneRF != null && cellphoneRF.getItem() instanceof ItemCellphone) {
                 return new GuiCellphoneRF(new ContainerCellphoneRF(player.inventory, cellphoneRF));
             }
         }

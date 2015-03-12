@@ -17,7 +17,7 @@ public class EMConfig {
     
     public static final ConfigSection sectionGeneral = new ConfigSection("General Settings", "general");
     public static final ConfigSection sectionTweaks = new ConfigSection("Tweaks Settings", "tweaks");
-    public static final ConfigSection sectionFluxCellphone = new ConfigSection("Flux Cellphone Settings", "fluxCellphone");
+    public static final ConfigSection sectionFluxCellphone = new ConfigSection("Fluxed Ender Cellphone Settings", "fluxCellphone");
     
     // general default
     public static final boolean allowTeleportPlayers_default = true;
@@ -31,9 +31,9 @@ public class EMConfig {
     
     // fluxCellphone default
     public static final boolean fluxCellphoneEnabled_default = true;
-    public static final int fluxCellphoneMaxEnergy_default = 1000000;
+    public static final int fluxCellphoneMaxEnergy_default = 600000;
     public static final int fluxCellphoneMaxInput_default = 2000;
-    public static final int fluxCellphoneEnergyPerUse_default = 128000;
+    public static final int fluxCellphoneEnergyPerUse_default = 30000;
     
     // item
     public static boolean allowTeleportPlayers = allowTeleportHome_default;
@@ -94,10 +94,10 @@ public class EMConfig {
         
         enderPearlStackSize = config.get(sectionTweaks.name, "Ender Pearl stack size", enderPearlStackSize_default, "This config option can be used to change the maximum stack size of Ender Pearls.").setMinValue(1).setMaxValue(512).setRequiresMcRestart(true).getInt(enderPearlStackSize_default);
         
-        fluxCellphoneEnabled = config.get(sectionFluxCellphone.name, "Enabled", fluxCellphoneEnabled_default, "Whether the Flux Cellphone is enabled at all.").setRequiresMcRestart(true).getBoolean();
-        fluxCellphoneMaxEnergy = config.get(sectionFluxCellphone.name, "Max Energy", fluxCellphoneMaxEnergy_default, "The maximum amount of RF that a Flux Cellphone can store.").setMinValue(1).getInt(fluxCellphoneMaxEnergy_default);
-        fluxCellphoneMaxInput = config.get(sectionFluxCellphone.name, "Max Input", fluxCellphoneMaxInput_default, "The maximum RF/t rate that the Flux Cellphone can be charged with.").setMinValue(0).getInt(fluxCellphoneMaxInput_default);
-        fluxCellphoneEnergyPerUse = config.get(sectionFluxCellphone.name, "Energy Per Use", fluxCellphoneEnergyPerUse_default, "The amount of RF that the Flux Cellphone consumes when teleporting.").setMinValue(0).getInt(fluxCellphoneEnergyPerUse_default);
+        fluxCellphoneEnabled = config.get(sectionFluxCellphone.name, "Enabled", fluxCellphoneEnabled_default, "Whether the Fluxed Ender Cellphone is enabled at all.").setRequiresMcRestart(true).getBoolean();
+        fluxCellphoneMaxEnergy = config.get(sectionFluxCellphone.name, "Max Energy", fluxCellphoneMaxEnergy_default, "The maximum amount of RF that a Fluxed Ender Cellphone can store.").setMinValue(1).getInt(fluxCellphoneMaxEnergy_default);
+        fluxCellphoneMaxInput = config.get(sectionFluxCellphone.name, "Max Input", fluxCellphoneMaxInput_default, "The maximum RF/t rate that the Fluxed Ender Cellphone can be charged with.").setMinValue(0).getInt(fluxCellphoneMaxInput_default);
+        fluxCellphoneEnergyPerUse = config.get(sectionFluxCellphone.name, "Energy Per Use", fluxCellphoneEnergyPerUse_default, "The amount of RF that the Fluxed Ender Cellphone consumes when teleporting.").setMinValue(0).getInt(fluxCellphoneEnergyPerUse_default);
     }
     
     public static class ConfigSection {

@@ -14,6 +14,7 @@ public class ContainerCellphonePearls extends ContainerCellphoneBase {
         super(invPlayer);
         this.invCellphone = invCellphone;
         this.addSlotToContainer(new SlotEnderPearls(this.invCellphone, 0, 152, 8));
+        this.bindPlayerInventory(invPlayer, 8, 121);
     }
     
     @Override

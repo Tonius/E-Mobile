@@ -1,5 +1,6 @@
 package tonius.emobile.common.item;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 import net.minecraft.creativetab.CreativeTabs;
@@ -10,13 +11,13 @@ import net.minecraft.world.World;
 import tonius.emobile.common.EMobile;
 import tonius.emobile.common.gui.EMGuiHandler;
 import tonius.emobile.common.util.StackUtils;
-import tonius.emobile.common.util.StringUtils;
 import cofh.api.energy.IEnergyContainerItem;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class ItemCellphoneRF extends ItemCellphonePearls implements IEnergyContainerItem {
+public class ItemCellphoneRF extends ItemCellphone implements IEnergyContainerItem {
     
+    private static final DecimalFormat formatter = new DecimalFormat("###,###");
     public int maxEnergy;
     public int maxInput;
     public int energyPerUse;
@@ -32,7 +33,11 @@ public class ItemCellphoneRF extends ItemCellphonePearls implements IEnergyConta
     
     @Override
     public boolean useFuel(ItemStack cellphone, EntityPlayer player) {
-        return this.extractEnergy(cellphone, this.energyPerUse, false) == this.energyPerUse;
+        int energy = this.getEnergyStored(cellphone);
+        int energyExtracted = Math.min(energy, this.energyPerUse);
+        energy -= energyExtracted;
+        StackUtils.getNBT(cellphone).setInteger("Energy", energy);
+        return energyExtracted == this.energyPerUse;
     }
     
     @Override
@@ -47,7 +52,7 @@ public class ItemCellphoneRF extends ItemCellphonePearls implements IEnergyConta
     @Override
     @SideOnly(Side.CLIENT)
     public void addInformation(ItemStack itemStack, EntityPlayer player, List list, boolean bool) {
-        list.add(this.getEnergyStored(itemStack) + " / " + this.getMaxEnergyStored(itemStack) + " RF");
+        list.add(formatter.format(this.getEnergyStored(itemStack)) + " / " + formatter.format(this.getMaxEnergyStored(itemStack)) + " RF");
     }
     
     @Override
@@ -85,14 +90,7 @@ public class ItemCellphoneRF extends ItemCellphonePearls implements IEnergyConta
     
     @Override
     public int extractEnergy(ItemStack container, int maxExtract, boolean simulate) {
-        int energy = this.getEnergyStored(container);
-        int energyExtracted = Math.min(energy, maxExtract);
-        
-        if (!simulate) {
-            energy -= energyExtracted;
-            StackUtils.getNBT(container).setInteger("Energy", energy);
-        }
-        return energyExtracted;
+        return 0;
     }
     
     @Override

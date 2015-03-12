@@ -8,7 +8,7 @@ import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.world.World;
 import tonius.emobile.common.config.EMConfig;
-import tonius.emobile.common.item.ItemCellphonePearls;
+import tonius.emobile.common.item.ItemCellphone;
 import tonius.emobile.common.session.CellphoneSessionLocation;
 import tonius.emobile.common.session.CellphoneSessionsHandler;
 import tonius.emobile.common.util.ServerUtils;
@@ -67,8 +67,8 @@ public class MessageCellphoneHome implements IMessage, IMessageHandler<MessageCe
                 if (bed != null) {
                     if (!CellphoneSessionsHandler.isPlayerInSession(player)) {
                         ItemStack heldItem = player.getCurrentEquippedItem();
-                        if (heldItem != null && heldItem.getItem() instanceof ItemCellphonePearls) {
-                            if (player.capabilities.isCreativeMode || ((ItemCellphonePearls) heldItem.getItem()).useFuel(heldItem, player)) {
+                        if (heldItem != null && heldItem.getItem() instanceof ItemCellphone) {
+                            if (player.capabilities.isCreativeMode || ((ItemCellphone) heldItem.getItem()).useFuel(heldItem, player)) {
                                 ServerUtils.sendDiallingSound(player);
                                 new CellphoneSessionLocation(8, "chat.cellphone.location.home", player, 0, bed.posX, bed.posY, bed.posZ);
                             }

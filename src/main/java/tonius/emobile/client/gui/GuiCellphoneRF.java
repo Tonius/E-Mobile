@@ -1,5 +1,6 @@
 package tonius.emobile.client.gui;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 import net.minecraft.item.ItemStack;
@@ -13,6 +14,8 @@ import tonius.emobile.common.util.StringUtils;
 
 public class GuiCellphoneRF extends GuiCellphoneBase {
     
+    private static final DecimalFormat formatter = new DecimalFormat("###,###");
+    
     public GuiCellphoneRF(ContainerCellphoneRF container) {
         super(container);
     }
@@ -20,7 +23,7 @@ public class GuiCellphoneRF extends GuiCellphoneBase {
     @Override
     protected void drawGuiContainerForegroundLayer(int param1, int param2) {
         super.drawGuiContainerForegroundLayer(param1, param2);
-        this.fontRendererObj.drawString(EMobile.cellphoneRF.getItemStackDisplayName(null), 8, 6, 4210752);
+        this.fontRendererObj.drawString(StringUtils.translate("gui.cellphone.rf"), 8, 6, 4210752);
     }
     
     @Override
@@ -36,7 +39,7 @@ public class GuiCellphoneRF extends GuiCellphoneBase {
         super.getTooltipLines(lines, mouseX, mouseY);
         int energy = this.getEnergyStored();
         if (this.func_146978_c(127, 7, 42, 14, mouseX, mouseY)) {
-            lines.add(energy + " / " + this.getMaxEnergyStored() + " RF");
+            lines.add(formatter.format(energy) + " / " + formatter.format(this.getMaxEnergyStored()) + " RF");
             if (energy == 0) {
                 lines.add(StringUtils.ITALIC + StringUtils.translate("gui.cellphone.rf.1"));
                 lines.add(StringUtils.ITALIC + StringUtils.translate("gui.cellphone.rf.2"));
@@ -44,7 +47,7 @@ public class GuiCellphoneRF extends GuiCellphoneBase {
                     lines.add(StringUtils.BRIGHT_GREEN + StringUtils.ITALIC + StringUtils.translate("gui.cellphone.pearls.creative"));
                 }
             }
-            lines.add(StringUtils.LIGHT_GRAY + StringUtils.ITALIC + String.format(StringUtils.translate("gui.cellphone.rf.3"), EMobile.cellphoneRF.energyPerUse));
+            lines.add(StringUtils.LIGHT_GRAY + StringUtils.ITALIC + String.format(StringUtils.translate("gui.cellphone.rf.3"), formatter.format(EMobile.cellphoneRF.energyPerUse)));
         }
     }
     

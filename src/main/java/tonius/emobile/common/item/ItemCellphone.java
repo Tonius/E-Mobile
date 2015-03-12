@@ -14,9 +14,9 @@ import tonius.emobile.common.util.StringUtils;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class ItemCellphonePearls extends Item {
+public class ItemCellphone extends Item {
     
-    public ItemCellphonePearls() {
+    public ItemCellphone() {
         this.setMaxStackSize(1);
         this.setUnlocalizedName("emobile.cellphone");
         this.setTextureName("emobile:cellphone");

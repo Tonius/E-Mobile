@@ -16,6 +16,7 @@ public class ContainerCellphoneRF extends ContainerCellphoneBase {
     public ContainerCellphoneRF(InventoryPlayer invPlayer, ItemStack cellphone) {
         super(invPlayer);
         this.cellphone = cellphone;
+        this.bindPlayerInventory(invPlayer, 8, 121);
     }
     
     @Override

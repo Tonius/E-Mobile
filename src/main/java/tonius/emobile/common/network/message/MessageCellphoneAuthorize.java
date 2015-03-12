@@ -55,11 +55,7 @@ public class MessageCellphoneAuthorize implements IMessage, IMessageHandler<Mess
             } else {
                 if (!unaccept) {
                     if (CellphoneSessionsHandler.acceptPlayer(acceptingPlayer, acceptedPlayer, perma)) {
-                        if (perma) {
-                            ServerUtils.sendChatToPlayer(acceptingPlayer.getCommandSenderName(), String.format(StringUtils.translate("chat.cellphone.authorize.success.perma"), acceptedPlayer.getCommandSenderName()));
-                        } else {
-                            ServerUtils.sendChatToPlayer(acceptingPlayer.getCommandSenderName(), String.format(StringUtils.translate("chat.cellphone.authorize.success"), acceptedPlayer.getCommandSenderName()));
-                        }
+                        ServerUtils.sendChatToPlayer(acceptingPlayer.getCommandSenderName(), String.format(StringUtils.translate("chat.cellphone.authorize.success" + (perma ? ".perma" : "")), acceptedPlayer.getCommandSenderName()));
                     } else {
                         ServerUtils.sendChatToPlayer(acceptingPlayer.getCommandSenderName(), String.format(StringUtils.translate("chat.cellphone.authorize.already"), acceptedPlayer.getCommandSenderName()));
                     }
