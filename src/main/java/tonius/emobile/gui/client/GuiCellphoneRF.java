@@ -57,15 +57,21 @@ public class GuiCellphoneRF extends GuiCellphoneBase {
     }
     
     private int getEnergyStored() {
-        ItemStack cellphone = ((ContainerCellphoneRF) this.inventorySlots).cellphone;
-        ItemCellphoneRF cellphoneItem = (ItemCellphoneRF) cellphone.getItem();
-        return cellphoneItem.getEnergyStored(cellphone);
+        ItemStack cellphone = this.mc.thePlayer.getCurrentEquippedItem();
+        if (cellphone != null && cellphone.getItem() instanceof ItemCellphoneRF) {
+            ItemCellphoneRF cellphoneItem = (ItemCellphoneRF) cellphone.getItem();
+            return cellphoneItem.getEnergyStored(cellphone);
+        }
+        return 0;
     }
     
     private int getMaxEnergyStored() {
-        ItemStack cellphone = ((ContainerCellphoneRF) this.inventorySlots).cellphone;
-        ItemCellphoneRF cellphoneItem = (ItemCellphoneRF) cellphone.getItem();
-        return cellphoneItem.getMaxEnergyStored(cellphone);
+        ItemStack cellphone = this.mc.thePlayer.getCurrentEquippedItem();
+        if (cellphone != null && cellphone.getItem() instanceof ItemCellphoneRF) {
+            ItemCellphoneRF cellphoneItem = (ItemCellphoneRF) cellphone.getItem();
+            return cellphoneItem.getMaxEnergyStored(cellphone);
+        }
+        return 0;
     }
     
 }
