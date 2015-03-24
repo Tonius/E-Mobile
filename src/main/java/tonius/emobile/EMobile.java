@@ -73,12 +73,15 @@ public class EMobile {
     @EventHandler
     public void postInit(FMLPostInitializationEvent evt) {
         logger.info("Registering recipes");
-        GameRegistry.addRecipe(new ShapedOreRecipe(cellphone, new Object[] { " IS", "IPI", "III", 'S', "stickWood", 'I', "ingotIron", 'P', Items.ender_pearl }));
-        if (cellphoneRF != null) {
-            if (Loader.isModLoaded("ThermalExpansion")) {
-                
-            } else {
-                GameRegistry.addRecipe(new ShapedOreRecipe(cellphone, new Object[] { " IS", "IPI", "IRI", 'S', "stickWood", 'I', "ingotIron", 'P', Items.ender_pearl, 'R', "blockRedstone" }));
+        if (Loader.isModLoaded("ThermalExpansion")) {
+            GameRegistry.addRecipe(new ShapedOreRecipe(cellphone, new Object[] { " IS", "IPI", "III", 'S', "nuggetCopper", 'I', "ingotInvar", 'P', GameRegistry.findItemStack("ThermalFoundation", "bucketEnder", 1) }));
+            if (cellphoneRF != null) {
+                GameRegistry.addRecipe(new ShapedOreRecipe(cellphoneRF, new Object[] { " IS", "IPI", "III", 'S', GameRegistry.findItemStack("ThermalExpansion", "powerCoilGold", 1), 'I', "ingotSignalum", 'P', cellphone }));
+            }
+        } else {
+            GameRegistry.addRecipe(new ShapedOreRecipe(cellphone, new Object[] { " IS", "IPI", "III", 'S', "stickWood", 'I', "ingotIron", 'P', Items.ender_pearl }));
+            if (cellphoneRF != null) {
+                GameRegistry.addRecipe(new ShapedOreRecipe(cellphoneRF, new Object[] { " IS", "IPI", "RIR", 'S', "gemDiamond", 'I', "ingotGold", 'P', cellphone, 'R', "dustRedstone" }));
             }
         }
     }
