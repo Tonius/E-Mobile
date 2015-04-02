@@ -28,7 +28,7 @@ import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 
-@Mod(modid = "emobile", guiFactory = "tonius.emobile.client.config.ConfigGuiFactoryEM", dependencies = "after:ThermalExpansion")
+@Mod(modid = "emobile", guiFactory = "tonius.emobile.config.ConfigGuiFactoryEM", dependencies = "after:ThermalExpansion")
 public class EMobile {
     
     @Instance("emobile")
