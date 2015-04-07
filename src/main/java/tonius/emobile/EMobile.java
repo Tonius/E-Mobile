@@ -33,7 +33,7 @@ public class EMobile {
     
     @Instance("emobile")
     public static EMobile instance;
-    @SidedProxy(serverSide = "tonius.emobile.common.CommonProxy", clientSide = "tonius.emobile.client.ClientProxy")
+    @SidedProxy(serverSide = "tonius.emobile.CommonProxy", clientSide = "tonius.emobile.client.ClientProxy")
     public static CommonProxy proxy;
     public static Logger logger;
     
