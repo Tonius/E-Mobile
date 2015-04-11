@@ -1,6 +1,7 @@
 package tonius.emobile.network.message;
 
 import io.netty.buffer.ByteBuf;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockBed;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
@@ -58,8 +59,11 @@ public class MessageCellphoneHome implements IMessage, IMessageHandler<MessageCe
                         return null;
                     }
                 }
-                if (bed != null && !(world.getBlock(bed.posX, bed.posY, bed.posZ) instanceof BlockBed)) {
-                    bed = null;
+                if (bed != null) {
+                    Block bedBlock = world.getBlock(bed.posX, bed.posY, bed.posZ);
+                    if (bedBlock != null && !(bedBlock instanceof BlockBed) && !EMConfig.bedBlocks.contains(bedBlock.getClass().getName())) {
+                        bed = null;
+                    }
                 }
                 if (bed != null) {
                     bed = world.getBlock(bed.posX, bed.posY, bed.posZ).getBedSpawnPosition(world, bed.posX, bed.posY, bed.posZ, player);
