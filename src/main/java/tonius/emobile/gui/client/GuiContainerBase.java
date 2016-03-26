@@ -12,7 +12,10 @@ import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
 public abstract class GuiContainerBase extends GuiContainer {
-    
+
+    protected List<String> names;
+    protected boolean updateNames;
+
     public GuiContainerBase(Container container) {
         super(container);
     }
@@ -25,13 +28,20 @@ public abstract class GuiContainerBase extends GuiContainer {
     
     protected void drawTooltips(int mouseX, int mouseY) {
         List<String> lines = new ArrayList<String>();
+        if (this.updateNames) {
+            names = new ArrayList<String>();
+        }
+        this.getPlayerNamesTooltip(names);
+
         this.getTooltipLines(lines, mouseX, mouseY);
-        if (lines.size() > 0) {
+        if (lines.size() > 0 && names.isEmpty()) {
             this.drawTooltip(lines, mouseX, mouseY, this.fontRendererObj);
         }
     }
     
     protected abstract void getTooltipLines(List lines, int mouseX, int mouseY);
+
+    protected abstract void getPlayerNamesTooltip(List names);
     
     protected void drawTooltip(List list, int x, int y, FontRenderer font) {
         if (list == null || list.isEmpty()) {
