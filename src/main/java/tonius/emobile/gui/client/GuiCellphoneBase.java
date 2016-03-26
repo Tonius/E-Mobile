@@ -78,11 +78,9 @@ public abstract class GuiCellphoneBase extends GuiContainerBase {
         for (int i = 0; i < this.mc.theWorld.playerEntities.size(); ++i) {
             if (this.mc.theWorld.playerEntities.get(i).getClass() == EntityOtherPlayerMP.class) {
                 this.playerList[i] = ((EntityOtherPlayerMP) this.mc.theWorld.playerEntities.get(i)).getCommandSenderName();
-            }
-            /* This is the player, no need to autocomplete that.
-            else if (this.mc.theWorld.playerEntities.get(i).getClass() == EntityClientPlayerMP.class) {
+            } else if (this.mc.theWorld.playerEntities.get(i).getClass() == EntityClientPlayerMP.class) {
                 this.playerList[i] = ((EntityClientPlayerMP) this.mc.theWorld.playerEntities.get(i)).getCommandSenderName();
-            } */
+            }
         }
         this.nameCounter = 0;
         super.updateNames = true;
