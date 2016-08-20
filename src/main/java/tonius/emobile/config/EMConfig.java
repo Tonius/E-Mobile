@@ -1,15 +1,15 @@
 package tonius.emobile.config;
 
+import net.minecraftforge.common.config.Configuration;
+import net.minecraftforge.fml.client.event.ConfigChangedEvent;
+import net.minecraftforge.fml.common.FMLCommonHandler;
+import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import tonius.emobile.EMobile;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
-import net.minecraftforge.common.config.Configuration;
-import tonius.emobile.EMobile;
-import cpw.mods.fml.client.event.ConfigChangedEvent.OnConfigChangedEvent;
-import cpw.mods.fml.common.FMLCommonHandler;
-import cpw.mods.fml.common.event.FMLPreInitializationEvent;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
 public class EMConfig {
     
@@ -77,7 +77,7 @@ public class EMConfig {
     }
     
     @SubscribeEvent
-    public void onConfigChanged(OnConfigChangedEvent evt) {
+    public void onConfigChanged(ConfigChangedEvent.OnConfigChangedEvent evt) {
         onConfigChanged(evt.modID);
     }
     

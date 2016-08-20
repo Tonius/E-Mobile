@@ -1,19 +1,15 @@
 package tonius.emobile.util;
 
-import java.util.Iterator;
-
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.network.play.server.S07PacketRespawn;
-import net.minecraft.network.play.server.S1DPacketEntityEffect;
 import net.minecraft.potion.PotionEffect;
-import net.minecraft.server.management.ServerConfigurationManager;
-import net.minecraft.util.MathHelper;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.WorldProvider;
 import net.minecraft.world.WorldServer;
 import net.minecraftforge.common.DimensionManager;
 import tonius.emobile.config.EMConfig;
-import cpw.mods.fml.common.FMLCommonHandler;
+
+import java.util.Iterator;
 
 public class TeleportUtils {
     

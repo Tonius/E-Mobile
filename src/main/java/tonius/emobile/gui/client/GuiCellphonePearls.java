@@ -1,15 +1,13 @@
 package tonius.emobile.gui.client;
 
-import java.util.List;
-
 import net.minecraft.item.ItemEnderPearl;
 import net.minecraft.item.ItemStack;
-
 import org.lwjgl.opengl.GL11;
-
 import tonius.emobile.EMobile;
 import tonius.emobile.gui.container.ContainerCellphonePearls;
 import tonius.emobile.util.StringUtils;
+
+import java.util.List;
 
 public class GuiCellphonePearls extends GuiCellphoneBase {
     

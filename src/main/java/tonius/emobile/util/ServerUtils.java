@@ -3,13 +3,11 @@ package tonius.emobile.util;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.util.ChatComponentText;
-import net.minecraft.util.EnumChatFormatting;
+import net.minecraftforge.fml.common.network.NetworkRegistry;
 import tonius.emobile.network.PacketHandler;
 import tonius.emobile.network.message.MessageDiallingParticles;
 import tonius.emobile.network.message.MessageDiallingSound;
 import tonius.emobile.network.message.MessageTeleportParticles;
-import cpw.mods.fml.common.network.NetworkRegistry.TargetPoint;
 
 public class ServerUtils {
     
@@ -43,19 +41,19 @@ public class ServerUtils {
     }
     
     public static void sendDiallingSound(EntityPlayer player) {
-        PacketHandler.instance.sendToAllAround(new MessageDiallingSound(player.getEntityId()), new TargetPoint(player.dimension, player.posX, player.posY, player.posZ, 256));
+        PacketHandler.instance.sendToAllAround(new MessageDiallingSound(player.getEntityId()), new NetworkRegistry.TargetPoint(player.dimension, player.posX, player.posY, player.posZ, 256));
     }
     
     public static void sendDiallingParticles(EntityPlayer player) {
-        PacketHandler.instance.sendToAllAround(new MessageDiallingParticles(player.posX, player.posY + 0.8D, player.posZ), new TargetPoint(player.dimension, player.posX, player.posY, player.posZ, 256));
+        PacketHandler.instance.sendToAllAround(new MessageDiallingParticles(player.posX, player.posY + 0.8D, player.posZ), new NetworkRegistry.TargetPoint(player.dimension, player.posX, player.posY, player.posZ, 256));
     }
     
     public static void sendDiallingParticles(int dimension, int posX, int posY, int posZ) {
-        PacketHandler.instance.sendToAllAround(new MessageDiallingParticles(posX + 0.5D, posY + 0.5D, posZ + 0.5D), new TargetPoint(dimension, posX + 0.5D, posY + 0.5D, posZ + 0.5D, 256));
+        PacketHandler.instance.sendToAllAround(new MessageDiallingParticles(posX + 0.5D, posY + 0.5D, posZ + 0.5D), new NetworkRegistry.TargetPoint(dimension, posX + 0.5D, posY + 0.5D, posZ + 0.5D, 256));
     }
     
     public static void sendTeleportParticles(EntityPlayer player) {
-        PacketHandler.instance.sendToAllAround(new MessageTeleportParticles(player.posX, player.posY + 0.8D, player.posZ), new TargetPoint(player.dimension, player.posX, player.posY, player.posZ, 256));
+        PacketHandler.instance.sendToAllAround(new MessageTeleportParticles(player.posX, player.posY + 0.8D, player.posZ), new NetworkRegistry.TargetPoint(player.dimension, player.posX, player.posY, player.posZ, 256));
     }
     
 }

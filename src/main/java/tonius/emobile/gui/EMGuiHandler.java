@@ -3,6 +3,7 @@ package tonius.emobile.gui;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.network.IGuiHandler;
 import tonius.emobile.gui.client.GuiCellphonePearls;
 import tonius.emobile.gui.client.GuiCellphoneRF;
 import tonius.emobile.gui.container.ContainerCellphonePearls;
@@ -10,7 +11,6 @@ import tonius.emobile.gui.container.ContainerCellphoneRF;
 import tonius.emobile.inventory.InventoryCellphone;
 import tonius.emobile.item.ItemCellphone;
 import tonius.emobile.item.ItemCellphoneRF;
-import cpw.mods.fml.common.network.IGuiHandler;
 
 public class EMGuiHandler implements IGuiHandler {
     

@@ -1,24 +1,18 @@
 package tonius.emobile.gui.client;
 
-import java.util.List;
-
 import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiTextField;
 import net.minecraft.util.ResourceLocation;
-
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
-
 import tonius.emobile.config.EMConfig;
 import tonius.emobile.gui.container.ContainerCellphoneBase;
 import tonius.emobile.network.PacketHandler;
-import tonius.emobile.network.message.MessageCellphoneAuthorize;
-import tonius.emobile.network.message.MessageCellphoneCancel;
-import tonius.emobile.network.message.MessageCellphoneHome;
-import tonius.emobile.network.message.MessageCellphonePlayer;
-import tonius.emobile.network.message.MessageCellphoneSpawn;
+import tonius.emobile.network.message.*;
 import tonius.emobile.util.StringUtils;
+
+import java.util.List;
 
 public abstract class GuiCellphoneBase extends GuiContainerBase {
     

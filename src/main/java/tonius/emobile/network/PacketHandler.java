@@ -1,5 +1,8 @@
 package tonius.emobile.network;
 
+import net.minecraftforge.fml.common.network.NetworkRegistry;
+import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
+import net.minecraftforge.fml.relauncher.Side;
 import tonius.emobile.EMobile;
 import tonius.emobile.network.message.MessageCellphoneAuthorize;
 import tonius.emobile.network.message.MessageCellphoneCancel;
@@ -10,14 +13,11 @@ import tonius.emobile.network.message.MessageConfigSync;
 import tonius.emobile.network.message.MessageDiallingParticles;
 import tonius.emobile.network.message.MessageDiallingSound;
 import tonius.emobile.network.message.MessageTeleportParticles;
-import cpw.mods.fml.common.network.NetworkRegistry;
-import cpw.mods.fml.common.network.simpleimpl.SimpleNetworkWrapper;
-import cpw.mods.fml.relauncher.Side;
 
 public class PacketHandler {
     
     public static final SimpleNetworkWrapper instance = NetworkRegistry.INSTANCE.newSimpleChannel("EMobile");
-    
+
     public static void preInit() {
         EMobile.logger.info("Registering network messages");
         instance.registerMessage(MessageCellphonePlayer.class, MessageCellphonePlayer.class, 0, Side.SERVER);

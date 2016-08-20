@@ -1,8 +1,6 @@
 package tonius.emobile.item;
 
-import java.text.DecimalFormat;
-import java.util.List;
-
+import cofh.api.energy.IEnergyContainerItem;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -11,9 +9,9 @@ import net.minecraft.world.World;
 import tonius.emobile.EMobile;
 import tonius.emobile.gui.EMGuiHandler;
 import tonius.emobile.util.StackUtils;
-import cofh.api.energy.IEnergyContainerItem;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+
+import java.text.DecimalFormat;
+import java.util.List;
 
 public class ItemCellphoneRF extends ItemCellphone implements IEnergyContainerItem {
     

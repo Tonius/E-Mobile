@@ -10,9 +10,8 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.nbt.NBTTagString;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import cpw.mods.fml.common.gameevent.TickEvent.Phase;
-import cpw.mods.fml.common.gameevent.TickEvent.ServerTickEvent;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.gameevent.TickEvent;
 
 public class CellphoneSessionsHandler {
     
@@ -101,8 +100,8 @@ public class CellphoneSessionsHandler {
     }
     
     @SubscribeEvent
-    public void tickEnd(ServerTickEvent evt) {
-        if (evt.phase == Phase.END) {
+    public void tickEnd(TickEvent.ServerTickEvent evt) {
+        if (evt.phase == TickEvent.Phase.END) {
             Iterator<CellphoneSessionBase> itr = sessions.iterator();
             while (itr.hasNext()) {
                 CellphoneSessionBase session = itr.next();

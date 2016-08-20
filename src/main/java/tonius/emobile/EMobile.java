@@ -2,10 +2,19 @@ package tonius.emobile;
 
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Items;
+import net.minecraftforge.fml.common.FMLCommonHandler;
+import net.minecraftforge.fml.common.Loader;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.SidedProxy;
+import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.gameevent.PlayerEvent;
+import net.minecraftforge.fml.common.network.NetworkRegistry;
+import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.oredict.ShapedOreRecipe;
-
 import org.apache.logging.log4j.Logger;
-
 import tonius.emobile.config.ClientConfigTickHandler;
 import tonius.emobile.config.EMConfig;
 import tonius.emobile.gui.EMGuiHandler;
@@ -14,24 +23,11 @@ import tonius.emobile.item.ItemCellphoneRF;
 import tonius.emobile.network.PacketHandler;
 import tonius.emobile.network.message.MessageConfigSync;
 import tonius.emobile.session.CellphoneSessionsHandler;
-import cpw.mods.fml.common.FMLCommonHandler;
-import cpw.mods.fml.common.Loader;
-import cpw.mods.fml.common.Mod;
-import cpw.mods.fml.common.Mod.EventHandler;
-import cpw.mods.fml.common.Mod.Instance;
-import cpw.mods.fml.common.SidedProxy;
-import cpw.mods.fml.common.event.FMLPostInitializationEvent;
-import cpw.mods.fml.common.event.FMLPreInitializationEvent;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import cpw.mods.fml.common.gameevent.PlayerEvent.PlayerLoggedInEvent;
-import cpw.mods.fml.common.network.NetworkRegistry;
-import cpw.mods.fml.common.registry.GameRegistry;
-import cpw.mods.fml.relauncher.Side;
 
 @Mod(modid = "emobile", guiFactory = "tonius.emobile.config.ConfigGuiFactoryEM", dependencies = "after:ThermalExpansion")
 public class EMobile {
     
-    @Instance("emobile")
+    @Mod.Instance("emobile")
     public static EMobile instance;
     @SidedProxy(serverSide = "tonius.emobile.CommonProxy", clientSide = "tonius.emobile.client.ClientProxy")
     public static CommonProxy proxy;
@@ -40,7 +36,7 @@ public class EMobile {
     public static ItemCellphone cellphone = null;
     public static ItemCellphoneRF cellphoneRF = null;
     
-    @EventHandler
+    @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent evt) {
         logger = evt.getModLog();
         logger.info("Starting E-Mobile");
@@ -70,7 +66,7 @@ public class EMobile {
         }
     }
     
-    @EventHandler
+    @Mod.EventHandler
     public void postInit(FMLPostInitializationEvent evt) {
         logger.info("Registering recipes");
         if (Loader.isModLoaded("ThermalExpansion")) {
@@ -87,7 +83,7 @@ public class EMobile {
     }
     
     @SubscribeEvent
-    public void onPlayerLoggedIn(PlayerLoggedInEvent evt) {
+    public void onPlayerLoggedIn(PlayerEvent.PlayerLoggedInEvent evt) {
         PacketHandler.instance.sendTo(new MessageConfigSync(), (EntityPlayerMP) evt.player);
     }
     

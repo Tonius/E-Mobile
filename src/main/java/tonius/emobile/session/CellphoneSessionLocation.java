@@ -2,8 +2,6 @@ package tonius.emobile.session;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.util.ChatComponentText;
-import net.minecraft.util.EnumChatFormatting;
 import tonius.emobile.util.ServerUtils;
 import tonius.emobile.util.StringUtils;
 import tonius.emobile.util.TeleportUtils;

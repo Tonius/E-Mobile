@@ -1,11 +1,9 @@
 package tonius.emobile.util;
 
+import org.lwjgl.input.Keyboard;
+
 import java.text.DecimalFormat;
 import java.util.List;
-
-import net.minecraft.util.StatCollector;
-
-import org.lwjgl.input.Keyboard;
 
 public class StringUtils {
     private static DecimalFormat formatter = new DecimalFormat("###,###");

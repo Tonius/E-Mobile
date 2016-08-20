@@ -1,11 +1,11 @@
 package tonius.emobile.client;
 
-import java.util.Random;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import tonius.emobile.CommonProxy;
 import tonius.emobile.client.audio.SoundDialling;
+
+import java.util.Random;
 
 public class ClientProxy extends CommonProxy {
     
