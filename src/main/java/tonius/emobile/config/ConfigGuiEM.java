@@ -14,11 +14,11 @@ import java.util.List;
 public class ConfigGuiEM extends GuiConfig {
 
     public ConfigGuiEM(GuiScreen parentScreen) {
-        super(parentScreen, getConfigElements(parentScreen), EMobile.MODID, false, false, StringUtils.translate("config.title"));
+        super(parentScreen, getConfigElements(), EMobile.MODID, false, false, StringUtils.translate("config.title"));
     }
 
-    private static List<IConfigElement> getConfigElements(GuiScreen parent) {
-        List<IConfigElement> list = new ArrayList<IConfigElement>();
+    private static List<IConfigElement> getConfigElements() {
+        List<IConfigElement> list = new ArrayList<>();
         String prefix = EMobile.PREFIX + "config.";
 
         for (ConfigSection configSection : EMConfig.configSections) {

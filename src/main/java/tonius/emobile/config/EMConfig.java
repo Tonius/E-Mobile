@@ -140,6 +140,11 @@ public class EMConfig {
         public T getValue() {
             return value;
         }
+
+        @SuppressWarnings("unused")
+        public void setValue(T value) {
+            this.value = value;
+        }
     }
 
 }

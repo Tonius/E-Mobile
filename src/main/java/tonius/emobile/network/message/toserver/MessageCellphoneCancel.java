@@ -1,4 +1,4 @@
-package tonius.emobile.network.message;
+package tonius.emobile.network.message.toserver;
 
 import io.netty.buffer.ByteBuf;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -11,33 +11,35 @@ import tonius.emobile.util.ServerUtils;
 
 public class MessageCellphoneCancel implements IMessage, IMessageHandler<MessageCellphoneCancel, IMessage> {
 
-    private String player;
+    private String playerName;
 
+    @SuppressWarnings("unused")
     public MessageCellphoneCancel() {
     }
 
-    public MessageCellphoneCancel(String player) {
-        this.player = player;
+    public MessageCellphoneCancel(String playerName) {
+        this.playerName = playerName;
     }
 
     @Override
     public void fromBytes(ByteBuf buf) {
-        this.player = ByteBufUtils.readUTF8String(buf);
+        this.playerName = ByteBufUtils.readUTF8String(buf);
     }
 
     @Override
     public void toBytes(ByteBuf buf) {
-        ByteBufUtils.writeUTF8String(buf, this.player);
+        ByteBufUtils.writeUTF8String(buf, this.playerName);
     }
 
     @Override
     public IMessage onMessage(MessageCellphoneCancel msg, MessageContext ctx) {
-        EntityPlayerMP player = ServerUtils.getPlayerOnServer(msg.player);
+        EntityPlayerMP player = ServerUtils.getPlayerOnServer(msg.playerName);
         if (player == null) {
             return null;
-        } else {
-            CellphoneSessionsManager.cancelSessionsForPlayer(player);
         }
+
+        CellphoneSessionsManager.cancelSessionsForPlayer(player);
+
         return null;
     }
 

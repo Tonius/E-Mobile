@@ -2,23 +2,23 @@
     "phone": {
         "category": "master",
         "sounds": [
-            "phone1",
-            "phone2",
-            "phone3",
-            "phone4",
-            "phone5",
-            "phone6",
-            "phone7",
-            "phone8",
-            "phone9",
-            "phone0"
+            "emobile:phone1",
+            "emobile:phone2",
+            "emobile:phone3",
+            "emobile:phone4",
+            "emobile:phone5",
+            "emobile:phone6",
+            "emobile:phone7",
+            "emobile:phone8",
+            "emobile:phone9",
+            "emobile:phone0"
         ]
     },
     "phonecountdown": {
         "category": "master",
         "sounds": [
-            "phonecountdown1",
-            "phonecountdown2"
+            "emobile:phonecountdown1",
+            "emobile:phonecountdown2"
         ]
     }
 }

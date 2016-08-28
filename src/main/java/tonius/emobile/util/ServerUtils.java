@@ -10,9 +10,9 @@ import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import tonius.emobile.network.PacketHandler;
-import tonius.emobile.network.message.MessageDiallingParticles;
-import tonius.emobile.network.message.MessageDiallingSound;
-import tonius.emobile.network.message.MessageTeleportParticles;
+import tonius.emobile.network.message.toclient.MessageDiallingParticles;
+import tonius.emobile.network.message.toclient.MessageDiallingSound;
+import tonius.emobile.network.message.toclient.MessageTeleportParticles;
 
 public class ServerUtils {
 
@@ -36,11 +36,7 @@ public class ServerUtils {
         }
     }
 
-    public static void sendChatToPlayer(String playerName, String chat, TextFormatting color) {
-        sendChatToPlayer(getPlayerOnServer(playerName), chat, color);
-    }
-
-    public static void sendChatToPlayer(String player, String chat) {
+    public static void sendChatToPlayer(EntityPlayerMP player, String chat) {
         sendChatToPlayer(player, chat, TextFormatting.WHITE);
     }
 

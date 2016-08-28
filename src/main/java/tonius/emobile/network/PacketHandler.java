@@ -4,18 +4,14 @@ import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import net.minecraftforge.fml.relauncher.Side;
 import tonius.emobile.EMobile;
-import tonius.emobile.network.message.MessageCellphoneAuthorize;
-import tonius.emobile.network.message.MessageCellphoneCancel;
-import tonius.emobile.network.message.MessageCellphoneHome;
-import tonius.emobile.network.message.MessageCellphonePlayer;
-import tonius.emobile.network.message.MessageCellphoneSpawn;
-import tonius.emobile.network.message.MessageConfigSync;
-import tonius.emobile.network.message.MessageDiallingParticles;
-import tonius.emobile.network.message.MessageDiallingSound;
-import tonius.emobile.network.message.MessageTeleportParticles;
+import tonius.emobile.network.message.toclient.MessageConfigSync;
+import tonius.emobile.network.message.toclient.MessageDiallingParticles;
+import tonius.emobile.network.message.toclient.MessageDiallingSound;
+import tonius.emobile.network.message.toclient.MessageTeleportParticles;
+import tonius.emobile.network.message.toserver.*;
 
 public class PacketHandler {
-    
+
     public static final SimpleNetworkWrapper instance = NetworkRegistry.INSTANCE.newSimpleChannel(EMobile.MODID);
 
     public static void preInit() {

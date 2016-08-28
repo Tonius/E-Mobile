@@ -1,6 +1,6 @@
 {
-   "pack":{
-      "pack_format":1,
-      "description":"E-Mobile Assets"
-   }
+    "pack": {
+        "pack_format": 2,
+        "description": "E-Mobile Assets"
+    }
 }

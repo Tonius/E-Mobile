@@ -2,6 +2,8 @@ package tonius.emobile;
 
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Items;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.SoundEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
@@ -15,7 +17,7 @@ import org.apache.logging.log4j.Logger;
 import tonius.emobile.config.EMConfig;
 import tonius.emobile.item.ItemCellphone;
 import tonius.emobile.network.PacketHandler;
-import tonius.emobile.network.message.MessageConfigSync;
+import tonius.emobile.network.message.toclient.MessageConfigSync;
 import tonius.emobile.session.CellphoneSessionsManager;
 
 @Mod(modid = EMobile.MODID, version = EMobile.VERSION,
@@ -35,6 +37,9 @@ public class EMobile {
 
     public static ItemCellphone cellphone = null;
 
+    public static SoundEvent phoneSound = null;
+    public static SoundEvent phoneCountdownSound = null;
+
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent evt) {
         logger = evt.getModLog();
@@ -50,6 +55,10 @@ public class EMobile {
 
         logger.info("Registering items");
         cellphone = new ItemCellphone();
+
+        logger.info("Registering sounds");
+        phoneSound = this.registerSound("phone");
+        phoneCountdownSound = this.registerSound("phonecountdown");
 
         logger.info("Registering handlers");
         proxy.registerHandlers();
@@ -78,6 +87,14 @@ public class EMobile {
     @SubscribeEvent
     public void onPlayerLoggedIn(PlayerEvent.PlayerLoggedInEvent evt) {
         PacketHandler.instance.sendTo(new MessageConfigSync(), (EntityPlayerMP) evt.player);
+    }
+
+    private SoundEvent registerSound(String sound) {
+        ResourceLocation location = new ResourceLocation(MODID, sound);
+        SoundEvent event = new SoundEvent(location);
+        GameRegistry.register(event, location);
+
+        return event;
     }
 
 }

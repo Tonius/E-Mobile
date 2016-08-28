@@ -1,4 +1,4 @@
-package tonius.emobile.network.message;
+package tonius.emobile.network.message.toserver;
 
 import io.netty.buffer.ByteBuf;
 import net.minecraft.entity.player.EntityPlayerMP;
