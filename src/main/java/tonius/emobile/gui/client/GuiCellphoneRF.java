@@ -11,19 +11,17 @@ import java.text.DecimalFormat;
 import java.util.List;
 
 public class GuiCellphoneRF extends GuiCellphoneBase {
-    
-    private static final DecimalFormat formatter = new DecimalFormat("###,###");
-    
+
     public GuiCellphoneRF(ContainerCellphoneRF container) {
         super(container);
     }
-    
+
     @Override
     protected void drawGuiContainerForegroundLayer(int param1, int param2) {
         super.drawGuiContainerForegroundLayer(param1, param2);
         this.fontRendererObj.drawString(StringUtils.translate("gui.cellphone.rf"), 8, 6, 4210752);
     }
-    
+
     @Override
     protected void drawGuiContainerBackgroundLayer(float f, int i, int j) {
         super.drawGuiContainerBackgroundLayer(f, i, j);
@@ -31,7 +29,7 @@ public class GuiCellphoneRF extends GuiCellphoneBase {
         this.drawTexturedModalRect(this.guiLeft + 127, this.guiTop + 7, 176, 18, 42, 14);
         this.drawTexturedModalRect(this.guiLeft + 127, this.guiTop + 7, 176, 32, (int) (42 * ((double) this.getEnergyStored() / (double) this.getMaxEnergyStored())), 14);
     }
-    
+
     @Override
     protected void getTooltipLines(List lines, int mouseX, int mouseY) {
         super.getTooltipLines(lines, mouseX, mouseY);
@@ -48,12 +46,12 @@ public class GuiCellphoneRF extends GuiCellphoneBase {
             lines.add(StringUtils.LIGHT_GRAY + StringUtils.ITALIC + String.format(StringUtils.translate("gui.cellphone.rf.3"), formatter.format(EMobile.cellphoneRF.energyPerUse)));
         }
     }
-    
+
     @Override
     protected boolean hasEnoughFuel() {
         return this.mc.thePlayer.capabilities.isCreativeMode || this.getEnergyStored() >= EMobile.cellphoneRF.energyPerUse;
     }
-    
+
     private int getEnergyStored() {
         ItemStack cellphone = this.mc.thePlayer.getCurrentEquippedItem();
         if (cellphone != null && cellphone.getItem() instanceof ItemCellphoneRF) {
@@ -62,7 +60,7 @@ public class GuiCellphoneRF extends GuiCellphoneBase {
         }
         return 0;
     }
-    
+
     private int getMaxEnergyStored() {
         ItemStack cellphone = this.mc.thePlayer.getCurrentEquippedItem();
         if (cellphone != null && cellphone.getItem() instanceof ItemCellphoneRF) {
@@ -71,5 +69,5 @@ public class GuiCellphoneRF extends GuiCellphoneBase {
         }
         return 0;
     }
-    
+
 }

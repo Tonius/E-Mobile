@@ -5,21 +5,20 @@ import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import tonius.emobile.util.StackUtils;
 
 public class ContainerCellphoneRF extends ContainerCellphoneBase {
-    
+
     public ItemStack cellphone;
     private int lastEnergy;
     private Short energyFirstHalf = null;
     private Short energySecondHalf = null;
-    
+
     public ContainerCellphoneRF(InventoryPlayer invPlayer, ItemStack cellphone) {
         super(invPlayer);
         this.cellphone = cellphone;
         this.bindPlayerInventory(invPlayer, 8, 121);
     }
-    
+
     @Override
     public boolean canInteractWith(EntityPlayer player) {
         ItemStack invStack = player.inventory.mainInventory[this.cellphoneSlot];
@@ -28,13 +27,13 @@ public class ContainerCellphoneRF extends ContainerCellphoneBase {
         }
         return true;
     }
-    
+
     @Override
     public void detectAndSendChanges() {
         super.detectAndSendChanges();
-        
+
         int energy = StackUtils.getNBT(this.cellphone).getInteger("Energy");
-        
+
         if (energy != this.lastEnergy) {
             for (int i = 0; i < this.crafters.size(); ++i) {
                 ((ICrafting) this.crafters.get(i)).sendProgressBarUpdate(this, 0, (short) (energy >> 16));
@@ -43,7 +42,7 @@ public class ContainerCellphoneRF extends ContainerCellphoneBase {
             this.lastEnergy = energy;
         }
     }
-    
+
     @Override
     @SideOnly(Side.CLIENT)
     public void updateProgressBar(int barId, int value) {
@@ -58,5 +57,5 @@ public class ContainerCellphoneRF extends ContainerCellphoneBase {
             this.energySecondHalf = null;
         }
     }
-    
+
 }

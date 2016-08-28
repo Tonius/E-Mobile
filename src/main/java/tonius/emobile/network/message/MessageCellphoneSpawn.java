@@ -12,32 +12,32 @@ import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import tonius.emobile.config.EMConfig;
 import tonius.emobile.item.ItemCellphone;
 import tonius.emobile.session.CellphoneSessionLocation;
-import tonius.emobile.session.CellphoneSessionsHandler;
+import tonius.emobile.session.CellphoneSessionsManager;
 import tonius.emobile.util.ServerUtils;
 import tonius.emobile.util.StringUtils;
 import tonius.emobile.util.TeleportUtils;
 
 public class MessageCellphoneSpawn implements IMessage, IMessageHandler<MessageCellphoneSpawn, IMessage> {
-    
+
     private String player;
-    
+
     public MessageCellphoneSpawn() {
     }
-    
+
     public MessageCellphoneSpawn(String player) {
         this.player = player;
     }
-    
+
     @Override
     public void fromBytes(ByteBuf buf) {
         this.player = ByteBufUtils.readUTF8String(buf);
     }
-    
+
     @Override
     public void toBytes(ByteBuf buf) {
         ByteBufUtils.writeUTF8String(buf, this.player);
     }
-    
+
     @Override
     public IMessage onMessage(MessageCellphoneSpawn msg, MessageContext ctx) {
         if (EMConfig.allowTeleportSpawn) {
@@ -77,8 +77,8 @@ public class MessageCellphoneSpawn implements IMessage, IMessageHandler<MessageC
                         } while (!mat.isSolid() && !mat.isLiquid() && !mat2.isSolid() && !mat2.isLiquid());
                     }
                     spawn.posY += 0.2D;
-                    
-                    if (!CellphoneSessionsHandler.isPlayerInSession(player)) {
+
+                    if (!CellphoneSessionsManager.isPlayerInSession(player)) {
                         ItemStack heldItem = player.getCurrentEquippedItem();
                         if (heldItem != null && heldItem.getItem() instanceof ItemCellphone) {
                             if (player.capabilities.isCreativeMode || ((ItemCellphone) heldItem.getItem()).useFuel(heldItem, player)) {
@@ -90,7 +90,7 @@ public class MessageCellphoneSpawn implements IMessage, IMessageHandler<MessageC
                 }
             }
         }
-        
+
         return null;
     }
 }

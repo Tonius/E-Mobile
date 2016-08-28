@@ -5,3 +5,6 @@
 /.gradle
 /.settings
 /bin
+*.iml
+*.ipr
+*.iws

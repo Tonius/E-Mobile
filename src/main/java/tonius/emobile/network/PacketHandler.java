@@ -16,7 +16,7 @@ import tonius.emobile.network.message.MessageTeleportParticles;
 
 public class PacketHandler {
     
-    public static final SimpleNetworkWrapper instance = NetworkRegistry.INSTANCE.newSimpleChannel("EMobile");
+    public static final SimpleNetworkWrapper instance = NetworkRegistry.INSTANCE.newSimpleChannel(EMobile.MODID);
 
     public static void preInit() {
         EMobile.logger.info("Registering network messages");
