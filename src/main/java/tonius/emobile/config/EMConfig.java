@@ -17,8 +17,6 @@ public class EMConfig {
 
     public static final ConfigSection sectionGeneral = new ConfigSection("General Settings", "general");
     public static final ConfigSection sectionTweaks = new ConfigSection("Tweaks Settings", "tweaks");
-    public static final ConfigSection sectionFluxCellphone = new ConfigSection("Fluxed Ender Cellphone Settings",
-            "fluxCellphone");
 
     // General settings
     public static ValueWithDefault<Boolean> allowTeleportPlayers = new ValueWithDefault<>(true);
@@ -32,11 +30,6 @@ public class EMConfig {
 
     // Tweaks
     public static ValueWithDefault<Integer> enderPearlStackSize = new ValueWithDefault<>(16);
-
-    // Fluxed Ender Cellphone settings
-    public static ValueWithDefault<Boolean> fluxCellphoneEnabled = new ValueWithDefault<>(true);
-    public static ValueWithDefault<Integer> fluxCellphoneMaxEnergy = new ValueWithDefault<>(600000);
-    public static ValueWithDefault<Integer> fluxCellphoneEnergyPerUse = new ValueWithDefault<>(30000);
 
     public static void preInit(FMLPreInitializationEvent evt) {
         MinecraftForge.EVENT_BUS.register(new EMConfig());
@@ -108,22 +101,6 @@ public class EMConfig {
                 "Ender Pearl stack size", enderPearlStackSize.defaultValue,
                 "This config option can be used to change the maximum stack size of Ender Pearls."
         ).setMinValue(1).setMaxValue(512).setRequiresMcRestart(true).getInt();
-
-        // Fluxed Ender Cellphone settings
-        fluxCellphoneEnabled.value = config.get(sectionFluxCellphone.name,
-                "Enabled", fluxCellphoneEnabled.defaultValue,
-                "Whether the Fluxed Ender Cellphone is enabled at all."
-        ).setRequiresMcRestart(true).getBoolean();
-
-        fluxCellphoneMaxEnergy.value = config.get(sectionFluxCellphone.name,
-                "Max Energy", fluxCellphoneMaxEnergy.defaultValue,
-                "The maximum amount of RF that a Fluxed Ender Cellphone can store."
-        ).setMinValue(1).getInt();
-
-        fluxCellphoneEnergyPerUse.value = config.get(sectionFluxCellphone.name,
-                "Energy Per Use", fluxCellphoneEnergyPerUse.defaultValue,
-                "The amount of RF that the Fluxed Ender Cellphone consumes when teleporting."
-        ).setMinValue(0).getInt();
     }
 
     public static class ConfigSection {

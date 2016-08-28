@@ -14,7 +14,6 @@ import net.minecraftforge.oredict.ShapedOreRecipe;
 import org.apache.logging.log4j.Logger;
 import tonius.emobile.config.EMConfig;
 import tonius.emobile.item.ItemCellphone;
-import tonius.emobile.item.ItemCellphoneRF;
 import tonius.emobile.network.PacketHandler;
 import tonius.emobile.network.message.MessageConfigSync;
 import tonius.emobile.session.CellphoneSessionsManager;
@@ -35,7 +34,6 @@ public class EMobile {
     public static Logger logger;
 
     public static ItemCellphone cellphone = null;
-    public static ItemCellphoneRF cellphoneRF = null;
 
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent evt) {
@@ -52,9 +50,6 @@ public class EMobile {
 
         logger.info("Registering items");
         cellphone = new ItemCellphone();
-        if (EMConfig.fluxCellphoneEnabled.getValue()) {
-            cellphoneRF = new ItemCellphoneRF();
-        }
 
         logger.info("Registering handlers");
         proxy.registerHandlers();
@@ -73,18 +68,6 @@ public class EMobile {
                 'P', Items.ENDER_PEARL,
                 'R', Items.REDSTONE
         ));
-
-        if (cellphoneRF != null) {
-            GameRegistry.addRecipe(new ShapedOreRecipe(cellphoneRF,
-                    " IS",
-                    "IPI",
-                    "RIR",
-                    'S', "gemDiamond",
-                    'I', "ingotGold",
-                    'P', cellphone,
-                    'R', "dustRedstone"
-            ));
-        }
     }
 
     @Mod.EventHandler
