@@ -16,6 +16,7 @@ public class CellphoneSessionsManager {
 
     public static void addSession(CellphoneSessionBase session) {
         sessions.add(session);
+        session.startCountdown();
     }
 
     public static void clearSessions() {

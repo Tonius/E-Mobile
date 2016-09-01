@@ -14,12 +14,11 @@ public class CellphoneSessionLocation extends CellphoneSessionBase {
     protected int posY;
     protected int posZ;
 
-    public CellphoneSessionLocation(int duration, EntityPlayerMP player, String unlocalizedLocation, int dimension,
+    public CellphoneSessionLocation(EntityPlayerMP player, String unlocalizedLocation, int dimension,
                                     int posX, int posY, int posZ) {
-        super(duration, player);
+        super(player);
 
         this.unlocalizedLocation = unlocalizedLocation;
-        this.player = player;
         this.dimension = dimension;
         this.posX = posX;
         this.posY = posY;

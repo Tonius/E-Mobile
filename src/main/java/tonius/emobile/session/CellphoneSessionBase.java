@@ -11,15 +11,11 @@ public abstract class CellphoneSessionBase {
     protected EntityPlayerMP player;
     protected int countdownSecs = -1;
     protected int ticks;
-    protected int duration;
+    protected final int duration = 8;
     protected boolean isValid = true;
 
-    public CellphoneSessionBase(int duration, EntityPlayerMP player) {
-        this.duration = duration;
+    public CellphoneSessionBase(EntityPlayerMP player) {
         this.player = player;
-
-        CellphoneSessionsManager.addSession(this);
-        this.startCountdown();
     }
 
     public boolean isPlayerInSession(EntityPlayer player) {

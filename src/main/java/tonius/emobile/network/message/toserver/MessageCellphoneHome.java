@@ -4,7 +4,6 @@ import io.netty.buffer.ByteBuf;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockBed;
 import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
@@ -51,18 +50,20 @@ public class MessageCellphoneHome implements IMessage, IMessageHandler<MessageCe
         }
 
         EntityPlayerMP player = ServerUtils.getPlayerOnServer(msg.playerName);
-        if (player == null) {
+        if (player == null || CellphoneSessionsManager.isPlayerInSession(player) || !ItemCellphone.tryUseFuel(player)) {
             return null;
         }
 
-        BlockPos bedPos = player.getBedLocation(player.dimension);
+        int bedDimension = player.dimension;
+        BlockPos bedPos = player.getBedLocation(bedDimension);
         World world = player.worldObj;
 
         //noinspection ConstantConditions
         if (bedPos == null && player.dimension != 0) {
             if (TeleportUtils.isDimTeleportAllowed(player.dimension, 0)) {
-                bedPos = player.getBedLocation(0);
-                world = player.mcServer.worldServerForDimension(0);
+                bedDimension = 0;
+                bedPos = player.getBedLocation(bedDimension);
+                world = player.mcServer.worldServerForDimension(bedDimension);
             } else {
                 ServerUtils.sendChatToPlayer(player, StringUtils.translate(
                         "chat.cellphone.tryStart.dimension",
@@ -88,23 +89,17 @@ public class MessageCellphoneHome implements IMessage, IMessageHandler<MessageCe
                     .getBedSpawnPosition(world.getBlockState(bedPos), world, bedPos, player);
         }
 
-        if (bedPos != null) {
-            if (!CellphoneSessionsManager.isPlayerInSession(player)) {
-                // TODO: make using fuel a utility method
-                ItemStack heldItem = player.getCurrentEquippedItem();
-                if (heldItem != null && heldItem.getItem() instanceof ItemCellphone) {
-                    if (player.capabilities.isCreativeMode || ((ItemCellphone) heldItem.getItem()).useFuel(heldItem, player)) {
-                        ServerUtils.sendDiallingSound(player);
-                        new CellphoneSessionLocation(8, "chat.cellphone.location.home", player, 0, bedPos.posX, bedPos.posY, bedPos.posZ);
-                    }
-                }
-            }
-        } else {
+        if (bedPos == null) {
             ServerUtils.sendChatToPlayer(player,
                     StringUtils.translate("chat.cellphone.tryStart.bedmissing.1"), TextFormatting.RED);
             ServerUtils.sendChatToPlayer(player,
                     StringUtils.translate("chat.cellphone.tryStart.bedmissing.2"), TextFormatting.RED);
+            return null;
         }
+
+        CellphoneSessionsManager.addSession(new CellphoneSessionLocation(
+                player, "chat.cellphone.location.home", bedDimension, bedPos.getX(), bedPos.getY(), bedPos.getZ()
+        ));
 
         return null;
     }

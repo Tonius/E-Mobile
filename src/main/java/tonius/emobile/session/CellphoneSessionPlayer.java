@@ -10,8 +10,8 @@ public class CellphoneSessionPlayer extends CellphoneSessionBase {
 
     protected EntityPlayerMP toPlayer;
 
-    public CellphoneSessionPlayer(int duration, EntityPlayerMP player, EntityPlayerMP toPlayer) {
-        super(duration, player);
+    public CellphoneSessionPlayer(EntityPlayerMP player, EntityPlayerMP toPlayer) {
+        super(player);
 
         this.toPlayer = toPlayer;
 
